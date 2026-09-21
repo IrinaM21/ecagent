@@ -24,6 +24,7 @@ ecagent/
 │   └── ...
 │
 ├── unit_tests/             # Unit and integration tests
+│   ├── test_eval.py        # Unit tests for eval script
 │
 ├── LICENSE
 └── README.md
