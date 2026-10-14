@@ -1,10 +1,8 @@
-import response
-import json
 
-class Compactor:
-    def __init__(self, full_memory):
-        self.full_memory = full_memory
 
-    def compact_user_info(self):
+class Compactor(Utils):
+    def __init__(self):
+
+    def compact_user_info(self,full_memory):
         # Compact user info from chat history
         return full_memory # for now

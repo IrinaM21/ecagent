@@ -1,25 +1,38 @@
-# TODO move generate_response to agent utils file
-# TODO fix downstream imports
+from compactor import Compactor
+from scheduler import scheduler
+from memory import Memory
+from utils import Utils, API_URL
 
-import requests
-
-class ECAgent:
-    def __init__(self, api_key):
+class ECAgent(Utils):
+    def __init__(self, api_key, memory, no_compact=False, single_pass=False, rule_based=False):
         self.key = api_key
-    
-    # for eval pipeline tests
+
+        self.s = Scheduler(rule_based)
+
+        self.m = Memory()
+
+        self.manage_context = manage_context # default: manage context
+        self.single_pass = single_pass
+        self.c = None if no_compact else Compactor() 
+
+    # for eval pipeline tests #
+
     def generate_response(self, user_input):
-        ans = requests.post(
-            "https://api.anthropic.com/v1/messages",
-            headers={
-                "x-api-key": self.key,
-                "anthropic-version": "2023-06-01",
-                "content-type": "application/json",
-            },
-            json={
-                "model": "claude-sonnet-4-5",
-                "max_tokens": 1024,
-                "messages":[{"role":user, "content":user_input}]
-            }
-        )
+
+        if self.single_pass:
+            # must use later. for now always single_pass
+            pass
+
+        if self.manage_context and self.m.is_memory_full():
+            
+            self.m.set_msgs(self.c.compact_user_info(self.m.get_msgs()))
+            self.manage_context = False
+
+        msgs = [{"role":user, "content":user_input}]
+        
+        ans = self.post_to_url(API_URL, self.get_headers(self.key), self.get_json("claude-sonnet-4-5",1024,msgs))
+    
         return ans.json()["content"][0]["text"].strip()
+    
+    def run(self, query):
+        return self.generate_response(query)
