@@ -1,10 +1,3524 @@
 {
-    "one-interest": 
-        "Student is interested in AI-Alignment",
-    "no-interest": 
-        "Student is interested in any activity that fits their schedule",
-    "multiple-interest": 
-        "Student is a CS undergraduate interested in AI-Alignment and volunteering",
-    "long-context":
-        ""
+  "P1-simple": {
+    "id": "P1-simple",
+    "schema_version": "1.0",
+    "label": "Simple Student",
+    "description": "First-year journalism student interested in photography with a light class schedule.",
+    "agent_visible": {
+      "intake_profile": {
+        "student": {
+          "name": "Maya",
+          "year": "first-year",
+          "major": "Journalism",
+          "college": "College of Media",
+          "residence": "University residence hall (on campus)"
+        },
+        "interests": [
+          "photography"
+        ],
+        "goals": [
+          "Build a photography portfolio",
+          "Meet other first-years with similar interests"
+        ],
+        "dislikes": [],
+        "hard_constraints": [
+          {
+            "id": "H1",
+            "type": "earliest_start",
+            "time": "08:00"
+          },
+          {
+            "id": "H2",
+            "type": "latest_end",
+            "time": "22:00"
+          }
+        ],
+        "soft_preferences": [
+          {
+            "rank": 1,
+            "id": "S1",
+            "category": "interest",
+            "preference": "Photography-related activities"
+          },
+          {
+            "rank": 2,
+            "id": "S2",
+            "category": "format",
+            "preference": "Beginner-friendly; no prior experience or portfolio required"
+          },
+          {
+            "rank": 3,
+            "id": "S3",
+            "category": "format",
+            "preference": "Open to both one-time events and recurring clubs"
+          }
+        ],
+        "schedule": {
+          "timezone": "America/Chicago",
+          "reference_week": {
+            "start": "2026-11-02",
+            "end": "2026-11-08"
+          },
+          "recurring": [
+            {
+              "id": "R1",
+              "title": "RHET 105",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed",
+                "Fri"
+              ],
+              "start": "09:00",
+              "end": "09:50"
+            },
+            {
+              "id": "R2",
+              "title": "JOUR 200",
+              "type": "class",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "11:00",
+              "end": "12:15"
+            },
+            {
+              "id": "R3",
+              "title": "PSYC 100",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed",
+                "Fri"
+              ],
+              "start": "13:00",
+              "end": "13:50"
+            },
+            {
+              "id": "R4",
+              "title": "MACS 100",
+              "type": "class",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "14:00",
+              "end": "15:15"
+            }
+          ],
+          "one_off": [
+            {
+              "id": "O1",
+              "title": "Family visiting campus",
+              "type": "personal",
+              "date": "2026-11-07",
+              "start": "10:00",
+              "end": "16:00"
+            }
+          ]
+        }
+      },
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Hi! I'm Maya, a first-year journalism major. I'm really into photography and I want to find something photography-related to get involved in on campus."
+        },
+        {
+          "role": "assistant",
+          "content": "Nice to meet you, Maya! I can help you find photography-related activities. What does your weekly schedule look like, and are there any times you can't do things?"
+        },
+        {
+          "role": "user",
+          "content": "I have RHET 105 Monday/Wednesday/Friday 9:00-9:50 and PSYC 100 MWF 13:00-13:50. Tuesday and Thursday I have JOUR 200 from 11:00 to 12:15 and MACS 100 from 14:00 to 15:15. I don't have a job. I'd rather not do anything before 8 or after 10 at night. Also my family is visiting Saturday November 7 from 10:00 to 16:00."
+        },
+        {
+          "role": "assistant",
+          "content": "Got it. Classes MWF 09:00-09:50 and 13:00-13:50, TR 11:00-12:15 and 14:00-15:15, nothing before 08:00 or after 22:00, and you're busy Saturday, November 7 from 10:00 to 16:00. Any other preferences?"
+        },
+        {
+          "role": "user",
+          "content": "I'm a total beginner so it should be beginner-friendly. One-time events or a club are both fine with me."
+        },
+        {
+          "role": "assistant",
+          "content": "Sounds good. I'll look for beginner-friendly photography activities, either one-time events or clubs, that fit around your classes."
+        }
+      ]
+    },
+    "runtime_updates": [],
+    "eval_only": {
+      "tests": [
+        "basic ECA retrieval",
+        "interest matching",
+        "personalization with minimal constraints"
+      ],
+      "applicable_tasks": [
+        "match-interest",
+        "one-schedule",
+        "schedule-eca",
+        "multiple-schedule",
+        "multi-step"
+      ],
+      "current_truth": {
+        "student": {
+          "name": "Maya",
+          "year": "first-year",
+          "major": "Journalism",
+          "college": "College of Media",
+          "residence": "University residence hall (on campus)"
+        },
+        "interests": [
+          "photography"
+        ],
+        "goals": [
+          "Build a photography portfolio",
+          "Meet other first-years with similar interests"
+        ],
+        "dislikes": [],
+        "hard_constraints": [
+          {
+            "id": "H1",
+            "type": "earliest_start",
+            "time": "08:00"
+          },
+          {
+            "id": "H2",
+            "type": "latest_end",
+            "time": "22:00"
+          }
+        ],
+        "soft_preferences": [
+          {
+            "rank": 1,
+            "id": "S1",
+            "category": "interest",
+            "preference": "Photography-related activities"
+          },
+          {
+            "rank": 2,
+            "id": "S2",
+            "category": "format",
+            "preference": "Beginner-friendly; no prior experience or portfolio required"
+          },
+          {
+            "rank": 3,
+            "id": "S3",
+            "category": "format",
+            "preference": "Open to both one-time events and recurring clubs"
+          }
+        ],
+        "schedule": {
+          "timezone": "America/Chicago",
+          "reference_week": {
+            "start": "2026-11-02",
+            "end": "2026-11-08"
+          },
+          "recurring": [
+            {
+              "id": "R1",
+              "title": "RHET 105",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed",
+                "Fri"
+              ],
+              "start": "09:00",
+              "end": "09:50"
+            },
+            {
+              "id": "R2",
+              "title": "JOUR 200",
+              "type": "class",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "11:00",
+              "end": "12:15"
+            },
+            {
+              "id": "R3",
+              "title": "PSYC 100",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed",
+                "Fri"
+              ],
+              "start": "13:00",
+              "end": "13:50"
+            },
+            {
+              "id": "R4",
+              "title": "MACS 100",
+              "type": "class",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "14:00",
+              "end": "15:15"
+            }
+          ],
+          "one_off": [
+            {
+              "id": "O1",
+              "title": "Family visiting campus",
+              "type": "personal",
+              "date": "2026-11-07",
+              "start": "10:00",
+              "end": "16:00"
+            }
+          ]
+        }
+      },
+      "busy_blocks": [
+        {
+          "date": "2026-11-02",
+          "start": "09:00",
+          "end": "09:50",
+          "source": "R1"
+        },
+        {
+          "date": "2026-11-02",
+          "start": "13:00",
+          "end": "13:50",
+          "source": "R3"
+        },
+        {
+          "date": "2026-11-03",
+          "start": "11:00",
+          "end": "12:15",
+          "source": "R2"
+        },
+        {
+          "date": "2026-11-03",
+          "start": "14:00",
+          "end": "15:15",
+          "source": "R4"
+        },
+        {
+          "date": "2026-11-04",
+          "start": "09:00",
+          "end": "09:50",
+          "source": "R1"
+        },
+        {
+          "date": "2026-11-04",
+          "start": "13:00",
+          "end": "13:50",
+          "source": "R3"
+        },
+        {
+          "date": "2026-11-05",
+          "start": "11:00",
+          "end": "12:15",
+          "source": "R2"
+        },
+        {
+          "date": "2026-11-05",
+          "start": "14:00",
+          "end": "15:15",
+          "source": "R4"
+        },
+        {
+          "date": "2026-11-06",
+          "start": "09:00",
+          "end": "09:50",
+          "source": "R1"
+        },
+        {
+          "date": "2026-11-06",
+          "start": "13:00",
+          "end": "13:50",
+          "source": "R3"
+        },
+        {
+          "date": "2026-11-07",
+          "start": "10:00",
+          "end": "16:00",
+          "source": "O1"
+        }
+      ],
+      "available_windows": [
+        {
+          "date": "2026-11-02",
+          "start": "08:00",
+          "end": "09:00",
+          "minutes": 60
+        },
+        {
+          "date": "2026-11-02",
+          "start": "09:50",
+          "end": "13:00",
+          "minutes": 190
+        },
+        {
+          "date": "2026-11-02",
+          "start": "13:50",
+          "end": "22:00",
+          "minutes": 490
+        },
+        {
+          "date": "2026-11-03",
+          "start": "08:00",
+          "end": "11:00",
+          "minutes": 180
+        },
+        {
+          "date": "2026-11-03",
+          "start": "12:15",
+          "end": "14:00",
+          "minutes": 105
+        },
+        {
+          "date": "2026-11-03",
+          "start": "15:15",
+          "end": "22:00",
+          "minutes": 405
+        },
+        {
+          "date": "2026-11-04",
+          "start": "08:00",
+          "end": "09:00",
+          "minutes": 60
+        },
+        {
+          "date": "2026-11-04",
+          "start": "09:50",
+          "end": "13:00",
+          "minutes": 190
+        },
+        {
+          "date": "2026-11-04",
+          "start": "13:50",
+          "end": "22:00",
+          "minutes": 490
+        },
+        {
+          "date": "2026-11-05",
+          "start": "08:00",
+          "end": "11:00",
+          "minutes": 180
+        },
+        {
+          "date": "2026-11-05",
+          "start": "12:15",
+          "end": "14:00",
+          "minutes": 105
+        },
+        {
+          "date": "2026-11-05",
+          "start": "15:15",
+          "end": "22:00",
+          "minutes": 405
+        },
+        {
+          "date": "2026-11-06",
+          "start": "08:00",
+          "end": "09:00",
+          "minutes": 60
+        },
+        {
+          "date": "2026-11-06",
+          "start": "09:50",
+          "end": "13:00",
+          "minutes": 190
+        },
+        {
+          "date": "2026-11-06",
+          "start": "13:50",
+          "end": "22:00",
+          "minutes": 490
+        },
+        {
+          "date": "2026-11-07",
+          "start": "08:00",
+          "end": "10:00",
+          "minutes": 120
+        },
+        {
+          "date": "2026-11-07",
+          "start": "16:00",
+          "end": "22:00",
+          "minutes": 360
+        },
+        {
+          "date": "2026-11-08",
+          "start": "08:00",
+          "end": "22:00",
+          "minutes": 840
+        }
+      ],
+      "grading_checks": [
+        {
+          "id": "C-busy",
+          "kind": "hard",
+          "check": "No suggested activity overlaps any busy_block (after applying buffer_minutes, if any)."
+        },
+        {
+          "id": "C-window",
+          "kind": "hard",
+          "check": "Every suggested activity starts at or after earliest_start and ends at or before latest_end."
+        },
+        {
+          "id": "C-exist",
+          "kind": "hard",
+          "check": "Every suggested activity exists in the frozen campus.db snapshot or a cited, fetched URL. No fabricated events or clubs."
+        },
+        {
+          "id": "C-interest",
+          "kind": "soft",
+          "check": "At least one suggestion is photography-related (S1)."
+        },
+        {
+          "id": "C-beginner",
+          "kind": "soft",
+          "check": "Suggestions do not require prior experience or a portfolio (S2)."
+        },
+        {
+          "id": "C-o1",
+          "kind": "hard",
+          "check": "Nothing on 2026-11-07 between 10:00 and 16:00."
+        }
+      ],
+      "superseded_facts": [],
+      "known_good_activities": [],
+      "known_good_activities_status": "pending: populate from a frozen campus.db snapshot; intentionally empty, no ECAs were invented",
+      "interest_keywords": [
+        "photo",
+        "photography",
+        "camera",
+        "film"
+      ]
+    }
+  },
+  "P2-busy": {
+    "id": "P2-busy",
+    "schema_version": "1.0",
+    "label": "Busy Student",
+    "description": "Junior computer engineering student with a dense class, lab, and work schedule and a bus commute.",
+    "agent_visible": {
+      "intake_profile": {
+        "student": {
+          "name": "Daniel",
+          "year": "junior",
+          "major": "Computer Engineering",
+          "college": "Grainger College of Engineering",
+          "residence": "Off-campus apartment; commutes by bus"
+        },
+        "interests": [
+          "robotics",
+          "embedded systems",
+          "entrepreneurship",
+          "pickup basketball"
+        ],
+        "goals": [
+          "Get hands-on hardware/robotics experience for internship applications",
+          "Keep total extracurricular time small during a heavy semester"
+        ],
+        "dislikes": [],
+        "hard_constraints": [
+          {
+            "id": "H1",
+            "type": "earliest_start",
+            "time": "08:00"
+          },
+          {
+            "id": "H2",
+            "type": "latest_end",
+            "time": "21:30"
+          },
+          {
+            "id": "H3",
+            "type": "buffer_minutes",
+            "minutes": 15,
+            "note": "Bus commute; needs 15 minutes before and after every commitment"
+          },
+          {
+            "id": "H4",
+            "type": "max_activities_per_week",
+            "value": 2
+          },
+          {
+            "id": "H5",
+            "type": "max_hours_per_week",
+            "value": 3
+          }
+        ],
+        "soft_preferences": [
+          {
+            "rank": 1,
+            "id": "S1",
+            "category": "interest",
+            "preference": "Robotics or embedded systems"
+          },
+          {
+            "rank": 2,
+            "id": "S2",
+            "category": "goal",
+            "preference": "Career / resume value"
+          },
+          {
+            "rank": 3,
+            "id": "S3",
+            "category": "location",
+            "preference": "On or near the Engineering Quad"
+          },
+          {
+            "rank": 4,
+            "id": "S4",
+            "category": "time",
+            "preference": "Keep Sundays free"
+          },
+          {
+            "rank": 5,
+            "id": "S5",
+            "category": "interest",
+            "preference": "Casual social activity such as pickup basketball"
+          }
+        ],
+        "schedule": {
+          "timezone": "America/Chicago",
+          "reference_week": {
+            "start": "2026-11-02",
+            "end": "2026-11-08"
+          },
+          "recurring": [
+            {
+              "id": "R1",
+              "title": "ECE 391 lecture",
+              "type": "class",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "09:30",
+              "end": "10:45",
+              "location": "Engineering Quad"
+            },
+            {
+              "id": "R2",
+              "title": "ECE 310",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed",
+                "Fri"
+              ],
+              "start": "10:00",
+              "end": "10:50",
+              "location": "Engineering Quad"
+            },
+            {
+              "id": "R3",
+              "title": "MATH 415",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed",
+                "Fri"
+              ],
+              "start": "12:00",
+              "end": "12:50"
+            },
+            {
+              "id": "R4",
+              "title": "ECE 385 lab",
+              "type": "lab",
+              "days": [
+                "Mon",
+                "Wed"
+              ],
+              "start": "14:00",
+              "end": "16:50",
+              "location": "Engineering Quad"
+            },
+            {
+              "id": "R5",
+              "title": "ECE 391 discussion",
+              "type": "discussion",
+              "days": [
+                "Fri"
+              ],
+              "start": "14:00",
+              "end": "14:50"
+            },
+            {
+              "id": "R6",
+              "title": "Library student assistant shift",
+              "type": "work",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "13:00",
+              "end": "17:00",
+              "location": "Grainger Engineering Library"
+            },
+            {
+              "id": "R7",
+              "title": "Library student assistant shift",
+              "type": "work",
+              "days": [
+                "Sat"
+              ],
+              "start": "09:00",
+              "end": "13:00",
+              "location": "Grainger Engineering Library"
+            },
+            {
+              "id": "R8",
+              "title": "ECE 120 office hours (course staff)",
+              "type": "work",
+              "days": [
+                "Wed"
+              ],
+              "start": "18:00",
+              "end": "20:00"
+            }
+          ],
+          "one_off": [
+            {
+              "id": "O1",
+              "title": "ECE 391 midterm exam",
+              "type": "exam",
+              "date": "2026-11-03",
+              "start": "19:00",
+              "end": "21:00"
+            },
+            {
+              "id": "O2",
+              "title": "Virtual internship interview",
+              "type": "personal",
+              "date": "2026-11-05",
+              "start": "08:00",
+              "end": "09:00"
+            },
+            {
+              "id": "O3",
+              "title": "ECE 385 project group meeting",
+              "type": "academic",
+              "date": "2026-11-06",
+              "start": "17:00",
+              "end": "19:00"
+            }
+          ]
+        }
+      },
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Hey, I'm Daniel, a junior in computer engineering. My schedule is packed but I'd like to do something with robotics or embedded systems. I'm also into entrepreneurship, and I play pickup basketball sometimes."
+        },
+        {
+          "role": "assistant",
+          "content": "Happy to help, Daniel. Since your schedule is tight, can you walk me through your classes, work, and any limits on how much time you can spend?"
+        },
+        {
+          "role": "user",
+          "content": "Classes: ECE 310 MWF 10:00-10:50, MATH 415 MWF 12:00-12:50, ECE 391 lecture Tue/Thu 9:30-10:45, ECE 391 discussion Friday 14:00-14:50, and ECE 385 lab Mon/Wed 14:00-16:50. I work at the Grainger library Tue/Thu 13:00-17:00 and Saturdays 9:00-13:00, and I hold ECE 120 office hours Wednesdays 18:00-20:00."
+        },
+        {
+          "role": "assistant",
+          "content": "Thanks. That's a dense week. Are there hard limits I should respect, like earliest or latest times, or a cap on the number of activities?"
+        },
+        {
+          "role": "user",
+          "content": "I live off campus and take the bus, so I need 15 minutes before and after anything. Nothing before 8:00, and I have to be done by 21:30. Max 2 activities a week and no more than 3 hours total. This week I also have my ECE 391 midterm Tuesday Nov 3 from 19:00 to 21:00, a virtual interview Thursday Nov 5 from 8:00 to 9:00, and an ECE 385 group meeting Friday Nov 6 from 17:00 to 19:00."
+        },
+        {
+          "role": "assistant",
+          "content": "Understood: 15-minute buffers, nothing before 08:00 or ending after 21:30, at most 2 activities and 3 hours per week, plus the midterm, interview, and group meeting. How should I prioritize your interests?"
+        },
+        {
+          "role": "user",
+          "content": "Robotics or embedded first, then anything that helps my resume. Engineering Quad is best location-wise. I'd like to keep Sundays free if possible, and basketball is last priority."
+        },
+        {
+          "role": "assistant",
+          "content": "Got it. I'll prioritize robotics or embedded systems, then career-relevant options, prefer the Engineering Quad, try to keep Sundays free, and only fill leftover time with something social."
+        }
+      ]
+    },
+    "runtime_updates": [],
+    "eval_only": {
+      "tests": [
+        "schedule reasoning over a dense week",
+        "conflict avoidance including buffers and one-off events",
+        "respecting count/hour caps",
+        "multi-interest prioritization"
+      ],
+      "applicable_tasks": [
+        "match-interest",
+        "one-schedule",
+        "schedule-eca",
+        "multiple-schedule",
+        "multi-step"
+      ],
+      "current_truth": {
+        "student": {
+          "name": "Daniel",
+          "year": "junior",
+          "major": "Computer Engineering",
+          "college": "Grainger College of Engineering",
+          "residence": "Off-campus apartment; commutes by bus"
+        },
+        "interests": [
+          "robotics",
+          "embedded systems",
+          "entrepreneurship",
+          "pickup basketball"
+        ],
+        "goals": [
+          "Get hands-on hardware/robotics experience for internship applications",
+          "Keep total extracurricular time small during a heavy semester"
+        ],
+        "dislikes": [],
+        "hard_constraints": [
+          {
+            "id": "H1",
+            "type": "earliest_start",
+            "time": "08:00"
+          },
+          {
+            "id": "H2",
+            "type": "latest_end",
+            "time": "21:30"
+          },
+          {
+            "id": "H3",
+            "type": "buffer_minutes",
+            "minutes": 15,
+            "note": "Bus commute; needs 15 minutes before and after every commitment"
+          },
+          {
+            "id": "H4",
+            "type": "max_activities_per_week",
+            "value": 2
+          },
+          {
+            "id": "H5",
+            "type": "max_hours_per_week",
+            "value": 3
+          }
+        ],
+        "soft_preferences": [
+          {
+            "rank": 1,
+            "id": "S1",
+            "category": "interest",
+            "preference": "Robotics or embedded systems"
+          },
+          {
+            "rank": 2,
+            "id": "S2",
+            "category": "goal",
+            "preference": "Career / resume value"
+          },
+          {
+            "rank": 3,
+            "id": "S3",
+            "category": "location",
+            "preference": "On or near the Engineering Quad"
+          },
+          {
+            "rank": 4,
+            "id": "S4",
+            "category": "time",
+            "preference": "Keep Sundays free"
+          },
+          {
+            "rank": 5,
+            "id": "S5",
+            "category": "interest",
+            "preference": "Casual social activity such as pickup basketball"
+          }
+        ],
+        "schedule": {
+          "timezone": "America/Chicago",
+          "reference_week": {
+            "start": "2026-11-02",
+            "end": "2026-11-08"
+          },
+          "recurring": [
+            {
+              "id": "R1",
+              "title": "ECE 391 lecture",
+              "type": "class",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "09:30",
+              "end": "10:45",
+              "location": "Engineering Quad"
+            },
+            {
+              "id": "R2",
+              "title": "ECE 310",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed",
+                "Fri"
+              ],
+              "start": "10:00",
+              "end": "10:50",
+              "location": "Engineering Quad"
+            },
+            {
+              "id": "R3",
+              "title": "MATH 415",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed",
+                "Fri"
+              ],
+              "start": "12:00",
+              "end": "12:50"
+            },
+            {
+              "id": "R4",
+              "title": "ECE 385 lab",
+              "type": "lab",
+              "days": [
+                "Mon",
+                "Wed"
+              ],
+              "start": "14:00",
+              "end": "16:50",
+              "location": "Engineering Quad"
+            },
+            {
+              "id": "R5",
+              "title": "ECE 391 discussion",
+              "type": "discussion",
+              "days": [
+                "Fri"
+              ],
+              "start": "14:00",
+              "end": "14:50"
+            },
+            {
+              "id": "R6",
+              "title": "Library student assistant shift",
+              "type": "work",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "13:00",
+              "end": "17:00",
+              "location": "Grainger Engineering Library"
+            },
+            {
+              "id": "R7",
+              "title": "Library student assistant shift",
+              "type": "work",
+              "days": [
+                "Sat"
+              ],
+              "start": "09:00",
+              "end": "13:00",
+              "location": "Grainger Engineering Library"
+            },
+            {
+              "id": "R8",
+              "title": "ECE 120 office hours (course staff)",
+              "type": "work",
+              "days": [
+                "Wed"
+              ],
+              "start": "18:00",
+              "end": "20:00"
+            }
+          ],
+          "one_off": [
+            {
+              "id": "O1",
+              "title": "ECE 391 midterm exam",
+              "type": "exam",
+              "date": "2026-11-03",
+              "start": "19:00",
+              "end": "21:00"
+            },
+            {
+              "id": "O2",
+              "title": "Virtual internship interview",
+              "type": "personal",
+              "date": "2026-11-05",
+              "start": "08:00",
+              "end": "09:00"
+            },
+            {
+              "id": "O3",
+              "title": "ECE 385 project group meeting",
+              "type": "academic",
+              "date": "2026-11-06",
+              "start": "17:00",
+              "end": "19:00"
+            }
+          ]
+        }
+      },
+      "busy_blocks": [
+        {
+          "date": "2026-11-02",
+          "start": "10:00",
+          "end": "10:50",
+          "source": "R2"
+        },
+        {
+          "date": "2026-11-02",
+          "start": "12:00",
+          "end": "12:50",
+          "source": "R3"
+        },
+        {
+          "date": "2026-11-02",
+          "start": "14:00",
+          "end": "16:50",
+          "source": "R4"
+        },
+        {
+          "date": "2026-11-03",
+          "start": "09:30",
+          "end": "10:45",
+          "source": "R1"
+        },
+        {
+          "date": "2026-11-03",
+          "start": "13:00",
+          "end": "17:00",
+          "source": "R6"
+        },
+        {
+          "date": "2026-11-03",
+          "start": "19:00",
+          "end": "21:00",
+          "source": "O1"
+        },
+        {
+          "date": "2026-11-04",
+          "start": "10:00",
+          "end": "10:50",
+          "source": "R2"
+        },
+        {
+          "date": "2026-11-04",
+          "start": "12:00",
+          "end": "12:50",
+          "source": "R3"
+        },
+        {
+          "date": "2026-11-04",
+          "start": "14:00",
+          "end": "16:50",
+          "source": "R4"
+        },
+        {
+          "date": "2026-11-04",
+          "start": "18:00",
+          "end": "20:00",
+          "source": "R8"
+        },
+        {
+          "date": "2026-11-05",
+          "start": "08:00",
+          "end": "09:00",
+          "source": "O2"
+        },
+        {
+          "date": "2026-11-05",
+          "start": "09:30",
+          "end": "10:45",
+          "source": "R1"
+        },
+        {
+          "date": "2026-11-05",
+          "start": "13:00",
+          "end": "17:00",
+          "source": "R6"
+        },
+        {
+          "date": "2026-11-06",
+          "start": "10:00",
+          "end": "10:50",
+          "source": "R2"
+        },
+        {
+          "date": "2026-11-06",
+          "start": "12:00",
+          "end": "12:50",
+          "source": "R3"
+        },
+        {
+          "date": "2026-11-06",
+          "start": "14:00",
+          "end": "14:50",
+          "source": "R5"
+        },
+        {
+          "date": "2026-11-06",
+          "start": "17:00",
+          "end": "19:00",
+          "source": "O3"
+        },
+        {
+          "date": "2026-11-07",
+          "start": "09:00",
+          "end": "13:00",
+          "source": "R7"
+        }
+      ],
+      "available_windows": [
+        {
+          "date": "2026-11-02",
+          "start": "08:00",
+          "end": "09:45",
+          "minutes": 105
+        },
+        {
+          "date": "2026-11-02",
+          "start": "11:05",
+          "end": "11:45",
+          "minutes": 40
+        },
+        {
+          "date": "2026-11-02",
+          "start": "13:05",
+          "end": "13:45",
+          "minutes": 40
+        },
+        {
+          "date": "2026-11-02",
+          "start": "17:05",
+          "end": "21:30",
+          "minutes": 265
+        },
+        {
+          "date": "2026-11-03",
+          "start": "08:00",
+          "end": "09:15",
+          "minutes": 75
+        },
+        {
+          "date": "2026-11-03",
+          "start": "11:00",
+          "end": "12:45",
+          "minutes": 105
+        },
+        {
+          "date": "2026-11-03",
+          "start": "17:15",
+          "end": "18:45",
+          "minutes": 90
+        },
+        {
+          "date": "2026-11-04",
+          "start": "08:00",
+          "end": "09:45",
+          "minutes": 105
+        },
+        {
+          "date": "2026-11-04",
+          "start": "11:05",
+          "end": "11:45",
+          "minutes": 40
+        },
+        {
+          "date": "2026-11-04",
+          "start": "13:05",
+          "end": "13:45",
+          "minutes": 40
+        },
+        {
+          "date": "2026-11-04",
+          "start": "17:05",
+          "end": "17:45",
+          "minutes": 40
+        },
+        {
+          "date": "2026-11-04",
+          "start": "20:15",
+          "end": "21:30",
+          "minutes": 75
+        },
+        {
+          "date": "2026-11-05",
+          "start": "11:00",
+          "end": "12:45",
+          "minutes": 105
+        },
+        {
+          "date": "2026-11-05",
+          "start": "17:15",
+          "end": "21:30",
+          "minutes": 255
+        },
+        {
+          "date": "2026-11-06",
+          "start": "08:00",
+          "end": "09:45",
+          "minutes": 105
+        },
+        {
+          "date": "2026-11-06",
+          "start": "11:05",
+          "end": "11:45",
+          "minutes": 40
+        },
+        {
+          "date": "2026-11-06",
+          "start": "13:05",
+          "end": "13:45",
+          "minutes": 40
+        },
+        {
+          "date": "2026-11-06",
+          "start": "15:05",
+          "end": "16:45",
+          "minutes": 100
+        },
+        {
+          "date": "2026-11-06",
+          "start": "19:15",
+          "end": "21:30",
+          "minutes": 135
+        },
+        {
+          "date": "2026-11-07",
+          "start": "08:00",
+          "end": "08:45",
+          "minutes": 45
+        },
+        {
+          "date": "2026-11-07",
+          "start": "13:15",
+          "end": "21:30",
+          "minutes": 495
+        },
+        {
+          "date": "2026-11-08",
+          "start": "08:00",
+          "end": "21:30",
+          "minutes": 810
+        }
+      ],
+      "grading_checks": [
+        {
+          "id": "C-busy",
+          "kind": "hard",
+          "check": "No suggested activity overlaps any busy_block (after applying buffer_minutes, if any)."
+        },
+        {
+          "id": "C-window",
+          "kind": "hard",
+          "check": "Every suggested activity starts at or after earliest_start and ends at or before latest_end."
+        },
+        {
+          "id": "C-exist",
+          "kind": "hard",
+          "check": "Every suggested activity exists in the frozen campus.db snapshot or a cited, fetched URL. No fabricated events or clubs."
+        },
+        {
+          "id": "C-H4",
+          "kind": "hard",
+          "check": "Respects hard constraint H4 (max_activities_per_week)."
+        },
+        {
+          "id": "C-H5",
+          "kind": "hard",
+          "check": "Respects hard constraint H5 (max_hours_per_week)."
+        },
+        {
+          "id": "C-buffer",
+          "kind": "hard",
+          "check": "15-minute gap between any suggestion and adjacent commitments (H3)."
+        },
+        {
+          "id": "C-cap",
+          "kind": "hard",
+          "check": "At most 2 activities and 3 total hours in the reference week (H4, H5)."
+        },
+        {
+          "id": "C-exam",
+          "kind": "hard",
+          "check": "Nothing on 2026-11-03 18:45-21:15 (midterm plus buffer)."
+        },
+        {
+          "id": "C-rank",
+          "kind": "soft",
+          "check": "If any robotics/embedded option fits, it is suggested before entrepreneurship or basketball (S1 > S2 > S5)."
+        },
+        {
+          "id": "C-sunday",
+          "kind": "soft",
+          "check": "Prefers non-Sunday slots when an equivalent option exists (S4)."
+        }
+      ],
+      "superseded_facts": [],
+      "known_good_activities": [],
+      "known_good_activities_status": "pending: populate from a frozen campus.db snapshot; intentionally empty, no ECAs were invented",
+      "interest_keywords": [
+        "robot",
+        "robotics",
+        "embedded",
+        "microcontroller",
+        "hardware",
+        "startup",
+        "entrepreneur",
+        "basketball"
+      ]
+    }
+  },
+  "P3-picky": {
+    "id": "P3-picky",
+    "schema_version": "1.0",
+    "label": "Picky Student",
+    "description": "Sophomore pre-med MCB student with strong dislikes, firm restrictions, and an explicit preference ranking.",
+    "agent_visible": {
+      "intake_profile": {
+        "student": {
+          "name": "Leah",
+          "year": "sophomore",
+          "major": "Molecular and Cellular Biology (pre-med)",
+          "college": "College of Liberal Arts and Sciences",
+          "residence": "Apartment near South Quad; walks or takes the bus, no car"
+        },
+        "interests": [
+          "healthcare volunteering",
+          "contemporary dance",
+          "environmental sustainability"
+        ],
+        "goals": [
+          "Gain clinical/healthcare volunteering hours for medical school applications",
+          "Have one low-pressure creative outlet"
+        ],
+        "dislikes": [
+          "competitive sports",
+          "Greek life recruitment events",
+          "career fairs and networking-heavy events",
+          "large lecture-style talks"
+        ],
+        "hard_constraints": [
+          {
+            "id": "H1",
+            "type": "earliest_start",
+            "time": "09:00"
+          },
+          {
+            "id": "H2",
+            "type": "latest_end",
+            "time": "21:00",
+            "note": "Does not want to walk home alone after 21:00"
+          },
+          {
+            "id": "H3",
+            "type": "unavailable",
+            "days": [
+              "Fri"
+            ],
+            "start": "16:30",
+            "end": "23:59",
+            "note": "Observes Shabbat from Friday before sundown"
+          },
+          {
+            "id": "H4",
+            "type": "unavailable",
+            "days": [
+              "Sat"
+            ],
+            "start": "00:00",
+            "end": "18:00",
+            "note": "Observes Shabbat until Saturday evening"
+          },
+          {
+            "id": "H5",
+            "type": "exclude",
+            "rule": "No events centered on alcohol (bar crawls, tailgates, parties with drinking)"
+          },
+          {
+            "id": "H6",
+            "type": "max_cost_usd",
+            "value": 25,
+            "per": "semester",
+            "note": "Membership dues or fees no more than $25 per semester"
+          },
+          {
+            "id": "H7",
+            "type": "format",
+            "allowed": [
+              "in-person"
+            ]
+          },
+          {
+            "id": "H8",
+            "type": "location",
+            "rule": "Reachable by walking or campus bus; no car required"
+          },
+          {
+            "id": "H9",
+            "type": "max_activities_per_week",
+            "value": 3
+          }
+        ],
+        "soft_preferences": [
+          {
+            "rank": 1,
+            "id": "S1",
+            "category": "interest",
+            "preference": "Clinical or healthcare-related volunteering"
+          },
+          {
+            "rank": 2,
+            "id": "S2",
+            "category": "social",
+            "preference": "Small groups (roughly under 30 people)"
+          },
+          {
+            "rank": 3,
+            "id": "S3",
+            "category": "time",
+            "preference": "Weekday afternoons, 15:00-18:00"
+          },
+          {
+            "rank": 4,
+            "id": "S4",
+            "category": "location",
+            "preference": "Near South Quad"
+          },
+          {
+            "rank": 5,
+            "id": "S5",
+            "category": "interest",
+            "preference": "Contemporary dance (casual, non-competitive)"
+          },
+          {
+            "rank": 6,
+            "id": "S6",
+            "category": "interest",
+            "preference": "Environmental sustainability"
+          }
+        ],
+        "schedule": {
+          "timezone": "America/Chicago",
+          "reference_week": {
+            "start": "2026-11-02",
+            "end": "2026-11-08"
+          },
+          "recurring": [
+            {
+              "id": "R1",
+              "title": "CHEM 232",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed",
+                "Fri"
+              ],
+              "start": "10:00",
+              "end": "10:50"
+            },
+            {
+              "id": "R2",
+              "title": "MCB 250",
+              "type": "class",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "11:00",
+              "end": "12:15"
+            },
+            {
+              "id": "R3",
+              "title": "SPAN 228",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed",
+                "Fri"
+              ],
+              "start": "13:00",
+              "end": "13:50"
+            },
+            {
+              "id": "R4",
+              "title": "CHEM 233 lab",
+              "type": "lab",
+              "days": [
+                "Thu"
+              ],
+              "start": "13:30",
+              "end": "16:20"
+            },
+            {
+              "id": "R5",
+              "title": "Undergraduate research lab hours",
+              "type": "work",
+              "days": [
+                "Mon"
+              ],
+              "start": "15:00",
+              "end": "17:00"
+            }
+          ],
+          "one_off": [
+            {
+              "id": "O1",
+              "title": "Doctor's appointment",
+              "type": "personal",
+              "date": "2026-11-04",
+              "start": "16:00",
+              "end": "17:00"
+            },
+            {
+              "id": "O2",
+              "title": "MCAT practice diagnostic exam",
+              "type": "academic",
+              "date": "2026-11-08",
+              "start": "09:00",
+              "end": "14:00"
+            }
+          ]
+        }
+      },
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Hi, I'm Leah, a sophomore in MCB on the pre-med track. I want to find extracurriculars, but I'm pretty particular, so bear with me."
+        },
+        {
+          "role": "assistant",
+          "content": "No problem, Leah. Specific preferences make it easier to find a good fit. What are you interested in, and is there anything you definitely don't want?"
+        },
+        {
+          "role": "user",
+          "content": "I'm interested in healthcare volunteering, contemporary dance (just for fun, not competitive), and sustainability stuff. I don't want competitive sports, Greek life recruitment, career fairs or networking-type events, or big lecture-style talks."
+        },
+        {
+          "role": "assistant",
+          "content": "Noted. Are there any hard rules I need to follow when suggesting things?"
+        },
+        {
+          "role": "user",
+          "content": "Yes. I keep Shabbat, so nothing from Friday 16:30 until Saturday 18:00. Nothing before 9:00 and nothing that ends after 21:00, because I don't want to walk home alone late. No events centered on alcohol. I can't pay more than $25 a semester in dues. It has to be in person and reachable by walking or bus since I don't have a car. And no more than 3 activities a week."
+        },
+        {
+          "role": "assistant",
+          "content": "Got it, and I'll treat all of those as non-negotiable. What does your class and work schedule look like?"
+        },
+        {
+          "role": "user",
+          "content": "CHEM 232 MWF 10:00-10:50, SPAN 228 MWF 13:00-13:50, MCB 250 Tue/Thu 11:00-12:15, CHEM 233 lab Thursday 13:30-16:20, and research lab hours Monday 15:00-17:00. This week I also have a doctor's appointment Wednesday Nov 4 16:00-17:00 and an MCAT practice test Sunday Nov 8 9:00-14:00."
+        },
+        {
+          "role": "assistant",
+          "content": "Thanks. If several options fit, how should I decide between them?"
+        },
+        {
+          "role": "user",
+          "content": "Here's my ranking: 1) clinical or healthcare volunteering matters most, 2) small groups, under about 30 people, 3) weekday afternoons around 15:00-18:00, 4) close to South Quad, 5) dance, 6) sustainability. If something is high on the list I'll take it even if it misses something lower."
+        },
+        {
+          "role": "assistant",
+          "content": "Clear. I'll apply your hard rules first, then rank options by that order: healthcare volunteering, small groups, weekday afternoons, near South Quad, dance, then sustainability."
+        }
+      ]
+    },
+    "runtime_updates": [],
+    "eval_only": {
+      "tests": [
+        "hard vs. soft constraint separation",
+        "preference ranking / tie-breaking",
+        "exclusion of disliked categories",
+        "religious-observance time block"
+      ],
+      "applicable_tasks": [
+        "match-interest",
+        "one-schedule",
+        "schedule-eca",
+        "multiple-schedule",
+        "multi-step"
+      ],
+      "current_truth": {
+        "student": {
+          "name": "Leah",
+          "year": "sophomore",
+          "major": "Molecular and Cellular Biology (pre-med)",
+          "college": "College of Liberal Arts and Sciences",
+          "residence": "Apartment near South Quad; walks or takes the bus, no car"
+        },
+        "interests": [
+          "healthcare volunteering",
+          "contemporary dance",
+          "environmental sustainability"
+        ],
+        "goals": [
+          "Gain clinical/healthcare volunteering hours for medical school applications",
+          "Have one low-pressure creative outlet"
+        ],
+        "dislikes": [
+          "competitive sports",
+          "Greek life recruitment events",
+          "career fairs and networking-heavy events",
+          "large lecture-style talks"
+        ],
+        "hard_constraints": [
+          {
+            "id": "H1",
+            "type": "earliest_start",
+            "time": "09:00"
+          },
+          {
+            "id": "H2",
+            "type": "latest_end",
+            "time": "21:00",
+            "note": "Does not want to walk home alone after 21:00"
+          },
+          {
+            "id": "H3",
+            "type": "unavailable",
+            "days": [
+              "Fri"
+            ],
+            "start": "16:30",
+            "end": "23:59",
+            "note": "Observes Shabbat from Friday before sundown"
+          },
+          {
+            "id": "H4",
+            "type": "unavailable",
+            "days": [
+              "Sat"
+            ],
+            "start": "00:00",
+            "end": "18:00",
+            "note": "Observes Shabbat until Saturday evening"
+          },
+          {
+            "id": "H5",
+            "type": "exclude",
+            "rule": "No events centered on alcohol (bar crawls, tailgates, parties with drinking)"
+          },
+          {
+            "id": "H6",
+            "type": "max_cost_usd",
+            "value": 25,
+            "per": "semester",
+            "note": "Membership dues or fees no more than $25 per semester"
+          },
+          {
+            "id": "H7",
+            "type": "format",
+            "allowed": [
+              "in-person"
+            ]
+          },
+          {
+            "id": "H8",
+            "type": "location",
+            "rule": "Reachable by walking or campus bus; no car required"
+          },
+          {
+            "id": "H9",
+            "type": "max_activities_per_week",
+            "value": 3
+          }
+        ],
+        "soft_preferences": [
+          {
+            "rank": 1,
+            "id": "S1",
+            "category": "interest",
+            "preference": "Clinical or healthcare-related volunteering"
+          },
+          {
+            "rank": 2,
+            "id": "S2",
+            "category": "social",
+            "preference": "Small groups (roughly under 30 people)"
+          },
+          {
+            "rank": 3,
+            "id": "S3",
+            "category": "time",
+            "preference": "Weekday afternoons, 15:00-18:00"
+          },
+          {
+            "rank": 4,
+            "id": "S4",
+            "category": "location",
+            "preference": "Near South Quad"
+          },
+          {
+            "rank": 5,
+            "id": "S5",
+            "category": "interest",
+            "preference": "Contemporary dance (casual, non-competitive)"
+          },
+          {
+            "rank": 6,
+            "id": "S6",
+            "category": "interest",
+            "preference": "Environmental sustainability"
+          }
+        ],
+        "schedule": {
+          "timezone": "America/Chicago",
+          "reference_week": {
+            "start": "2026-11-02",
+            "end": "2026-11-08"
+          },
+          "recurring": [
+            {
+              "id": "R1",
+              "title": "CHEM 232",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed",
+                "Fri"
+              ],
+              "start": "10:00",
+              "end": "10:50"
+            },
+            {
+              "id": "R2",
+              "title": "MCB 250",
+              "type": "class",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "11:00",
+              "end": "12:15"
+            },
+            {
+              "id": "R3",
+              "title": "SPAN 228",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed",
+                "Fri"
+              ],
+              "start": "13:00",
+              "end": "13:50"
+            },
+            {
+              "id": "R4",
+              "title": "CHEM 233 lab",
+              "type": "lab",
+              "days": [
+                "Thu"
+              ],
+              "start": "13:30",
+              "end": "16:20"
+            },
+            {
+              "id": "R5",
+              "title": "Undergraduate research lab hours",
+              "type": "work",
+              "days": [
+                "Mon"
+              ],
+              "start": "15:00",
+              "end": "17:00"
+            }
+          ],
+          "one_off": [
+            {
+              "id": "O1",
+              "title": "Doctor's appointment",
+              "type": "personal",
+              "date": "2026-11-04",
+              "start": "16:00",
+              "end": "17:00"
+            },
+            {
+              "id": "O2",
+              "title": "MCAT practice diagnostic exam",
+              "type": "academic",
+              "date": "2026-11-08",
+              "start": "09:00",
+              "end": "14:00"
+            }
+          ]
+        }
+      },
+      "busy_blocks": [
+        {
+          "date": "2026-11-02",
+          "start": "10:00",
+          "end": "10:50",
+          "source": "R1"
+        },
+        {
+          "date": "2026-11-02",
+          "start": "13:00",
+          "end": "13:50",
+          "source": "R3"
+        },
+        {
+          "date": "2026-11-02",
+          "start": "15:00",
+          "end": "17:00",
+          "source": "R5"
+        },
+        {
+          "date": "2026-11-03",
+          "start": "11:00",
+          "end": "12:15",
+          "source": "R2"
+        },
+        {
+          "date": "2026-11-04",
+          "start": "10:00",
+          "end": "10:50",
+          "source": "R1"
+        },
+        {
+          "date": "2026-11-04",
+          "start": "13:00",
+          "end": "13:50",
+          "source": "R3"
+        },
+        {
+          "date": "2026-11-04",
+          "start": "16:00",
+          "end": "17:00",
+          "source": "O1"
+        },
+        {
+          "date": "2026-11-05",
+          "start": "11:00",
+          "end": "12:15",
+          "source": "R2"
+        },
+        {
+          "date": "2026-11-05",
+          "start": "13:30",
+          "end": "16:20",
+          "source": "R4"
+        },
+        {
+          "date": "2026-11-06",
+          "start": "10:00",
+          "end": "10:50",
+          "source": "R1"
+        },
+        {
+          "date": "2026-11-06",
+          "start": "13:00",
+          "end": "13:50",
+          "source": "R3"
+        },
+        {
+          "date": "2026-11-06",
+          "start": "16:30",
+          "end": "23:59",
+          "source": "H3"
+        },
+        {
+          "date": "2026-11-07",
+          "start": "00:00",
+          "end": "18:00",
+          "source": "H4"
+        },
+        {
+          "date": "2026-11-08",
+          "start": "09:00",
+          "end": "14:00",
+          "source": "O2"
+        }
+      ],
+      "available_windows": [
+        {
+          "date": "2026-11-02",
+          "start": "09:00",
+          "end": "10:00",
+          "minutes": 60
+        },
+        {
+          "date": "2026-11-02",
+          "start": "10:50",
+          "end": "13:00",
+          "minutes": 130
+        },
+        {
+          "date": "2026-11-02",
+          "start": "13:50",
+          "end": "15:00",
+          "minutes": 70
+        },
+        {
+          "date": "2026-11-02",
+          "start": "17:00",
+          "end": "21:00",
+          "minutes": 240
+        },
+        {
+          "date": "2026-11-03",
+          "start": "09:00",
+          "end": "11:00",
+          "minutes": 120
+        },
+        {
+          "date": "2026-11-03",
+          "start": "12:15",
+          "end": "21:00",
+          "minutes": 525
+        },
+        {
+          "date": "2026-11-04",
+          "start": "09:00",
+          "end": "10:00",
+          "minutes": 60
+        },
+        {
+          "date": "2026-11-04",
+          "start": "10:50",
+          "end": "13:00",
+          "minutes": 130
+        },
+        {
+          "date": "2026-11-04",
+          "start": "13:50",
+          "end": "16:00",
+          "minutes": 130
+        },
+        {
+          "date": "2026-11-04",
+          "start": "17:00",
+          "end": "21:00",
+          "minutes": 240
+        },
+        {
+          "date": "2026-11-05",
+          "start": "09:00",
+          "end": "11:00",
+          "minutes": 120
+        },
+        {
+          "date": "2026-11-05",
+          "start": "12:15",
+          "end": "13:30",
+          "minutes": 75
+        },
+        {
+          "date": "2026-11-05",
+          "start": "16:20",
+          "end": "21:00",
+          "minutes": 280
+        },
+        {
+          "date": "2026-11-06",
+          "start": "09:00",
+          "end": "10:00",
+          "minutes": 60
+        },
+        {
+          "date": "2026-11-06",
+          "start": "10:50",
+          "end": "13:00",
+          "minutes": 130
+        },
+        {
+          "date": "2026-11-06",
+          "start": "13:50",
+          "end": "16:30",
+          "minutes": 160
+        },
+        {
+          "date": "2026-11-07",
+          "start": "18:00",
+          "end": "21:00",
+          "minutes": 180
+        },
+        {
+          "date": "2026-11-08",
+          "start": "14:00",
+          "end": "21:00",
+          "minutes": 420
+        }
+      ],
+      "grading_checks": [
+        {
+          "id": "C-busy",
+          "kind": "hard",
+          "check": "No suggested activity overlaps any busy_block (after applying buffer_minutes, if any)."
+        },
+        {
+          "id": "C-window",
+          "kind": "hard",
+          "check": "Every suggested activity starts at or after earliest_start and ends at or before latest_end."
+        },
+        {
+          "id": "C-exist",
+          "kind": "hard",
+          "check": "Every suggested activity exists in the frozen campus.db snapshot or a cited, fetched URL. No fabricated events or clubs."
+        },
+        {
+          "id": "C-H5",
+          "kind": "hard",
+          "check": "Respects hard constraint H5 (exclude)."
+        },
+        {
+          "id": "C-H6",
+          "kind": "hard",
+          "check": "Respects hard constraint H6 (max_cost_usd)."
+        },
+        {
+          "id": "C-H7",
+          "kind": "hard",
+          "check": "Respects hard constraint H7 (format)."
+        },
+        {
+          "id": "C-H8",
+          "kind": "hard",
+          "check": "Respects hard constraint H8 (location)."
+        },
+        {
+          "id": "C-H9",
+          "kind": "hard",
+          "check": "Respects hard constraint H9 (max_activities_per_week)."
+        },
+        {
+          "id": "C-shabbat",
+          "kind": "hard",
+          "check": "Nothing Fri 16:30 to Sat 18:00 (H3, H4)."
+        },
+        {
+          "id": "C-dislikes",
+          "kind": "hard",
+          "check": "No suggestion falls in a disliked category or matches avoid_keywords."
+        },
+        {
+          "id": "C-cost",
+          "kind": "hard",
+          "check": "Dues/fees at most $25/semester, or the agent says cost is unverified (H6). campus.db has no cost field."
+        },
+        {
+          "id": "C-rank",
+          "kind": "soft",
+          "check": "A fitting healthcare-volunteering option outranks a dance option even if the dance option better matches S3/S4."
+        },
+        {
+          "id": "C-explain",
+          "kind": "behavior",
+          "check": "Agent explains tradeoffs in terms of the stated ranking when it picks a lower-ranked option."
+        }
+      ],
+      "superseded_facts": [],
+      "known_good_activities": [],
+      "known_good_activities_status": "pending: populate from a frozen campus.db snapshot; intentionally empty, no ECAs were invented",
+      "interest_keywords": [
+        "volunteer",
+        "hospital",
+        "clinic",
+        "health",
+        "EMT",
+        "dance",
+        "sustainab",
+        "environment"
+      ],
+      "avoid_keywords": [
+        "tournament",
+        "intramural",
+        "varsity",
+        "rush",
+        "recruitment",
+        "fraternity",
+        "sorority",
+        "career fair",
+        "networking",
+        "bar",
+        "tailgate"
+      ]
+    }
+  },
+  "P4-changing": {
+    "id": "P4-changing",
+    "schema_version": "1.0",
+    "label": "Changing Student",
+    "description": "Sophomore statistics student whose classes, work shifts, interests, and weekend availability change over the conversation.",
+    "agent_visible": {
+      "intake_profile": {
+        "student": {
+          "name": "Sam",
+          "year": "sophomore",
+          "major": "Statistics",
+          "college": "College of Liberal Arts and Sciences",
+          "residence": "Off-campus apartment; goes home to the suburbs some weekends"
+        },
+        "interests": [
+          "competitive chess",
+          "investing and personal finance"
+        ],
+        "goals": [
+          "Join 1-2 activities that stick for the rest of the year"
+        ],
+        "dislikes": [],
+        "hard_constraints": [
+          {
+            "id": "H1",
+            "type": "earliest_start",
+            "time": "09:00"
+          },
+          {
+            "id": "H2",
+            "type": "latest_end",
+            "time": "22:00"
+          },
+          {
+            "id": "H3",
+            "type": "max_activities_per_week",
+            "value": 2
+          }
+        ],
+        "soft_preferences": [
+          {
+            "rank": 1,
+            "id": "S1",
+            "category": "interest",
+            "preference": "Investing / personal finance"
+          },
+          {
+            "rank": 2,
+            "id": "S2",
+            "category": "interest",
+            "preference": "Competitive chess"
+          },
+          {
+            "rank": 3,
+            "id": "S3",
+            "category": "time",
+            "preference": "Evenings or weekends"
+          }
+        ],
+        "schedule": {
+          "timezone": "America/Chicago",
+          "reference_week": {
+            "start": "2026-11-02",
+            "end": "2026-11-08"
+          },
+          "recurring": [
+            {
+              "id": "R1",
+              "title": "STAT 400",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed",
+                "Fri"
+              ],
+              "start": "10:00",
+              "end": "10:50"
+            },
+            {
+              "id": "R2",
+              "title": "MATH 241",
+              "type": "class",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "09:30",
+              "end": "10:45"
+            },
+            {
+              "id": "R3",
+              "title": "CS 225",
+              "type": "class",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "12:30",
+              "end": "13:45"
+            },
+            {
+              "id": "R4",
+              "title": "ECON 102",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed",
+                "Fri"
+              ],
+              "start": "14:00",
+              "end": "14:50"
+            },
+            {
+              "id": "R5",
+              "title": "Campus Rec front desk shift",
+              "type": "work",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "17:00",
+              "end": "21:00"
+            }
+          ],
+          "one_off": []
+        }
+      },
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Hi, I'm Sam, a sophomore in statistics. I'm looking for 1-2 activities. I play competitive chess and I'm really into investing and personal finance."
+        },
+        {
+          "role": "assistant",
+          "content": "Nice to meet you, Sam. What does your week look like?"
+        },
+        {
+          "role": "user",
+          "content": "STAT 400 MWF 10:00-10:50, ECON 102 MWF 14:00-14:50, MATH 241 Tue/Thu 9:30-10:45, and CS 225 Tue/Thu 12:30-13:45. I work the Campus Rec front desk Tuesday and Thursday 17:00-21:00."
+        },
+        {
+          "role": "assistant",
+          "content": "Thanks. Any hard limits on timing or how many activities you want?"
+        },
+        {
+          "role": "user",
+          "content": "Nothing before 9:00 and nothing that ends after 22:00. Max 2 activities a week. Evenings or weekends are best. Investing is my top priority, then chess."
+        },
+        {
+          "role": "assistant",
+          "content": "Got it: nothing before 09:00 or ending after 22:00, at most 2 per week, investing first, then chess, and evenings or weekends are preferred."
+        },
+        {
+          "role": "user",
+          "content": "Update since we last talked: I dropped ECON 102, so my MWF 14:00-14:50 is free now. Also my front desk shifts moved to Monday and Wednesday 17:00-21:00, starting this week. I don't work Tuesdays or Thursdays anymore."
+        },
+        {
+          "role": "assistant",
+          "content": "Updated. ECON 102 is removed, and your shifts are now Monday and Wednesday 17:00-21:00 instead of Tuesday and Thursday."
+        },
+        {
+          "role": "user",
+          "content": "Also, honestly I'm over competitive chess. The tournaments stressed me out. I'd rather do casual board games, nothing competitive. Investing is still number one."
+        },
+        {
+          "role": "assistant",
+          "content": "Understood. I'll drop competitive chess, look for casual board games instead, and keep investing as your top priority."
+        },
+        {
+          "role": "user",
+          "content": "One more thing. I said weekends were fine, but I'm going home every weekend in November, so no Saturdays or Sundays this month. Weekday evenings work best now."
+        },
+        {
+          "role": "assistant",
+          "content": "Got it. No weekend activities through the end of November, and I'll favor weekday evenings."
+        }
+      ]
+    },
+    "runtime_updates": [
+      {
+        "id": "U1",
+        "for_tasks": [
+          "adapt-schedule"
+        ],
+        "message": {
+          "role": "user",
+          "content": "Something came up: there's a STAT 400 midterm review session Thursday Nov 5 from 18:00 to 20:00 that I need to go to. Can you redo my plan for this week?"
+        }
+      },
+      {
+        "id": "U2",
+        "for_tasks": [
+          "resolve-conflicting"
+        ],
+        "message": {
+          "role": "user",
+          "content": "Change of plans for this weekend only: I'm staying on campus Saturday Nov 7 for a friend's birthday dinner at 18:00, so I'm free that Saturday from 12:00 to 17:00. I'm still going home Sunday. Can you find me something that Saturday afternoon?"
+        }
+      }
+    ],
+    "eval_only": {
+      "tests": [
+        "using the latest information over stale information",
+        "replanning after schedule changes",
+        "handling a one-time exception to a standing rule",
+        "preference drift"
+      ],
+      "applicable_tasks": [
+        "match-interest",
+        "one-schedule",
+        "schedule-eca",
+        "multiple-schedule",
+        "adapt-schedule",
+        "resolve-conflicting",
+        "multi-step"
+      ],
+      "current_truth": {
+        "student": {
+          "name": "Sam",
+          "year": "sophomore",
+          "major": "Statistics",
+          "college": "College of Liberal Arts and Sciences",
+          "residence": "Off-campus apartment; goes home to the suburbs some weekends"
+        },
+        "interests": [
+          "casual board games",
+          "investing and personal finance"
+        ],
+        "goals": [
+          "Join 1-2 activities that stick for the rest of the year"
+        ],
+        "dislikes": [
+          "competitive chess / tournaments"
+        ],
+        "hard_constraints": [
+          {
+            "id": "H1",
+            "type": "earliest_start",
+            "time": "09:00"
+          },
+          {
+            "id": "H2",
+            "type": "latest_end",
+            "time": "22:00"
+          },
+          {
+            "id": "H3",
+            "type": "max_activities_per_week",
+            "value": 2
+          },
+          {
+            "id": "H4",
+            "type": "unavailable",
+            "days": [
+              "Sat",
+              "Sun"
+            ],
+            "start": "00:00",
+            "end": "23:59",
+            "valid_until": "2026-11-30",
+            "note": "Going home every weekend in November"
+          }
+        ],
+        "soft_preferences": [
+          {
+            "rank": 1,
+            "id": "S1",
+            "category": "interest",
+            "preference": "Investing / personal finance"
+          },
+          {
+            "rank": 2,
+            "id": "S2b",
+            "category": "interest",
+            "preference": "Casual, low-pressure board games"
+          },
+          {
+            "rank": 3,
+            "id": "S3b",
+            "category": "time",
+            "preference": "Weekday evenings"
+          }
+        ],
+        "schedule": {
+          "timezone": "America/Chicago",
+          "reference_week": {
+            "start": "2026-11-02",
+            "end": "2026-11-08"
+          },
+          "recurring": [
+            {
+              "id": "R1",
+              "title": "STAT 400",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed",
+                "Fri"
+              ],
+              "start": "10:00",
+              "end": "10:50"
+            },
+            {
+              "id": "R2",
+              "title": "MATH 241",
+              "type": "class",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "09:30",
+              "end": "10:45"
+            },
+            {
+              "id": "R3",
+              "title": "CS 225",
+              "type": "class",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "12:30",
+              "end": "13:45"
+            },
+            {
+              "id": "R5b",
+              "title": "Campus Rec front desk shift",
+              "type": "work",
+              "days": [
+                "Mon",
+                "Wed"
+              ],
+              "start": "17:00",
+              "end": "21:00"
+            }
+          ],
+          "one_off": []
+        }
+      },
+      "busy_blocks": [
+        {
+          "date": "2026-11-02",
+          "start": "10:00",
+          "end": "10:50",
+          "source": "R1"
+        },
+        {
+          "date": "2026-11-02",
+          "start": "17:00",
+          "end": "21:00",
+          "source": "R5b"
+        },
+        {
+          "date": "2026-11-03",
+          "start": "09:30",
+          "end": "10:45",
+          "source": "R2"
+        },
+        {
+          "date": "2026-11-03",
+          "start": "12:30",
+          "end": "13:45",
+          "source": "R3"
+        },
+        {
+          "date": "2026-11-04",
+          "start": "10:00",
+          "end": "10:50",
+          "source": "R1"
+        },
+        {
+          "date": "2026-11-04",
+          "start": "17:00",
+          "end": "21:00",
+          "source": "R5b"
+        },
+        {
+          "date": "2026-11-05",
+          "start": "09:30",
+          "end": "10:45",
+          "source": "R2"
+        },
+        {
+          "date": "2026-11-05",
+          "start": "12:30",
+          "end": "13:45",
+          "source": "R3"
+        },
+        {
+          "date": "2026-11-06",
+          "start": "10:00",
+          "end": "10:50",
+          "source": "R1"
+        },
+        {
+          "date": "2026-11-07",
+          "start": "00:00",
+          "end": "23:59",
+          "source": "H4"
+        },
+        {
+          "date": "2026-11-08",
+          "start": "00:00",
+          "end": "23:59",
+          "source": "H4"
+        }
+      ],
+      "available_windows": [
+        {
+          "date": "2026-11-02",
+          "start": "09:00",
+          "end": "10:00",
+          "minutes": 60
+        },
+        {
+          "date": "2026-11-02",
+          "start": "10:50",
+          "end": "17:00",
+          "minutes": 370
+        },
+        {
+          "date": "2026-11-02",
+          "start": "21:00",
+          "end": "22:00",
+          "minutes": 60
+        },
+        {
+          "date": "2026-11-03",
+          "start": "09:00",
+          "end": "09:30",
+          "minutes": 30
+        },
+        {
+          "date": "2026-11-03",
+          "start": "10:45",
+          "end": "12:30",
+          "minutes": 105
+        },
+        {
+          "date": "2026-11-03",
+          "start": "13:45",
+          "end": "22:00",
+          "minutes": 495
+        },
+        {
+          "date": "2026-11-04",
+          "start": "09:00",
+          "end": "10:00",
+          "minutes": 60
+        },
+        {
+          "date": "2026-11-04",
+          "start": "10:50",
+          "end": "17:00",
+          "minutes": 370
+        },
+        {
+          "date": "2026-11-04",
+          "start": "21:00",
+          "end": "22:00",
+          "minutes": 60
+        },
+        {
+          "date": "2026-11-05",
+          "start": "09:00",
+          "end": "09:30",
+          "minutes": 30
+        },
+        {
+          "date": "2026-11-05",
+          "start": "10:45",
+          "end": "12:30",
+          "minutes": 105
+        },
+        {
+          "date": "2026-11-05",
+          "start": "13:45",
+          "end": "22:00",
+          "minutes": 495
+        },
+        {
+          "date": "2026-11-06",
+          "start": "09:00",
+          "end": "10:00",
+          "minutes": 60
+        },
+        {
+          "date": "2026-11-06",
+          "start": "10:50",
+          "end": "22:00",
+          "minutes": 670
+        }
+      ],
+      "grading_checks": [
+        {
+          "id": "C-busy",
+          "kind": "hard",
+          "check": "No suggested activity overlaps any busy_block (after applying buffer_minutes, if any)."
+        },
+        {
+          "id": "C-window",
+          "kind": "hard",
+          "check": "Every suggested activity starts at or after earliest_start and ends at or before latest_end."
+        },
+        {
+          "id": "C-exist",
+          "kind": "hard",
+          "check": "Every suggested activity exists in the frozen campus.db snapshot or a cited, fetched URL. No fabricated events or clubs."
+        },
+        {
+          "id": "C-H3",
+          "kind": "hard",
+          "check": "Respects hard constraint H3 (max_activities_per_week)."
+        },
+        {
+          "id": "C-stale-work",
+          "kind": "hard",
+          "check": "Nothing Mon/Wed 17:00-21:00. Tue/Thu 17:00-21:00 may be used."
+        },
+        {
+          "id": "C-stale-chess",
+          "kind": "hard",
+          "check": "Does not suggest competitive chess."
+        },
+        {
+          "id": "C-weekend",
+          "kind": "hard",
+          "check": "No weekend suggestions in the reference week, except the U2 window when U2 is injected."
+        }
+      ],
+      "superseded_facts": [
+        {
+          "field": "schedule.recurring.R4",
+          "old": "ECON 102 MWF 14:00-14:50",
+          "new": "dropped (time is free)",
+          "stated_in_msg": 2,
+          "superseded_in_msg": 6
+        },
+        {
+          "field": "schedule.recurring.R5",
+          "old": "Work Tue/Thu 17:00-21:00",
+          "new": "Work Mon/Wed 17:00-21:00",
+          "stated_in_msg": 2,
+          "superseded_in_msg": 6
+        },
+        {
+          "field": "interests",
+          "old": "competitive chess",
+          "new": "casual board games; competitive chess now disliked",
+          "stated_in_msg": 0,
+          "superseded_in_msg": 8
+        },
+        {
+          "field": "soft_preferences.S3",
+          "old": "evenings or weekends",
+          "new": "weekday evenings; weekends unavailable through 2026-11-30 (hard)",
+          "stated_in_msg": 4,
+          "superseded_in_msg": 10
+        }
+      ],
+      "known_good_activities": [],
+      "known_good_activities_status": "pending: populate from a frozen campus.db snapshot; intentionally empty, no ECAs were invented",
+      "message_dates": {
+        "0-5": "2026-10-19",
+        "6-11": "2026-10-30"
+      },
+      "interest_keywords": [
+        "invest",
+        "finance",
+        "stock",
+        "trading",
+        "board game",
+        "tabletop"
+      ],
+      "avoid_keywords": [
+        "chess tournament",
+        "competitive chess"
+      ],
+      "runtime_update_effects": {
+        "U1": {
+          "adds_busy": [
+            {
+              "date": "2026-11-05",
+              "start": "18:00",
+              "end": "20:00",
+              "source": "U1"
+            }
+          ],
+          "expected": "Re-plan. Any previously suggested Thu 2026-11-05 activity overlapping 18:00-20:00 is moved or dropped. Other suggestions are kept."
+        },
+        "U2": {
+          "adds_available": [
+            {
+              "date": "2026-11-07",
+              "start": "12:00",
+              "end": "17:00"
+            }
+          ],
+          "expected": "Treat 2026-11-07 12:00-17:00 as a one-time exception to H4. Suggestions end by 17:00. Sunday 2026-11-08 stays unavailable, and H4 still applies on other November weekends."
+        }
+      }
+    }
+  },
+  "P5-long-context": {
+    "id": "P5-long-context",
+    "schema_version": "1.0",
+    "label": "Long-Context Student",
+    "description": "Senior information sciences student with a long, meandering conversation history.",
+    "agent_visible": {
+      "intake_profile": {
+        "student": {
+          "name": "Jordan",
+          "year": "senior",
+          "major": "Information Sciences (minor in Music)",
+          "college": "School of Information Sciences",
+          "residence": "Off-campus apartment; no car, relies on the bus"
+        },
+        "interests": [
+          "improv comedy",
+          "UX / design"
+        ],
+        "goals": [
+          "Try something new before graduating in May"
+        ],
+        "dislikes": [],
+        "hard_constraints": [
+          {
+            "id": "H1",
+            "type": "earliest_start",
+            "time": "09:00"
+          }
+        ],
+        "soft_preferences": [
+          {
+            "rank": 1,
+            "id": "S1",
+            "category": "interest",
+            "preference": "Improv comedy"
+          },
+          {
+            "rank": 2,
+            "id": "S2",
+            "category": "interest",
+            "preference": "UX / design"
+          }
+        ],
+        "schedule": {
+          "timezone": "America/Chicago",
+          "reference_week": {
+            "start": "2026-11-02",
+            "end": "2026-11-08"
+          },
+          "recurring": [
+            {
+              "id": "R1",
+              "title": "IS 445",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed"
+              ],
+              "start": "09:30",
+              "end": "10:45"
+            },
+            {
+              "id": "R2",
+              "title": "IS 467",
+              "type": "class",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "11:00",
+              "end": "12:15"
+            },
+            {
+              "id": "R3",
+              "title": "MUS 313",
+              "type": "class",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "13:00",
+              "end": "14:15"
+            },
+            {
+              "id": "R4",
+              "title": "Orchestra rehearsal (viola)",
+              "type": "extracurricular",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "19:00",
+              "end": "21:30"
+            }
+          ],
+          "one_off": []
+        }
+      },
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "hey! I'm Jordan, senior in info sciences with a music minor. I graduate in May and I want to try something new before I leave. I've been thinking about improv comedy, and maybe something UX/design-related since that's what I want to do after college."
+        },
+        {
+          "role": "assistant",
+          "content": "Hi Jordan! Improv and UX/design are both good directions. To find things that fit, can you tell me about your weekly schedule?"
+        },
+        {
+          "role": "user",
+          "content": "Sure. IS 445 (data viz) Mon/Wed 9:30-10:45, IS 467 Tue/Thu 11:00-12:15, MUS 313 Tue/Thu 13:00-14:15. I also play viola in orchestra, rehearsals are Tue/Thu 19:00-21:30. I don't do mornings, so nothing before 9."
+        },
+        {
+          "role": "assistant",
+          "content": "Got it: IS 445 MW 09:30-10:45, IS 467 TR 11:00-12:15, MUS 313 TR 13:00-14:15, orchestra TR 19:00-21:30, and nothing before 09:00. Anything else?"
+        },
+        {
+          "role": "user",
+          "content": "Not yet, still figuring it out. Side question: I want to get better at Figma before applying to UX jobs. Where should I start? I've only used it for basic wireframes."
+        },
+        {
+          "role": "assistant",
+          "content": "If you're already making wireframes, the next steps are the features hiring managers expect to see in a portfolio. First, learn auto layout well. It lets frames resize like real interfaces and it's the biggest difference between beginner and intermediate files. Second, build reusable components with variants, for example a button with default, hover, and disabled states, and use them across screens. Third, set up text and color styles so the design is consistent. Fourth, prototype a full flow, like signing up or checking out, with interactions between screens. Figma's own learning resources and community files are free and good for this. A practical exercise is to redesign one flow from an app you use every day. Document the problem, your sketches, the iterations, and the final prototype, because portfolios are judged on process as much as polish. Once that feels comfortable, a small design system with tokens, a component library, and one documented pattern is a strong portfolio piece."
+        },
+        {
+          "role": "user",
+          "content": "ok that's a good plan. Anyway, nothing else schedule-wise right now. Random question though: for IS 445, what's the actual difference between a bar chart and a histogram? My TA marked me down for using the wrong one."
+        },
+        {
+          "role": "assistant",
+          "content": "Good question. They look similar but encode different things. A bar chart compares values across separate categories, like the number of students per major. The bars are usually separated by gaps and the order of categories is arbitrary or chosen for readability. A histogram shows the distribution of one continuous numeric variable, like commute times, by splitting it into adjacent bins and counting how many observations fall into each. The bars touch because the bins are contiguous, and the x-axis is a numeric scale with a fixed order. Rule of thumb: if your x-axis is labels, use a bar chart. If it's ranges of a number, use a histogram and pick the bin width carefully, because different widths can change the visible shape of the distribution."
+        },
+        {
+          "role": "user",
+          "content": "ok that makes sense, thanks. oh btw, I don't have a car and the bus near my apartment stops running around 23:00, so I need anything to end by 22:30 at the latest."
+        },
+        {
+          "role": "assistant",
+          "content": "Noted: no car, and anything I suggest has to end by 22:30 so you can catch a bus home."
+        },
+        {
+          "role": "user",
+          "content": "Also off topic, but my roommate keeps playing music at like 2am and I have no idea how to bring it up without it being awkward. Any advice?"
+        },
+        {
+          "role": "assistant",
+          "content": "That's a common roommate problem. A few suggestions: pick a calm moment, not 2am when you're annoyed. Lead with the effect on you rather than blame, for example 'I've been having trouble sleeping on weeknights when there's music late.' Propose something concrete, like headphones after midnight or a quiet-hours window you both agree on, and ask what would work for them too. If you have a lease or roommate agreement, it can help to write down what you agree on. If it keeps happening after a real conversation, a landlord or housing staff member can mediate."
+        },
+        {
+          "role": "user",
+          "content": "Thanks, I'll try that. Schedule update: I started a part-time UX internship. It's remote, but I need to be at my desk Wednesdays 12:00-17:00 and Fridays 9:00-13:00."
+        },
+        {
+          "role": "assistant",
+          "content": "Congrats on the internship! I've added it: Wednesdays 12:00-17:00 and Fridays 09:00-13:00, both unavailable."
+        },
+        {
+          "role": "user",
+          "content": "Could you help me tighten a resume bullet? Right now it says 'Worked on a team that made a dashboard for the library to see how many people use study rooms.'"
+        },
+        {
+          "role": "assistant",
+          "content": "Sure. A stronger version leads with your action, names the tools, and states the impact. For example: 'Co-designed and built an interactive dashboard (Tableau, SQL) visualizing study-room usage across library branches, helping staff identify peak hours and adjust room availability.' If you know numbers, like how many rooms, how many weeks of data, or a change in wait times, add one. A quantified result is usually the most persuasive part of a bullet. Keep it to one or two lines and start with a strong verb such as designed, built, analyzed, or led."
+        },
+        {
+          "role": "user",
+          "content": "perfect. ok another constraint: I'm trying to save money, so nothing that costs more than $15 per event, and I won't pay more than $40 in dues for a semester."
+        },
+        {
+          "role": "assistant",
+          "content": "Got it: at most $15 per event and at most $40 per semester in dues."
+        },
+        {
+          "role": "user",
+          "content": "My friend keeps telling me to do a hackathon, but those go all night and I just can't do that anymore. Honestly anything longer than about 3 hours at once is too much for me right now, so keep individual activities to 3 hours max."
+        },
+        {
+          "role": "assistant",
+          "content": "Makes sense. I won't suggest overnight events, and I'll keep any single activity to 3 hours or less."
+        },
+        {
+          "role": "user",
+          "content": "Can you help me think about how to structure my capstone presentation? It's 15 minutes plus Q&A, and our project is a redesign of a local nonprofit's volunteer sign-up site."
+        },
+        {
+          "role": "assistant",
+          "content": "For a 15-minute capstone talk about a redesign, a problem-to-impact structure works well. Spend about 2 minutes on context: who the nonprofit is, who signs up to volunteer, and why it matters. Spend 3 minutes on the problem, showing evidence such as drop-off points in the old flow, quotes from user interviews, or usability test results. Spend 2 minutes on your process: research methods, personas or journey maps, and how many rounds of iteration you did. The redesign should be the centerpiece at about 5 minutes. Walk through the new flow as a story about one volunteer, and show a before and after for the most important screens. Use about 2 minutes for results and impact, such as task completion time, error rates, or stakeholder feedback, and be honest about limitations. Close in 1 minute with what you'd do next. For Q&A, prepare backup slides on accessibility, technical constraints, and why you rejected alternative designs, because those questions come up often. Rehearse with a timer at least twice."
+        },
+        {
+          "role": "user",
+          "content": "Update on improv: I went to a drop-in improv thing last week and honestly hated it. Please cross improv off the list completely. I'd rather do something music-related where I'm playing with other people, not performing solo. A chamber group or a casual jam would be great. UX/design stuff is still on the table."
+        },
+        {
+          "role": "assistant",
+          "content": "Understood. Improv is off the list. I'll prioritize group music activities like chamber groups or casual jams, with no solo performing, and keep UX/design as your second interest."
+        },
+        {
+          "role": "user",
+          "content": "Unrelated, but is it worth buying a really heavy winter coat or can I get away with layers? This is my last winter here lol"
+        },
+        {
+          "role": "assistant",
+          "content": "Champaign winters often have stretches well below freezing, and wind across the open quads makes it feel colder, especially at bus stops. Since you rely on the bus, a warm, windproof coat is probably worth it, ideally one that covers your hips. Pair it with a hat, gloves, and warm socks. If you'd rather not buy something expensive for one winter, a mid-weight insulated jacket with a fleece layer underneath and a windproof shell works well too. Thrift stores and end-of-season sales are good places to look."
+        },
+        {
+          "role": "user",
+          "content": "Do you have tips for practicing viola more efficiently? I only get maybe 30-40 minutes a day between everything."
+        },
+        {
+          "role": "assistant",
+          "content": "With 30-40 minutes, structure matters more than total time. Try this split. Spend 5 minutes warming up with slow scales and long tones, focusing on tone and bow distribution instead of speed. Spend 10 minutes on technique targeted at whatever your current repertoire needs, like shifting, string crossings, or a specific bowing pattern. Spend 15-20 minutes on repertoire, but don't play pieces top to bottom. Pick the 2-3 hardest passages and loop them slowly with a metronome, raising the tempo only when you can play a passage cleanly three times in a row. Use the last few minutes to play through a longer section for continuity. Record yourself once or twice a week, because it's the fastest way to hear intonation and rhythm problems you miss while playing. On rehearsal days, focus your short practice on the orchestra passages the conductor flagged. If you can split practice into two short sessions, that often helps retention more than one longer block."
+        },
+        {
+          "role": "user",
+          "content": "ok cool. some preferences for activities: I like smaller groups, and I'd much rather do weekday evenings than weekends because I work on my capstone on Saturdays. Being close to the Main Quad or the Union is nice but not required."
+        },
+        {
+          "role": "assistant",
+          "content": "Noted: smaller groups, weekday evenings over weekends (Saturdays are for capstone), and a preference for locations near the Main Quad or Illini Union."
+        },
+        {
+          "role": "user",
+          "content": "A few things this week: my capstone presentation is Thursday Nov 5 from 16:00 to 17:30. And I'll be in Chicago all day Friday Nov 6 for a job interview, gone from about 6:00 until 21:00."
+        },
+        {
+          "role": "assistant",
+          "content": "Good luck with both! I've added the capstone presentation Thursday, November 5, 16:00-17:30, and marked Friday, November 6, 06:00-21:00 as unavailable."
+        },
+        {
+          "role": "user",
+          "content": "Oh, my internship changed my Wednesday hours. It's 13:00-18:00 now instead of 12:00-17:00, starting this week. Fridays are the same."
+        },
+        {
+          "role": "assistant",
+          "content": "Updated. Wednesday internship hours are now 13:00-18:00. Friday stays 09:00-13:00."
+        },
+        {
+          "role": "user",
+          "content": "Random stats question for my other class: what is a p-value actually? I keep seeing 'probability the null is true' and my professor says that's wrong."
+        },
+        {
+          "role": "assistant",
+          "content": "Your professor is right. A p-value is the probability of seeing data at least as extreme as what you observed, assuming the null hypothesis is true. It's computed under the null, so it can't be the probability that the null is true. A small p-value means your data would be surprising if the null were true, which counts as evidence against it. It doesn't tell you how big or important an effect is, and 0.05 is a convention, not a law of nature. Pair p-values with effect sizes and confidence intervals."
+        },
+        {
+          "role": "user",
+          "content": "One more for IS 467: what's the difference between a LEFT JOIN and an INNER JOIN? I always mix them up."
+        },
+        {
+          "role": "assistant",
+          "content": "An INNER JOIN returns only rows that have a match in both tables. If you join students to enrollments, students with no enrollments disappear from the result. A LEFT JOIN returns every row from the left table, the one written first, plus matching rows from the right table. Where there's no match, the right-side columns are NULL, so students with no enrollments still appear with empty enrollment fields. A quick way to remember: a LEFT JOIN never loses rows from the left table. A common use is finding missing data. LEFT JOIN, then filter WHERE right_table.id IS NULL to get students with no enrollments. Be careful putting conditions on the right table in the WHERE clause after a LEFT JOIN, because that can quietly turn it back into an inner join. Put those conditions in the ON clause instead."
+        },
+        {
+          "role": "user",
+          "content": "that's helpful. last things: orchestra added a viola sectional this Sunday Nov 8 from 14:00 to 16:00. And I don't want to overcommit. Max 2 new activities a week and no more than 4 hours total for new stuff."
+        },
+        {
+          "role": "assistant",
+          "content": "Got it. I've added the sectional Sunday, November 8, 14:00-16:00, and I'll keep it to at most 2 new activities and 4 hours per week."
+        },
+        {
+          "role": "user",
+          "content": "thanks!! I'm going home for Thanksgiving later this month so I'm trying to fit stuff in before then. anyway, that's everything for now."
+        },
+        {
+          "role": "assistant",
+          "content": "Sounds good, Jordan. Enjoy Thanksgiving when it comes. Whenever you're ready, I can suggest activities for this week that fit everything you've told me."
+        }
+      ]
+    },
+    "runtime_updates": [
+      {
+        "id": "U1",
+        "for_tasks": [
+          "adapt-schedule"
+        ],
+        "message": {
+          "role": "user",
+          "content": "Orchestra just cancelled Thursday's rehearsal (Nov 5), so I'm free that evening after my capstone presentation. Can you update my plan?"
+        }
+      },
+      {
+        "id": "U2",
+        "for_tasks": [
+          "resolve-conflicting"
+        ],
+        "message": {
+          "role": "user",
+          "content": "Is there anything I could do Wednesday from 12:00 to 13:00 this week?"
+        }
+      }
+    ],
+    "eval_only": {
+      "tests": [
+        "context compaction (history well over the 1024-token memory limit)",
+        "recall of facts buried among irrelevant turns",
+        "ignoring superseded preferences and times after compaction"
+      ],
+      "applicable_tasks": [
+        "match-interest",
+        "one-schedule",
+        "schedule-eca",
+        "multiple-schedule",
+        "adapt-schedule",
+        "resolve-conflicting",
+        "multi-step"
+      ],
+      "current_truth": {
+        "student": {
+          "name": "Jordan",
+          "year": "senior",
+          "major": "Information Sciences (minor in Music)",
+          "college": "School of Information Sciences",
+          "residence": "Off-campus apartment; no car, relies on the bus"
+        },
+        "interests": [
+          "music ensemble / casual group playing (not solo performance)",
+          "UX / design"
+        ],
+        "goals": [
+          "Try something new before graduating in May"
+        ],
+        "dislikes": [
+          "improv comedy",
+          "solo performance"
+        ],
+        "hard_constraints": [
+          {
+            "id": "H1",
+            "type": "earliest_start",
+            "time": "09:00"
+          },
+          {
+            "id": "H2",
+            "type": "latest_end",
+            "time": "22:30",
+            "note": "Last bus home around 23:00"
+          },
+          {
+            "id": "H3",
+            "type": "location",
+            "rule": "Reachable by bus or walking; no car"
+          },
+          {
+            "id": "H4",
+            "type": "max_cost_usd",
+            "value": 15,
+            "per": "event"
+          },
+          {
+            "id": "H5",
+            "type": "max_cost_usd",
+            "value": 40,
+            "per": "semester",
+            "note": "Dues"
+          },
+          {
+            "id": "H6",
+            "type": "max_activities_per_week",
+            "value": 2,
+            "note": "New activities only"
+          },
+          {
+            "id": "H7",
+            "type": "max_hours_per_week",
+            "value": 4
+          },
+          {
+            "id": "H8",
+            "type": "max_event_duration_hours",
+            "value": 3,
+            "note": "No overnight events or hackathons"
+          }
+        ],
+        "soft_preferences": [
+          {
+            "rank": 1,
+            "id": "S1b",
+            "category": "interest",
+            "preference": "Music-related group playing (chamber group, casual jam), not solo"
+          },
+          {
+            "rank": 2,
+            "id": "S2",
+            "category": "interest",
+            "preference": "UX / design"
+          },
+          {
+            "rank": 3,
+            "id": "S3",
+            "category": "time",
+            "preference": "Weekday evenings over weekends (Saturdays are for capstone work)"
+          },
+          {
+            "rank": 4,
+            "id": "S4",
+            "category": "social",
+            "preference": "Small groups"
+          },
+          {
+            "rank": 5,
+            "id": "S5",
+            "category": "location",
+            "preference": "Near Main Quad / Illini Union"
+          }
+        ],
+        "schedule": {
+          "timezone": "America/Chicago",
+          "reference_week": {
+            "start": "2026-11-02",
+            "end": "2026-11-08"
+          },
+          "recurring": [
+            {
+              "id": "R1",
+              "title": "IS 445",
+              "type": "class",
+              "days": [
+                "Mon",
+                "Wed"
+              ],
+              "start": "09:30",
+              "end": "10:45"
+            },
+            {
+              "id": "R2",
+              "title": "IS 467",
+              "type": "class",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "11:00",
+              "end": "12:15"
+            },
+            {
+              "id": "R3",
+              "title": "MUS 313",
+              "type": "class",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "13:00",
+              "end": "14:15"
+            },
+            {
+              "id": "R4",
+              "title": "Orchestra rehearsal (viola)",
+              "type": "extracurricular",
+              "days": [
+                "Tue",
+                "Thu"
+              ],
+              "start": "19:00",
+              "end": "21:30"
+            },
+            {
+              "id": "R5b",
+              "title": "UX internship (remote, at desk)",
+              "type": "work",
+              "days": [
+                "Wed"
+              ],
+              "start": "13:00",
+              "end": "18:00"
+            },
+            {
+              "id": "R6",
+              "title": "UX internship (remote, at desk)",
+              "type": "work",
+              "days": [
+                "Fri"
+              ],
+              "start": "09:00",
+              "end": "13:00"
+            }
+          ],
+          "one_off": [
+            {
+              "id": "O1",
+              "title": "Capstone presentation",
+              "type": "academic",
+              "date": "2026-11-05",
+              "start": "16:00",
+              "end": "17:30"
+            },
+            {
+              "id": "O2",
+              "title": "Job interview in Chicago (travel all day)",
+              "type": "personal",
+              "date": "2026-11-06",
+              "start": "06:00",
+              "end": "21:00"
+            },
+            {
+              "id": "O3",
+              "title": "Orchestra viola sectional",
+              "type": "extracurricular",
+              "date": "2026-11-08",
+              "start": "14:00",
+              "end": "16:00"
+            }
+          ]
+        }
+      },
+      "busy_blocks": [
+        {
+          "date": "2026-11-02",
+          "start": "09:30",
+          "end": "10:45",
+          "source": "R1"
+        },
+        {
+          "date": "2026-11-03",
+          "start": "11:00",
+          "end": "12:15",
+          "source": "R2"
+        },
+        {
+          "date": "2026-11-03",
+          "start": "13:00",
+          "end": "14:15",
+          "source": "R3"
+        },
+        {
+          "date": "2026-11-03",
+          "start": "19:00",
+          "end": "21:30",
+          "source": "R4"
+        },
+        {
+          "date": "2026-11-04",
+          "start": "09:30",
+          "end": "10:45",
+          "source": "R1"
+        },
+        {
+          "date": "2026-11-04",
+          "start": "13:00",
+          "end": "18:00",
+          "source": "R5b"
+        },
+        {
+          "date": "2026-11-05",
+          "start": "11:00",
+          "end": "12:15",
+          "source": "R2"
+        },
+        {
+          "date": "2026-11-05",
+          "start": "13:00",
+          "end": "14:15",
+          "source": "R3"
+        },
+        {
+          "date": "2026-11-05",
+          "start": "16:00",
+          "end": "17:30",
+          "source": "O1"
+        },
+        {
+          "date": "2026-11-05",
+          "start": "19:00",
+          "end": "21:30",
+          "source": "R4"
+        },
+        {
+          "date": "2026-11-06",
+          "start": "06:00",
+          "end": "21:00",
+          "source": "O2"
+        },
+        {
+          "date": "2026-11-06",
+          "start": "09:00",
+          "end": "13:00",
+          "source": "R6"
+        },
+        {
+          "date": "2026-11-08",
+          "start": "14:00",
+          "end": "16:00",
+          "source": "O3"
+        }
+      ],
+      "available_windows": [
+        {
+          "date": "2026-11-02",
+          "start": "09:00",
+          "end": "09:30",
+          "minutes": 30
+        },
+        {
+          "date": "2026-11-02",
+          "start": "10:45",
+          "end": "22:30",
+          "minutes": 705
+        },
+        {
+          "date": "2026-11-03",
+          "start": "09:00",
+          "end": "11:00",
+          "minutes": 120
+        },
+        {
+          "date": "2026-11-03",
+          "start": "12:15",
+          "end": "13:00",
+          "minutes": 45
+        },
+        {
+          "date": "2026-11-03",
+          "start": "14:15",
+          "end": "19:00",
+          "minutes": 285
+        },
+        {
+          "date": "2026-11-03",
+          "start": "21:30",
+          "end": "22:30",
+          "minutes": 60
+        },
+        {
+          "date": "2026-11-04",
+          "start": "09:00",
+          "end": "09:30",
+          "minutes": 30
+        },
+        {
+          "date": "2026-11-04",
+          "start": "10:45",
+          "end": "13:00",
+          "minutes": 135
+        },
+        {
+          "date": "2026-11-04",
+          "start": "18:00",
+          "end": "22:30",
+          "minutes": 270
+        },
+        {
+          "date": "2026-11-05",
+          "start": "09:00",
+          "end": "11:00",
+          "minutes": 120
+        },
+        {
+          "date": "2026-11-05",
+          "start": "12:15",
+          "end": "13:00",
+          "minutes": 45
+        },
+        {
+          "date": "2026-11-05",
+          "start": "14:15",
+          "end": "16:00",
+          "minutes": 105
+        },
+        {
+          "date": "2026-11-05",
+          "start": "17:30",
+          "end": "19:00",
+          "minutes": 90
+        },
+        {
+          "date": "2026-11-05",
+          "start": "21:30",
+          "end": "22:30",
+          "minutes": 60
+        },
+        {
+          "date": "2026-11-06",
+          "start": "21:00",
+          "end": "22:30",
+          "minutes": 90
+        },
+        {
+          "date": "2026-11-07",
+          "start": "09:00",
+          "end": "22:30",
+          "minutes": 810
+        },
+        {
+          "date": "2026-11-08",
+          "start": "09:00",
+          "end": "14:00",
+          "minutes": 300
+        },
+        {
+          "date": "2026-11-08",
+          "start": "16:00",
+          "end": "22:30",
+          "minutes": 390
+        }
+      ],
+      "grading_checks": [
+        {
+          "id": "C-busy",
+          "kind": "hard",
+          "check": "No suggested activity overlaps any busy_block (after applying buffer_minutes, if any)."
+        },
+        {
+          "id": "C-window",
+          "kind": "hard",
+          "check": "Every suggested activity starts at or after earliest_start and ends at or before latest_end."
+        },
+        {
+          "id": "C-exist",
+          "kind": "hard",
+          "check": "Every suggested activity exists in the frozen campus.db snapshot or a cited, fetched URL. No fabricated events or clubs."
+        },
+        {
+          "id": "C-H3",
+          "kind": "hard",
+          "check": "Respects hard constraint H3 (location)."
+        },
+        {
+          "id": "C-H4",
+          "kind": "hard",
+          "check": "Respects hard constraint H4 (max_cost_usd)."
+        },
+        {
+          "id": "C-H5",
+          "kind": "hard",
+          "check": "Respects hard constraint H5 (max_cost_usd)."
+        },
+        {
+          "id": "C-H6",
+          "kind": "hard",
+          "check": "Respects hard constraint H6 (max_activities_per_week)."
+        },
+        {
+          "id": "C-H7",
+          "kind": "hard",
+          "check": "Respects hard constraint H7 (max_hours_per_week)."
+        },
+        {
+          "id": "C-H8",
+          "kind": "hard",
+          "check": "Respects hard constraint H8 (max_event_duration_hours)."
+        },
+        {
+          "id": "C-improv",
+          "kind": "hard",
+          "check": "Never suggests improv or solo performance."
+        },
+        {
+          "id": "C-wed",
+          "kind": "hard",
+          "check": "Nothing Wed 13:00-18:00. Wed 12:00-13:00 is free under current truth."
+        },
+        {
+          "id": "C-compact",
+          "kind": "behavior",
+          "check": "After compaction, every buried_fact is still respected and no superseded value is used."
+        }
+      ],
+      "superseded_facts": [
+        {
+          "field": "interests",
+          "old": "improv comedy",
+          "new": "disliked; replaced by group music",
+          "stated_in_msg": 0,
+          "superseded_in_msg": 22
+        },
+        {
+          "field": "schedule.recurring.R5",
+          "old": "Internship Wed 12:00-17:00",
+          "new": "Internship Wed 13:00-18:00",
+          "stated_in_msg": 12,
+          "superseded_in_msg": 32
+        }
+      ],
+      "known_good_activities": [],
+      "known_good_activities_status": "pending: populate from a frozen campus.db snapshot; intentionally empty, no ECAs were invented",
+      "message_dates": {
+        "0-11": "2026-10-05",
+        "12-21": "2026-10-14",
+        "22-29": "2026-10-22",
+        "30-41": "2026-11-01"
+      },
+      "interest_keywords": [
+        "chamber",
+        "ensemble",
+        "jam",
+        "orchestra",
+        "music",
+        "UX",
+        "design",
+        "HCI"
+      ],
+      "avoid_keywords": [
+        "improv",
+        "open mic",
+        "solo",
+        "comedy"
+      ],
+      "buried_facts": [
+        {
+          "fact": "latest_end 22:30 (bus)",
+          "msg": 8
+        },
+        {
+          "fact": "Internship Fri 09:00-13:00",
+          "msg": 12
+        },
+        {
+          "fact": "Cost caps $15/event, $40/semester",
+          "msg": 16
+        },
+        {
+          "fact": "Single activity at most 3 hours; no overnight events",
+          "msg": 18
+        },
+        {
+          "fact": "Saturdays reserved for capstone (soft)",
+          "msg": 28
+        },
+        {
+          "fact": "Capstone presentation 2026-11-05 16:00-17:30",
+          "msg": 30
+        },
+        {
+          "fact": "Away 2026-11-06 06:00-21:00",
+          "msg": 30
+        },
+        {
+          "fact": "Sectional 2026-11-08 14:00-16:00",
+          "msg": 38
+        },
+        {
+          "fact": "Max 2 new activities, 4 hours/week",
+          "msg": 38
+        }
+      ],
+      "irrelevant_msgs": [
+        4,
+        5,
+        6,
+        7,
+        10,
+        11,
+        14,
+        15,
+        20,
+        21,
+        24,
+        25,
+        26,
+        27,
+        34,
+        35,
+        36,
+        37,
+        40,
+        41
+      ],
+      "runtime_update_effects": {
+        "U1": {
+          "removes_busy": [
+            {
+              "date": "2026-11-05",
+              "start": "19:00",
+              "end": "21:30",
+              "source": "R4"
+            }
+          ],
+          "expected": "May now use Thu 2026-11-05 17:30-22:30. Must still respect the 4-hour/2-activity caps."
+        },
+        "U2": {
+          "expected": "Answers using the updated internship hours (Wed 13:00-18:00): 12:00-13:00 is free, after IS 445 ends at 10:45. Must not say the old 12:00-17:00 hours block it. Suggestions must end by 13:00."
+        }
+      }
+    }
+  }
 }
