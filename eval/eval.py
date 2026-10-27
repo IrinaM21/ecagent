@@ -1,7 +1,4 @@
-# TODO single-pass evaluation on benchmark tasks
-# TODO rule-based scheduler evaluation
 # TODO documentation (in ./doc, docstrings, comments)
-# TODO add regression report, rule based + single pass + compact separate
 
 from agent import Agent
 from memory import Memory
@@ -35,7 +32,7 @@ class Evaluator(Utils):
         self.s = Agent(key=key, single_pass=True)
         self.r = Agent(key=key, rule_based=True)
         self.c = Agent(key=key, no_compact=True)
-        self.m = Memory()
+        # self.m = Memory()
 
     def save_results(self, results, path):
         # save the results to json when eval complete
@@ -58,6 +55,10 @@ class Evaluator(Utils):
 
     def passed(self, out):
         # placeholder
+
+        # should check that suggested activities on time constraints,
+        # (2) match to student preferences (TODO isn't this subjective - human feedback?)
+
         return True
 
     # run agent on task on the given query
@@ -71,9 +72,6 @@ class Evaluator(Utils):
             sub += [self.get_gpt_feedback(out)]
         return ptk, sub
     
-    def get_query(self, p, t):
-        return "This is a query" # TODO update
-    
     def run(self):
         # TODO clean up
         a_ptk = []
@@ -85,18 +83,20 @@ class Evaluator(Utils):
         for p in self.profiles:
             # new memory for each profile, just load msg history for now
             # TODO update
-            self.m.set_msgs(p) # TODO update
-            for t in self.tasks:
-                q = self.get_query(p, t)
-                p, s = run_task(query, self.a)
-                a_ptk += p
-                a_sub += s
-                p, _ = run_task(query, self.r)
-                r_ptk += p
-                p, _ = run_task(query, self.s)
-                s_ptk += p
-                p, _ = run_task(query, self.c)
-                c_ptk += p
+            if self.profiles[p]: # skip TBD profiles (long-context -> "")
+                self.m.set_msgs(p) # TODO update
+                for t in self.tasks:
+                    query = self.task[t]
+                    if self.task[t]: # skip TBD tasks (i.e. multi-step -> "")
+                        p, s = run_task(query, self.a)
+                        a_ptk += p
+                        a_sub += s
+                        p, _ = run_task(query, self.r)
+                        r_ptk += p
+                        p, _ = run_task(query, self.s)
+                        s_ptk += p
+                        p, _ = run_task(query, self.c)
+                        c_ptk += p
         results = {
             "run":self.trial_desc, 
             "subjective":self.subj_res( sum(a_sub)/len(a_sub) , s) 
@@ -105,51 +105,3 @@ class Evaluator(Utils):
             "compaction":(self.trial_res(a_ptk, c_ptk))
             }
         return results
-
-
-
-    
-    #### V1 #### 
-    """ def run(self):
-        # adapted LEC9.10 for our design:
-        # rule-based + single-pass = 1 trial
-
-        results = {
-            "trial_desc":self.desc
-            "trial_results":{},
-            "pass_at_k":{},
-            "pass_to_k":{},
-            "overall_pass_at_k":0.0,
-            "overall_pass_to_k":0.0
-        }
-
-        for profile in self.profiles:
-            results[profile] = {}
-
-            for task_id in self.tasks:
-
-                # since we consider each profile + task combo 1 eval instance
-                total_id = f"{profile}_{task_id}"
-
-                # no compaction, proposal says it's separate and it doesn't use tasks for now
-                # Run rule-based evaluation
-                r_eval = RuleBasedEvaluator(task, profile)
-                r_r = r_eval.evaluate()
-
-                # Run single-pass evaluation
-                s_eval = SinglePassEvaluator(task, profile)
-                s_r = s_eval.evaluate()
-
-                # for now, treat each eval type as 1 trial
-                results[total_id] = {
-                    "rule_based": r_r,
-                    "single_pass": s_r
-                }
-            # Run compact evaluation
-            c_eval = CompactEvaluator(self.limit, profile)
-            results[total_id]["compaction"] = c_eval.evaluate()
-        
-        save_results(results, './results.json')
-
-        return results
- """

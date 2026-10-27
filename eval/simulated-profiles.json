@@ -1,11 +1,10 @@
 {
-    "profile1": {
-        
-    },
-    "profile2": {
-        
-    },
-    "profile3": {
-        
-    }
+    "one-interest": 
+        "Student is interested in AI-Alignment",
+    "no-interest": 
+        "Student is interested in any activity that fits their schedule",
+    "multiple-interest": 
+        "Student is a CS undergraduate interested in AI-Alignment and volunteering",
+    "long-context":
+        ""
 }

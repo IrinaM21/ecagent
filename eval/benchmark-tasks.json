@@ -1,32 +1,9 @@
 {
-    "task1": {
-        
-    },
-    "task2": {
-        
-    },
-    "task3": {
-        
-    },
-    "task4": {
-        
-    },
-    "task5": {
-        
-    },
-    "task6": {
-        
-    },
-    "task7": {
-        
-    },
-    "task8": {
-        
-    },
-    "task9": {
-        
-    },
-    "task10": {
-        
-    }
+    "match-interest": "Can you find me an activity?",
+    "one-schedule": "Can you find me an activity that works with my schedule?",
+    "schedule-eca": "",
+    "multiple-schedule": "Can you find me activities this week?",
+    "adapt-schedule": "",
+    "resolve-conflicting": "",
+    "multi-step": ""
 }
