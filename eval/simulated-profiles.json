@@ -157,6 +157,7 @@
         "match-interest",
         "one-schedule",
         "schedule-eca",
+        "choose-conflicting",
         "multiple-schedule",
         "multi-step"
       ],
@@ -755,7 +756,10 @@
         "match-interest",
         "one-schedule",
         "schedule-eca",
+        "choose-conflicting",
         "multiple-schedule",
+        "multi-restriction",
+        "resolve-conflicting",
         "multi-step"
       ],
       "current_truth": {
@@ -1543,7 +1547,10 @@
         "match-interest",
         "one-schedule",
         "schedule-eca",
+        "choose-conflicting",
         "multiple-schedule",
+        "multi-restriction",
+        "resolve-conflicting",
         "multi-step"
       ],
       "current_truth": {
@@ -2234,9 +2241,7 @@
       },
       {
         "id": "U2",
-        "for_tasks": [
-          "resolve-conflicting"
-        ],
+        "for_tasks": [],
         "message": {
           "role": "user",
           "content": "Change of plans for this weekend only: I'm staying on campus Saturday Nov 7 for a friend's birthday dinner at 18:00, so I'm free that Saturday from 12:00 to 17:00. I'm still going home Sunday. Can you find me something that Saturday afternoon?"
@@ -2254,9 +2259,9 @@
         "match-interest",
         "one-schedule",
         "schedule-eca",
+        "choose-conflicting",
         "multiple-schedule",
         "adapt-schedule",
-        "resolve-conflicting",
         "multi-step"
       ],
       "current_truth": {
@@ -2918,9 +2923,7 @@
     "runtime_updates": [
       {
         "id": "U1",
-        "for_tasks": [
-          "adapt-schedule"
-        ],
+        "for_tasks": [],
         "message": {
           "role": "user",
           "content": "Orchestra just cancelled Thursday's rehearsal (Nov 5), so I'm free that evening after my capstone presentation. Can you update my plan?"
@@ -2928,9 +2931,7 @@
       },
       {
         "id": "U2",
-        "for_tasks": [
-          "resolve-conflicting"
-        ],
+        "for_tasks": [],
         "message": {
           "role": "user",
           "content": "Is there anything I could do Wednesday from 12:00 to 13:00 this week?"
@@ -2947,10 +2948,10 @@
         "match-interest",
         "one-schedule",
         "schedule-eca",
+        "choose-conflicting",
         "multiple-schedule",
-        "adapt-schedule",
-        "resolve-conflicting",
-        "multi-step"
+        "multi-step",
+        "long-context"
       ],
       "current_truth": {
         "student": {
