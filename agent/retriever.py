@@ -183,7 +183,7 @@ class Retriever(Utils):
         <interests>{json.dumps(state.get("interests", []))}</interests>
         <goals>{json.dumps(state.get("goals", []))}</goals>
         Reply with the keywords on one line, separated by commas."""
-                text = self.text_of(self.call([{"role": "user", "content": prompt}], max_tokens=100, usage=usage))
+        text = self.text_of(self.call([{"role": "user", "content": prompt}], max_tokens=100, usage=usage))
         return [w.strip().lower() for w in text.split(",") if w.strip()][:10]
 
     def retrieve(self, query, state, start_date=None, end_date=None, k=3, threshold=7, usage=None):
