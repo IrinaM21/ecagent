@@ -1,2 +1,4 @@
 requests
 beautifulsoup4
+tzdata                # time zones for email calendar invites (Windows has no built-in time-zone database)
+google-auth-oauthlib  # only for the one-time Google login: python -m scripts.google_login
