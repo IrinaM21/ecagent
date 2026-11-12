@@ -15,7 +15,7 @@ from eval.eval import AGENTS, ROOT, Evaluator  # noqa: E402
 from eval.fixtures import build_fixtures  # noqa: E402
 
 LIVE = os.environ.get("ECAGENT_LIVE_TESTS") == "1"
-RAW = ROOT / "eval" / "results" / "live-test.json"  # raw records of the last live test run
+RAW = ROOT / "eval" / "results" / "live-test.json"  # raw records of every live test run, timestamped
 
 
 @unittest.skipUnless(LIVE, "live API test: set ECAGENT_LIVE_TESTS=1")
@@ -29,8 +29,11 @@ class TestLiveTrial(LoggedTest):
             record = cls.ev.run_trial(agent, "P1-simple", "schedule-eca", 1)
             record["auto_grade"] = cls.ev.auto_grade(record)
             cls.records[agent] = record
-        with open(RAW, "w") as f:  # raw per-trial records, like eval/early/early-results.json
-            json.dump({"run": datetime.now().isoformat(timespec="seconds"), "records": cls.records}, f, indent=1)
+        # raw per-trial records, one timestamped run appended per test run (earlier runs are kept)
+        runs = json.loads(RAW.read_text()) if RAW.exists() else []
+        runs = runs if isinstance(runs, list) else [runs]  # the first run was saved on its own
+        runs.append({"run": datetime.now().isoformat(timespec="seconds"), "records": cls.records})
+        RAW.write_text(json.dumps(runs, indent=1))
 
     def test_every_agent_completes_the_scripted_turns(self):
         turns = len(self.ev.tasks["schedule-eca"]["turns"])

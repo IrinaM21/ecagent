@@ -41,9 +41,9 @@ ecagent/
 │   │   └── validate_profiles.py    # Schema + ground-truth consistency checks
 │   ├── early/                      # Early test (eval_pip): early_eval.py + its results
 │   └── results/
-│       ├── results.json            # Eval results, one batch per eval run (empty: the full eval hasn't run yet)
+│       ├── results.json            # Eval results: one batch per run (batch_id = start time) + its step 7 report; old runs kept
 │       ├── pipeline-check.json/.txt # Pipeline check: raw records + plain-text summary
-│       ├── live-test.json          # Raw records of the last unit_tests/test_live.py run
+│       ├── live-test.json          # Raw records of every unit_tests/test_live.py run, timestamped
 │       └── early-results.txt       # Early test summary
 │
 ├── scraper/                        # Campus event + RSO scraping
@@ -94,11 +94,12 @@ ECAGENT_LIVE_TESTS=1 python -m unittest unit_tests.test_live -v  # real API call
 ### Eval
 
 ```bash
+python -m eval.eval "what changed"   # full eval: 3 trials per agent per eval_instance (324 trials) -> eval/results/results.json
 python -m eval.pipeline_check       # 1 trial per agent per eval_instance (108 trials, ~$6), docs/pipeline-check.md
 python -m eval.manual_grading       # manual labels + quality for the last batch in eval/results/results.json
 ```
 
-The full eval (`Evaluator.run()`, 3 trials per agent per eval_instance, 324 trials) hasn't been run yet; the README TODOs from the pipeline check come first.
+The full eval hasn't been run yet; the README TODOs from the pipeline check come first. Each run is a new batch in `eval/results/results.json`, timestamped by its start time (`batch_id`) with its description; earlier runs are never replaced. Each batch stores its step 7 report (`report`, `docs/agent.md` Experimental Setup), undecided (`None`) until manual grading is done and recomputed after every `manual_grading` session.
 
 ### Google Calendar + Gmail (real use)
 

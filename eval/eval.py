@@ -319,7 +319,9 @@ class Evaluator(Utils):
         if Path(path).exists() and Path(path).stat().st_size:  # results.json starts out empty
             with open(path) as f:
                 batches = json.load(f)
-        batches = [b for b in batches if b["batch_id"] != batch["batch_id"]] + [batch]  # replace if saved before
+        # batch_id = the run's start time: this run is updated in place as it saves after every trial;
+        # earlier runs (other timestamps) are never touched
+        batches = [b for b in batches if b["batch_id"] != batch["batch_id"]] + [batch]
         # write to a temp file first so an interrupt mid-write can't corrupt results.json
         Path(path).parent.mkdir(parents=True, exist_ok=True)
         tmp = Path(str(path) + ".tmp")
@@ -344,3 +346,23 @@ class Evaluator(Utils):
                     batch["trials"].append(record)
                     self.save_results(batch, path)
         return batch
+
+
+# Run the full eval from the repo root (real API calls, needs ANTHROPIC_API_KEY):
+#   python -m eval.eval "what changed since the last run"
+# 3 trials per agent/ablation per eval_instance (324 trials), saved after every trial to eval/results/results.json.
+# The step 7 report is saved in the batch ("report"); python -m eval.manual_grading recomputes it after grading.
+def main():
+    import sys
+    from eval.fixtures import build_fixtures
+    if len(sys.argv) < 2:
+        raise SystemExit('Usage: python -m eval.eval "description of this run (what changed)"')
+    build_fixtures.main()  # fails loudly if a fixture doesn't match its task/profiles
+    ev = Evaluator(sys.argv[1])
+    batch = ev.run()
+    batch["report"] = ev.report(batch["trials"])  # undecided (None) until manual grading is done
+    ev.save_results(batch)
+
+
+if __name__ == "__main__":
+    main()

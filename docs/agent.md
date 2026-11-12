@@ -52,7 +52,7 @@ Supervisor loop [2]: for each student message, memory resolves contradictions an
 4. Pre-compute the cross product (`profiles` x `tasks`), limited to each task's profiles --> 36 evaluative instance pairs.
 5. For each agent/ablation: (1) randomly select an instance (2) run it for 3 trials 
 6. Score results: (1) pass^3 (auto in loop: picks checked against the fixture's answer key + hard constraints; the reply text checks are labeled manually, blind; required actions are a separate `full_agent` score, not compared to baselines), (2) manually grade subjective quality from 1 to 5
-7. Report results: Overall pass/fail (`pass_overall=True` if average pass^3 per instance is at least 10 percentage points higher than both baselines', mean per-trial quality scores >= 4, with standard deviation <= 0.5; else, `False`) + pass^3 and quality score for each instance/trial
+7. Report results (`eval/results/results.json`): Overall pass/fail (`pass_overall=True` if average pass^3 per instance is at least 10 percentage points higher than both baselines', mean per-trial quality scores >= 4, with standard deviation <= 0.5; else, `False`) + pass^3 and quality score for each instance/trial
 
 ## Results
 

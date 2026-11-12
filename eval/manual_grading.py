@@ -21,7 +21,7 @@ import os
 import random
 from pathlib import Path
 
-from eval.eval import PROFILES, TASKS, manual_checks
+from eval.eval import PROFILES, TASKS, Evaluator, manual_checks
 
 ROOT = Path(__file__).resolve().parent.parent
 RESULTS = ROOT / "eval" / "results" / "results.json"
@@ -170,6 +170,9 @@ def main():
         save_batches(batches, RESULTS)  # trial is a reference into batches, so this saves the labels/score
         graded += 1
 
+    # labels/scores change pass^3 and step 7, so the batch's report is recomputed and saved (no API calls)
+    batch["report"] = Evaluator(batch.get("description", ""), api_key="not-needed").report(batch["trials"])
+    save_batches(batches, RESULTS)
     remaining = sum(1 for t in batch["trials"] if t.get("quality") is None)
     print(f"\nGraded {graded} trials this session, {remaining} still without a quality score in this batch.")
 
