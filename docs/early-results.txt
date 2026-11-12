@@ -1,0 +1,91 @@
+EARLY TESTING RESULTS - ecagent (CS 498)
+Run on 2026-10-27
+
+SETUP
+- Tasks: Task 1 ("Can you find me an activity?") and Task 2 ("Can you find
+  me an activity that works with my schedule?").
+- Profiles: all 5 simulated student profiles (P1-simple, P2-busy, P3-picky,
+  P4-changing, P5-long-context).
+- Runs: one trial per system, profile and task, for 30 runs in total.
+  Total cost: $2.25.
+- Data: a frozen snapshot of our scraped database covering the week of
+  Nov 2-8, 2026 (165 events, 1,228 clubs). "Today" is fixed to Nov 2.
+
+SYSTEMS
+- Rule-based: keyword-matches the student's interests against events, keeps
+  the ones that fit their schedule, and falls back to a club or any event
+  that fits. Uses no LLM.
+- Single-pass: Claude Sonnet 5 makes one call with every event and club in
+  the prompt (~35k tokens) and no tools.
+- Agent: Claude Sonnet 5 with database search tools (search_events,
+  search_clubs), up to 10 turns.
+
+GRADING (automatic, one recommendation per run)
+- Exists: the activity is really in the database.
+- Fits: the event falls inside the student's free time.
+- Interest: the activity matches one of the student's interests.
+- Avoid: the activity hits a dislike. This is an automatic fail.
+- Task 1 passes if the activity exists, matches an interest, avoids
+  dislikes, and is either a club or an event that fits the schedule.
+- Task 2 passes if it is an event that exists, fits the schedule, and
+  avoids dislikes.
+
+RESULTS
+System        Task 1   Task 2   Matched interest   Hit a dislike   Cost
+Rule-based    3/5      4/5      5/10               2/10            $0.00
+Single-pass   5/5      0/5      10/10              1/10            $1.48
+Agent         5/5      0/5      10/10              0/10            $0.77
+
+Per profile (Task 1 / Task 2):
+Profile           Rule-based    Single-pass   Agent
+P1-simple         pass / pass   pass / fail   pass / fail
+P2-busy           pass / pass   pass / fail   pass / fail
+P3-picky          pass / pass   pass / fail   pass / fail
+P4-changing       fail / pass   pass / fail   pass / fail
+P5-long-context   fail / fail   pass / fail   pass / fail
+
+No system recommended an activity that isn't in the database.
+The agent made 6 tool calls per run on average (range 2-11).
+
+FINDINGS
+1. The LLM systems personalize well; the rule-based baseline doesn't.
+   Both LLM systems matched an interest in 10/10 runs and picked up
+   preferences that changed during the conversation (P4, P5).
+   Rule-based missed those changes: its "personal finance" interest
+   matched a polymer engineering club, and a dropped "improv comedy"
+   interest matched a "Divine Comedy" art lecture.
+
+2. The LLMs' 0/5 on Task 2 is mostly a data gap, not a reasoning failure.
+   They recommended clubs, and we have no club meeting times, so the
+   grader can't confirm a club fits the schedule. Their replies show they
+   did check the schedule first. Very few relevant events fit any
+   profile's schedule that week (0-3 per profile).
+
+3. Rule-based "wins" Task 2 by ignoring relevance. When nothing matches,
+   it picks any event that fits the schedule, for example office hours for
+   a photography student. Only 2 of its 5 Task 2 picks matched an
+   interest. Task 2's current success criteria reward this.
+
+4. The agent was half the cost of single-pass and more careful.
+   Single-pass recommended a club that emphasizes networking to P3, who
+   lists networking as a dislike, and it stated details that aren't in
+   our data. The agent saw the same club, rejected it for that reason,
+   and chose a better fit.
+
+5. Both LLM systems sometimes make schedule claims about clubs that can't
+   be checked, such as "it fits well around your classes". This would
+   mislead a real student.
+
+LIMITATIONS
+- One trial per run, so these are early indications, not stable rates.
+- Keyword grading is lenient and misses synonyms.
+- Cost, alcohol, in-person format and weekly caps are not checked.
+- Only Tasks 1 and 2 are covered. The others need a simulated calendar
+  tool.
+
+NEXT STEPS
+1. Get club meeting times. This is the main blocker for Task 2.
+2. Decide whether Task 2 should also require an interest match.
+3. Add hand-checked "known good" answers to each profile so grading
+   doesn't rely on keyword matching.
+4. Run 3+ trials per run once the above is fixed.
