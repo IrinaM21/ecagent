@@ -1,9 +1,367 @@
 {
-    "match-interest": "Can you find me an activity?",
-    "one-schedule": "Can you find me an activity that works with my schedule?",
-    "schedule-eca": "",
-    "multiple-schedule": "Can you find me activities this week?",
-    "adapt-schedule": "",
-    "resolve-conflicting": "",
-    "multi-step": ""
+  "match-interest": {
+    "paper_task": 1,
+    "difficulty": "easy",
+    "capability": "ECA retrieval, personalization",
+    "description": "Recommend an ECA matching the student's main interest.",
+    "profiles": [
+      "P1-simple",
+      "P2-busy",
+      "P3-picky",
+      "P4-changing",
+      "P5-long-context"
+    ],
+    "turns": [
+      {
+        "role": "user",
+        "content": "Can you find me an activity?"
+      }
+    ],
+    "required_actions": [
+      "retrieve"
+    ],
+    "checks": [
+      "exists",
+      "hard_constraints",
+      "interest",
+      "no_avoid",
+      "club_or_fitting_event"
+    ],
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
+  },
+  "one-schedule": {
+    "paper_task": 2,
+    "difficulty": "easy",
+    "capability": "Schedule constraint reasoning",
+    "description": "Recommend an ECA that fits the student's schedule.",
+    "profiles": [
+      "P1-simple",
+      "P2-busy",
+      "P3-picky",
+      "P4-changing",
+      "P5-long-context"
+    ],
+    "turns": [
+      {
+        "role": "user",
+        "content": "Can you find me an activity that works with my schedule?"
+      }
+    ],
+    "required_actions": [
+      "retrieve",
+      "schedule"
+    ],
+    "checks": [
+      "exists",
+      "hard_constraints",
+      "interest",
+      "no_avoid",
+      "is_event",
+      "fits_schedule"
+    ],
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
+  },
+  "schedule-eca": {
+    "paper_task": 3,
+    "difficulty": "medium",
+    "capability": "Personalization, calendar action",
+    "description": "Find an ECA that fits the student's interests and schedule, then add it to the calendar.",
+    "profiles": [
+      "P1-simple",
+      "P2-busy",
+      "P3-picky",
+      "P4-changing",
+      "P5-long-context"
+    ],
+    "turns": [
+      {
+        "role": "user",
+        "content": "Can you find a {interest} activity this week that fits my schedule and put it on my calendar?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, please add it to my calendar."
+      }
+    ],
+    "required_actions": [
+      "retrieve",
+      "schedule",
+      "add_event"
+    ],
+    "checks": [
+      "exists",
+      "hard_constraints",
+      "interest",
+      "no_avoid",
+      "fits_schedule",
+      "events_added:1",
+      "reply_matches_calendar"
+    ],
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
+  },
+  "choose-conflicting": {
+    "paper_task": 4,
+    "difficulty": "medium",
+    "capability": "Constraint reasoning, candidate selection",
+    "description": "Pick one valid event from several overlapping ones, then schedule it.",
+    "profiles": [
+      "P1-simple",
+      "P2-busy",
+      "P3-picky",
+      "P4-changing",
+      "P5-long-context"
+    ],
+    "turns": [
+      {
+        "role": "user",
+        "content": "There are a few {interest} events this week that happen at the same time. Can you pick the one that works best for me and add it to my calendar?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, please add it to my calendar."
+      }
+    ],
+    "required_actions": [
+      "retrieve",
+      "schedule",
+      "add_event"
+    ],
+    "checks": [
+      "exists",
+      "hard_constraints",
+      "interest",
+      "no_avoid",
+      "fits_schedule",
+      "events_added:1",
+      "picked_from_overlap_set",
+      "reply_matches_calendar"
+    ],
+    "overlap_set": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)",
+    "note": "Profiles may be dropped once the database shows which ones have overlapping events that each fit the schedule.",
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
+  },
+  "multiple-schedule": {
+    "paper_task": 5,
+    "difficulty": "medium",
+    "capability": "Multi-step planning",
+    "description": "Schedule two ECAs, one per interest, with no conflicts with the calendar or each other. A student with only one interest asks for two different activities for that interest ({interest_1} = {interest_2}); one_per_interest then means two distinct activities that each match it.",
+    "profiles": [
+      "P1-simple",
+      "P2-busy",
+      "P3-picky",
+      "P4-changing",
+      "P5-long-context"
+    ],
+    "turns": [
+      {
+        "role": "user",
+        "content": "Can you find me one {interest_1} activity and one {interest_2} activity this week and add both to my calendar?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, please add it to my calendar."
+      }
+    ],
+    "required_actions": [
+      "retrieve",
+      "schedule",
+      "add_event",
+      "add_event"
+    ],
+    "checks": [
+      "exists",
+      "hard_constraints",
+      "interest",
+      "no_avoid",
+      "fits_schedule",
+      "events_added:2",
+      "one_per_interest",
+      "no_overlap_between_added",
+      "reply_matches_calendar"
+    ],
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
+  },
+  "multi-restriction": {
+    "paper_task": 6,
+    "difficulty": "hard",
+    "capability": "Reasoning over multiple constraints",
+    "description": "Recommend an ECA that meets several restrictions. Only restrictions the data can show are used: day/time windows, earliest/latest time, weekly caps, event type, excluded topics.",
+    "profiles": [
+      "P2-busy",
+      "P3-picky"
+    ],
+    "turns": [
+      {
+        "role": "user",
+        "content": "Can you find me a {interest} {event_type} on {day} that fits my schedule?"
+      }
+    ],
+    "required_actions": [
+      "retrieve",
+      "schedule"
+    ],
+    "checks": [
+      "exists",
+      "hard_constraints",
+      "interest",
+      "no_avoid",
+      "is_event",
+      "fits_schedule",
+      "meets_request_restrictions"
+    ],
+    "request_restrictions": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)",
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
+  },
+  "adapt-schedule": {
+    "paper_task": 7,
+    "difficulty": "hard",
+    "capability": "Replanning, state updating",
+    "description": "Replace a planned ECA that now conflicts with the student's calendar.",
+    "profiles": [
+      "P4-changing"
+    ],
+    "turns": [
+      {
+        "role": "user",
+        "runtime_update": "U1"
+      },
+      {
+        "role": "user",
+        "content": "Yes, please add it to my calendar."
+      }
+    ],
+    "required_actions": [
+      "remove_event",
+      "schedule",
+      "add_event"
+    ],
+    "checks": [
+      "exists",
+      "hard_constraints",
+      "interest",
+      "no_avoid",
+      "fits_schedule_after_update",
+      "planned_event_removed",
+      "events_added:1",
+      "reply_matches_calendar"
+    ],
+    "setup": {
+      "calendar": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)",
+      "note": "One activity already on the calendar that conflicts with U1 (STAT 400 review, Thu Nov 19 18:00-20:00)."
+    },
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
+  },
+  "resolve-conflicting": {
+    "paper_task": 8,
+    "difficulty": "hard",
+    "capability": "Preference prioritization",
+    "description": "Choose an ECA using the student's stated preference order.",
+    "profiles": [
+      "P2-busy",
+      "P3-picky"
+    ],
+    "turns": [
+      {
+        "role": "user",
+        "content": "Can you find me an activity this week that fits my schedule? Go with what I said matters most to me."
+      }
+    ],
+    "required_actions": [
+      "retrieve",
+      "schedule"
+    ],
+    "checks": [
+      "exists",
+      "hard_constraints",
+      "interest",
+      "no_avoid",
+      "is_event",
+      "fits_schedule",
+      "best_ranked_preference"
+    ],
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
+  },
+  "multi-step": {
+    "paper_task": 9,
+    "difficulty": "hard",
+    "capability": "Tool use, error recovery, verification",
+    "description": "Find, register for and schedule a workshop, recovering from a tool error.",
+    "profiles": [
+      "P1-simple",
+      "P2-busy",
+      "P3-picky",
+      "P4-changing",
+      "P5-long-context"
+    ],
+    "turns": [
+      {
+        "role": "user",
+        "content": "Can you find a {interest} workshop this week that fits my schedule, register me for it, and add it to my calendar?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, please add it to my calendar."
+      }
+    ],
+    "required_actions": [
+      "retrieve",
+      "schedule",
+      "register",
+      "register",
+      "add_event"
+    ],
+    "checks": [
+      "exists",
+      "hard_constraints",
+      "interest",
+      "no_avoid",
+      "fits_schedule",
+      "registered",
+      "events_added:1",
+      "reply_matches_calendar"
+    ],
+    "tool_failure": {
+      "tool": "register",
+      "fail_on_call": 1,
+      "error": "temporary server error",
+      "note": "Fails on the first call only; works on retry."
+    },
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
+  },
+  "long-context": {
+    "paper_task": 10,
+    "difficulty": "hard",
+    "capability": "Long-context management",
+    "description": "Schedule an ECA using information from a long conversation history.",
+    "profiles": [
+      "P5-long-context"
+    ],
+    "turns": [
+      {
+        "role": "user",
+        "content": "Can you pick one activity for me this week and put it on my calendar?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, please add it to my calendar."
+      }
+    ],
+    "required_actions": [
+      "retrieve",
+      "schedule",
+      "add_event"
+    ],
+    "checks": [
+      "exists",
+      "hard_constraints",
+      "interest",
+      "no_avoid",
+      "fits_schedule",
+      "events_added:1",
+      "no_superseded_facts",
+      "reply_matches_calendar"
+    ],
+    "note": "The request names no interest on purpose: the agent must use the current interests and commitments from the history.",
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
+  }
 }

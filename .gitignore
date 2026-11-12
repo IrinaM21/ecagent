@@ -1,1 +1,16 @@
 __pycache__/
+
+agent/__pycache__
+
+eval/__pycache__
+
+scraper/__pycache__
+
+# secrets: keep Google credentials outside the repo (agent/google_auth.py); these catch copies
+client_secret*.json
+*token*.json
+# generated at run time
+agent/model_log.json
+memory.json
+# live scrape, rewritten every week (the frozen snapshot and fixture DBs are committed)
+data/campus.db

@@ -1,0 +1,329 @@
+{
+ "task": "resolve-conflicting",
+ "status": "frozen 2026-11-12 after review (never change after seeing eval results)",
+ "written_from": "eval/benchmark-tasks.json (resolve-conflicting) + eval/profiles/simulated-profiles.json (P2/P3 current_truth incl. soft_preferences ranks, available_windows, hard_constraints, dislikes) only",
+ "week": [
+  "2026-11-16",
+  "2026-11-22"
+ ],
+ "events": [
+  {
+   "event_id": 8501,
+   "date": "2026-11-19",
+   "title": "Embedded Systems Hack Night",
+   "start_time": "18:00",
+   "end_time": "20:00",
+   "location": "Engineering Quad, ECEB 2017",
+   "event_type": "Social/Informal Event",
+   "summary": "Work on microcontroller and robotics side projects with other students. Boards and parts provided. Free, in person."
+  },
+  {
+   "event_id": 8502,
+   "date": "2026-11-16",
+   "title": "Startup Resume Workshop",
+   "start_time": "18:00",
+   "end_time": "19:30",
+   "location": "Engineering Quad, Siebel Center 1404",
+   "event_type": "Conference/Workshop",
+   "summary": "Founders review student resumes for startup internships and explain what they look for. Free, in person."
+  },
+  {
+   "event_id": 8503,
+   "date": "2026-11-22",
+   "title": "Sunday Pickup Basketball",
+   "start_time": "14:00",
+   "end_time": "16:00",
+   "location": "Activities and Recreation Center (ARC), Court 3",
+   "event_type": "Health/Fitness",
+   "summary": "Casual pickup games, all skill levels, just show up. Free with student i-card, in person."
+  },
+  {
+   "event_id": 8504,
+   "date": "2026-11-22",
+   "title": "Robotics Build Session",
+   "start_time": "10:00",
+   "end_time": "12:00",
+   "location": "Engineering Quad, ECEB Makerspace",
+   "event_type": "Conference/Workshop",
+   "summary": "Build and test small mobile robots in teams. Tools provided. Free, in person."
+  },
+  {
+   "event_id": 8505,
+   "date": "2026-11-17",
+   "title": "Robotics Lab Open House",
+   "start_time": "14:00",
+   "end_time": "15:30",
+   "location": "Engineering Quad, Coordinated Science Lab",
+   "event_type": "Reception/Open House",
+   "summary": "Tour research robotics labs and see live demos. Free, in person."
+  },
+  {
+   "event_id": 8506,
+   "date": "2026-11-21",
+   "title": "Robotics Competition Prep Day",
+   "start_time": "13:30",
+   "end_time": "17:30",
+   "location": "Engineering Quad, ECEB Makerspace",
+   "event_type": "Conference/Workshop",
+   "summary": "A four-hour build and practice session for the spring robotics competition. Free, in person."
+  },
+  {
+   "event_id": 8511,
+   "date": "2026-11-17",
+   "title": "Free Clinic Volunteer Training",
+   "start_time": "15:30",
+   "end_time": "17:00",
+   "location": "McKinley Health Center, South Quad area",
+   "event_type": "Community Service",
+   "summary": "Small-group training (about 12 people) for students who want to volunteer at the free clinic's front desk. Free, in person."
+  },
+  {
+   "event_id": 8512,
+   "date": "2026-11-18",
+   "title": "Hospital Volunteer Evening Shift",
+   "start_time": "18:00",
+   "end_time": "20:00",
+   "location": "Carle Foundation Hospital, Urbana (campus bus line 22)",
+   "event_type": "Community Service",
+   "summary": "Help visitors and patients at the hospital's main desk with about 40 other volunteers. Free, in person."
+  },
+  {
+   "event_id": 8513,
+   "date": "2026-11-16",
+   "title": "Contemporary Dance Drop-in",
+   "start_time": "17:00",
+   "end_time": "18:00",
+   "location": "Freer Hall dance studio, South Quad",
+   "event_type": "Health/Fitness",
+   "summary": "Casual, non-competitive contemporary dance class for about 15 students, no experience needed. Free, in person."
+  },
+  {
+   "event_id": 8514,
+   "date": "2026-11-19",
+   "title": "Campus Garden Sustainability Workday",
+   "start_time": "16:30",
+   "end_time": "18:00",
+   "location": "Sustainable Student Farm, South Farms (campus bus line 9)",
+   "event_type": "Community Service",
+   "summary": "Small group (about 10 people) prepares garden beds for winter and learns composting. Free, in person."
+  },
+  {
+   "event_id": 8515,
+   "date": "2026-11-20",
+   "title": "Blood Drive Volunteer Shift",
+   "start_time": "15:00",
+   "end_time": "17:00",
+   "location": "Illini Union, Room 314",
+   "event_type": "Community Service",
+   "summary": "Greet donors and help at the check-in table of the campus blood drive. Free, in person."
+  },
+  {
+   "event_id": 8516,
+   "date": "2026-11-16",
+   "title": "Health Volunteering Info Session",
+   "start_time": "18:00",
+   "end_time": "19:00",
+   "location": "Online (Zoom)",
+   "event_type": "Informational",
+   "summary": "Learn about clinic and hospital volunteering options. Virtual only, held on Zoom. Free."
+  },
+  {
+   "event_id": 8517,
+   "date": "2026-11-19",
+   "title": "Pre-Health Networking Mixer",
+   "start_time": "17:00",
+   "end_time": "19:00",
+   "location": "Illini Union Ballroom",
+   "event_type": "Professional Development",
+   "summary": "Network with recruiters from hospitals and clinics about volunteer and job openings. About 150 attendees. Free, in person."
+  },
+  {
+   "event_id": 8518,
+   "date": "2026-11-17",
+   "title": "Wine and Watercolor Night",
+   "start_time": "18:30",
+   "end_time": "20:30",
+   "location": "Downtown Champaign art bar (campus bus line 5)",
+   "event_type": "Social/Informal Event",
+   "summary": "Paint a watercolor while enjoying a glass of wine. Ticket $20 includes one drink, 21+, in person."
+  },
+  {
+   "event_id": 8519,
+   "date": "2026-11-17",
+   "title": "EMT Basic Course: First Session",
+   "start_time": "18:00",
+   "end_time": "21:00",
+   "location": "Campus Recreation Center, Room 101",
+   "event_type": "Health/Fitness",
+   "summary": "First evening of a semester-long EMT certification course. Course fee $150, in person."
+  },
+  {
+   "event_id": 8521,
+   "date": "2026-11-16",
+   "title": "Ancient Rome Lecture Series: The Forum",
+   "start_time": "12:00",
+   "end_time": "13:00",
+   "location": "Gregory Hall 100",
+   "event_type": "Lecture",
+   "summary": "A history professor on the Roman Forum. Free, in person."
+  },
+  {
+   "event_id": 8522,
+   "date": "2026-11-19",
+   "title": "Cookie Decorating Social",
+   "start_time": "18:00",
+   "end_time": "19:00",
+   "location": "Illini Union, Courtyard Cafe",
+   "event_type": "Social/Informal Event",
+   "summary": "Decorate cookies and meet other students. Free, in person."
+  },
+  {
+   "event_id": 8523,
+   "date": "2026-11-22",
+   "title": "Astronomy Night at the Observatory",
+   "start_time": "19:00",
+   "end_time": "20:00",
+   "location": "Campus Observatory",
+   "event_type": "Social/Informal Event",
+   "summary": "Look at Saturn and the Moon through the historic telescope. Free, in person."
+  }
+ ],
+ "clubs": [
+  {
+   "club_id": 8951,
+   "name": "Robotics Society",
+   "categories": "Engineering, Technology",
+   "mission": "Students build robots for campus and national competitions. Free to join."
+  },
+  {
+   "club_id": 8952,
+   "name": "Student Health Volunteers",
+   "categories": "Health, Service",
+   "mission": "Organizes in-person volunteering at local clinics and hospitals. Free to join."
+  },
+  {
+   "club_id": 8953,
+   "name": "Contemporary Dance Collective",
+   "categories": "Arts, Dance",
+   "mission": "Casual contemporary dance practice for students. Dues $10 per semester."
+  }
+ ],
+ "answer_key": {
+  "_how": "Judgment labels only, per profile. Every activity not listed for a profile is irrelevant to it. breaks = hard-constraint ids the activity text shows it breaks (cost, format, alcohol, location; weekly caps such as max_hours_per_week are listed too and also checked in code); schedule fit is NOT stored, code computes it from available_windows. preference_satisfied = which of the student's current soft_preferences (current_truth.soft_preferences, by id) each relevant event satisfies. Valid = event that is relevant, not a dislike, breaks nothing, and fits the schedule. Correct answer (best_ranked_preference) = the valid event that is best when the satisfied preferences are compared lexicographically by rank (S1 first, then the next rank, ...).",
+  "P2-busy": {
+   "relevant": [
+    "event:8501",
+    "event:8502",
+    "event:8503",
+    "event:8504",
+    "event:8505",
+    "event:8506",
+    "club:8951"
+   ],
+   "dislike": [],
+   "breaks": {
+    "event:8506": [
+     "H5"
+    ]
+   },
+   "preference_satisfied": {
+    "event:8501": [
+     "S1",
+     "S3",
+     "S4"
+    ],
+    "event:8502": [
+     "S2",
+     "S3",
+     "S4"
+    ],
+    "event:8503": [
+     "S5"
+    ],
+    "event:8504": [
+     "S1",
+     "S3"
+    ],
+    "event:8505": [
+     "S1",
+     "S3",
+     "S4"
+    ],
+    "event:8506": [
+     "S1",
+     "S3",
+     "S4"
+    ]
+   },
+   "reference_solution": [
+    "event:8501"
+   ]
+  },
+  "P3-picky": {
+   "relevant": [
+    "event:8511",
+    "event:8512",
+    "event:8513",
+    "event:8514",
+    "event:8515",
+    "event:8516",
+    "event:8517",
+    "event:8519",
+    "club:8952",
+    "club:8953"
+   ],
+   "dislike": [
+    "event:8517"
+   ],
+   "breaks": {
+    "event:8516": [
+     "H7"
+    ],
+    "event:8518": [
+     "H5"
+    ],
+    "event:8519": [
+     "H6"
+    ]
+   },
+   "preference_satisfied": {
+    "event:8511": [
+     "S1",
+     "S2",
+     "S3",
+     "S4"
+    ],
+    "event:8512": [
+     "S1"
+    ],
+    "event:8513": [
+     "S2",
+     "S3",
+     "S4",
+     "S5"
+    ],
+    "event:8514": [
+     "S2",
+     "S3",
+     "S6"
+    ],
+    "event:8515": [
+     "S1",
+     "S3"
+    ],
+    "event:8516": [
+     "S1"
+    ],
+    "event:8517": [
+     "S1"
+    ],
+    "event:8519": [
+     "S1"
+    ]
+   },
+   "reference_solution": [
+    "event:8511"
+   ]
+  }
+ }
+}

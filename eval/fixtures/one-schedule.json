@@ -1,0 +1,319 @@
+{
+ "task": "one-schedule",
+ "status": "frozen 2026-11-12 after review (never change after seeing eval results)",
+ "written_from": "eval/benchmark-tasks.json (one-schedule) + eval/profiles/simulated-profiles.json (current_truth, available_windows, hard_constraints, task_fills) only",
+ "week": [
+  "2026-11-16",
+  "2026-11-22"
+ ],
+ "events": [
+  {
+   "event_id": 4001,
+   "date": "2026-11-21",
+   "title": "Sunrise Photo Walk",
+   "start_time": "08:00",
+   "end_time": "09:30",
+   "location": "Arboretum entrance (campus bus line 9)",
+   "event_type": "Social/Informal Event",
+   "summary": "Early morning photo walk through the Arboretum for beginners. Bring any camera or phone. Free, in person."
+  },
+  {
+   "event_id": 4002,
+   "date": "2026-11-19",
+   "title": "Photo Portfolio Review",
+   "start_time": "11:00",
+   "end_time": "12:00",
+   "location": "Art and Design Building, Room 140",
+   "event_type": "Informational",
+   "summary": "Get feedback on your photos from a photography instructor. Free, in person."
+  },
+  {
+   "event_id": 4003,
+   "date": "2026-11-19",
+   "title": "Microcontroller Basics Lab",
+   "start_time": "11:00",
+   "end_time": "12:30",
+   "location": "Engineering Quad, ECEB 2070",
+   "event_type": "Conference/Workshop",
+   "summary": "Hands-on intro to embedded systems with Arduino boards. Boards provided. Free, in person."
+  },
+  {
+   "event_id": 4004,
+   "date": "2026-11-18",
+   "title": "Founder Fireside Chat",
+   "start_time": "18:00",
+   "end_time": "19:30",
+   "location": "Research Park, EnterpriseWorks Room 120 (campus bus line 22)",
+   "event_type": "Lecture",
+   "summary": "A student founder talks about starting a company in college. Free, in person."
+  },
+  {
+   "event_id": 4005,
+   "date": "2026-11-22",
+   "title": "Robotics Competition Build Day",
+   "start_time": "09:00",
+   "end_time": "17:00",
+   "location": "Engineering Quad, ECEB 1013",
+   "event_type": "Conference/Workshop",
+   "summary": "Eight-hour team build day for a campus robotics competition. Free, in person."
+  },
+  {
+   "event_id": 4006,
+   "date": "2026-11-16",
+   "title": "Hospice Volunteer Training",
+   "start_time": "17:30",
+   "end_time": "19:30",
+   "location": "Carle Illinois building, Room 120 (campus bus stop outside)",
+   "event_type": "Community Service",
+   "summary": "Small-group training (about 10 people) for new hospice volunteers. Free, in person."
+  },
+  {
+   "event_id": 4007,
+   "date": "2026-11-21",
+   "title": "Campus Garden Sustainability Workday",
+   "start_time": "10:00",
+   "end_time": "12:00",
+   "location": "Sustainable Student Farm (campus bus line 13)",
+   "event_type": "Community Service",
+   "summary": "Help with composting and garden beds at the student farm. Free, in person."
+  },
+  {
+   "event_id": 4008,
+   "date": "2026-11-22",
+   "title": "Contemporary Dance Gala",
+   "start_time": "15:00",
+   "end_time": "17:00",
+   "location": "Krannert Center for the Performing Arts (walking distance)",
+   "event_type": "Performance",
+   "summary": "Evening of contemporary dance by student companies. Tickets $35, in person."
+  },
+  {
+   "event_id": 4009,
+   "date": "2026-11-17",
+   "title": "Health Professions Career Fair",
+   "start_time": "13:00",
+   "end_time": "16:00",
+   "location": "Illini Union Ballroom",
+   "event_type": "Professional Development",
+   "summary": "Meet recruiters from hospitals and clinics. About 300 attendees. Free, in person."
+  },
+  {
+   "event_id": 4011,
+   "date": "2026-11-16",
+   "title": "Personal Finance 101",
+   "start_time": "14:00",
+   "end_time": "15:00",
+   "location": "Business Instructional Facility, Room 1001",
+   "event_type": "Conference/Workshop",
+   "summary": "Budgeting, credit scores and how to start investing. Free, in person."
+  },
+  {
+   "event_id": 4012,
+   "date": "2026-11-22",
+   "title": "Investing Club Social",
+   "start_time": "13:00",
+   "end_time": "14:00",
+   "location": "Business Instructional Facility, Atrium",
+   "event_type": "Social/Informal Event",
+   "summary": "Meet students who invest and talk about stocks over snacks. Free, in person."
+  },
+  {
+   "event_id": 4013,
+   "date": "2026-11-19",
+   "title": "Chess Blitz Tournament",
+   "start_time": "18:00",
+   "end_time": "21:00",
+   "location": "Illini Union, Room 210",
+   "event_type": "Social/Informal Event",
+   "summary": "Competitive rated blitz chess tournament with prizes. Free, in person."
+  },
+  {
+   "event_id": 4014,
+   "date": "2026-11-17",
+   "title": "Casual Board Game Hour",
+   "start_time": "10:00",
+   "end_time": "11:00",
+   "location": "Illini Union, Room 314",
+   "event_type": "Social/Informal Event",
+   "summary": "Relaxed board games, all games provided. Free, in person."
+  },
+  {
+   "event_id": 4015,
+   "date": "2026-11-17",
+   "title": "Group Music Jam: Bring Your Instrument",
+   "start_time": "15:00",
+   "end_time": "16:30",
+   "location": "Smith Memorial Hall, Room 25",
+   "event_type": "Performance",
+   "summary": "Casual group playing for any instrument and level, no solos required. Free, in person."
+  },
+  {
+   "event_id": 4016,
+   "date": "2026-11-18",
+   "title": "Design Thinking for UX",
+   "start_time": "14:00",
+   "end_time": "15:30",
+   "location": "Siebel Center for Design, Room 1001",
+   "event_type": "Conference/Workshop",
+   "summary": "Hands-on intro to design thinking for app and web design. Free, in person."
+  },
+  {
+   "event_id": 4017,
+   "date": "2026-11-21",
+   "title": "UX Hackathon",
+   "start_time": "09:00",
+   "end_time": "17:00",
+   "location": "Siebel Center for Design",
+   "event_type": "Conference/Workshop",
+   "summary": "Eight-hour team challenge to design and prototype an app. Free, in person."
+  },
+  {
+   "event_id": 4018,
+   "date": "2026-11-16",
+   "title": "Singer-Songwriter Solo Open Mic",
+   "start_time": "20:00",
+   "end_time": "21:30",
+   "location": "Illini Union, Courtyard Cafe",
+   "event_type": "Performance",
+   "summary": "Sign up to perform a solo song on stage. Free, in person."
+  },
+  {
+   "event_id": 4019,
+   "date": "2026-11-20",
+   "title": "Geology Museum Tour",
+   "start_time": "11:00",
+   "end_time": "12:00",
+   "location": "Natural History Building",
+   "event_type": "Exhibition",
+   "summary": "Guided tour of the campus rock and fossil collection. Free, in person."
+  },
+  {
+   "event_id": 4020,
+   "date": "2026-11-22",
+   "title": "Classic Comedy Movie Night",
+   "start_time": "19:00",
+   "end_time": "21:00",
+   "location": "Illini Union, Room 407",
+   "event_type": "Film Screening",
+   "summary": "Screening of a classic comedy film with popcorn. Free, in person."
+  }
+ ],
+ "clubs": [
+  {
+   "club_id": 4801,
+   "name": "Illini Photography Club",
+   "categories": "Arts, Hobby",
+   "mission": "Weekly photo walks and editing nights for photographers of every level. In person. Dues $10 per semester."
+  },
+  {
+   "club_id": 4802,
+   "name": "Robotics Society",
+   "categories": "Engineering, Technology",
+   "mission": "Students build robots together in the Engineering Quad lab. In person. Free to join."
+  },
+  {
+   "club_id": 4803,
+   "name": "Student Health Volunteers",
+   "categories": "Health, Service",
+   "mission": "Organizes in-person volunteering at local clinics, reachable by campus bus. Free to join."
+  },
+  {
+   "club_id": 4804,
+   "name": "Student Investment Club",
+   "categories": "Business, Finance",
+   "mission": "Members learn investing and manage a small practice portfolio. In person on campus. Free to join."
+  },
+  {
+   "club_id": 4805,
+   "name": "UX Design Club",
+   "categories": "Design, Technology",
+   "mission": "Design challenges and critiques on campus. In person. Free to join."
+  }
+ ],
+ "answer_key": {
+  "_how": "Judgment labels only, per profile. Every activity not listed for a profile is irrelevant to it. relevant = matches one of the student's current interests (the query names none). breaks = hard-constraint ids the activity text shows it breaks (cost, format, location, alcohol, duration, weekly caps); schedule fit is NOT stored, code computes it from available_windows. Correct answer = an event (is_event; clubs have no meeting time) that is relevant, not a dislike, breaks nothing, and fits the schedule.",
+  "P1-simple": {
+   "relevant": [
+    "event:4001",
+    "event:4002",
+    "club:4801"
+   ],
+   "dislike": [],
+   "breaks": {},
+   "reference_solution": [
+    "event:4001"
+   ]
+  },
+  "P2-busy": {
+   "relevant": [
+    "event:4003",
+    "event:4004",
+    "event:4005",
+    "club:4802"
+   ],
+   "dislike": [],
+   "breaks": {
+    "event:4005": [
+     "H5"
+    ]
+   },
+   "reference_solution": [
+    "event:4003"
+   ]
+  },
+  "P3-picky": {
+   "relevant": [
+    "event:4006",
+    "event:4007",
+    "event:4008",
+    "club:4803"
+   ],
+   "dislike": [
+    "event:4009"
+   ],
+   "breaks": {
+    "event:4008": [
+     "H6"
+    ]
+   },
+   "reference_solution": [
+    "event:4006"
+   ]
+  },
+  "P4-changing": {
+   "relevant": [
+    "event:4011",
+    "event:4012",
+    "event:4014",
+    "club:4804"
+   ],
+   "dislike": [
+    "event:4013"
+   ],
+   "breaks": {},
+   "reference_solution": [
+    "event:4011"
+   ]
+  },
+  "P5-long-context": {
+   "relevant": [
+    "event:4015",
+    "event:4016",
+    "event:4017",
+    "club:4805"
+   ],
+   "dislike": [
+    "event:4018"
+   ],
+   "breaks": {
+    "event:4017": [
+     "H7",
+     "H8"
+    ]
+   },
+   "reference_solution": [
+    "event:4015"
+   ]
+  }
+ }
+}

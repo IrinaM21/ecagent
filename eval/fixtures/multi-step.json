@@ -1,0 +1,357 @@
+{
+ "task": "multi-step",
+ "status": "frozen 2026-11-12 after review (never change after seeing eval results)",
+ "written_from": "eval/benchmark-tasks.json (multi-step) + eval/profiles/simulated-profiles.json (current_truth, available_windows, hard_constraints, task_fills) only",
+ "week": [
+  "2026-11-16",
+  "2026-11-22"
+ ],
+ "events": [
+  {
+   "event_id": 9001,
+   "date": "2026-11-18",
+   "title": "Photography Lighting Workshop",
+   "start_time": "15:00",
+   "end_time": "17:00",
+   "location": "Art and Design Building, Room 140",
+   "event_type": "Conference/Workshop",
+   "summary": "Hands-on workshop on natural and studio lighting for photos. Register online; free, in person."
+  },
+  {
+   "event_id": 9002,
+   "date": "2026-11-17",
+   "title": "Photo Composition Workshop",
+   "start_time": "12:00",
+   "end_time": "13:30",
+   "location": "Art and Design Building, Room 15",
+   "event_type": "Conference/Workshop",
+   "summary": "Workshop on framing and composition with short shooting exercises. Register online; free, in person."
+  },
+  {
+   "event_id": 9003,
+   "date": "2026-11-16",
+   "title": "Student Photography Exhibit Opening",
+   "start_time": "18:00",
+   "end_time": "19:00",
+   "location": "Krannert Art Museum lobby",
+   "event_type": "Exhibition",
+   "summary": "Opening night of a student photo exhibit. No registration needed. Free, in person."
+  },
+  {
+   "event_id": 9005,
+   "date": "2026-11-16",
+   "title": "Robotics Arduino Workshop",
+   "start_time": "18:00",
+   "end_time": "20:00",
+   "location": "Engineering Quad, ECEB 2015",
+   "event_type": "Conference/Workshop",
+   "summary": "Workshop building a small line-following robot with Arduino. Parts provided. Register online; free, in person."
+  },
+  {
+   "event_id": 9006,
+   "date": "2026-11-20",
+   "title": "ROS Robotics Workshop",
+   "start_time": "13:00",
+   "end_time": "15:00",
+   "location": "Engineering Quad, Siebel Center 1404",
+   "event_type": "Conference/Workshop",
+   "summary": "Workshop introducing the Robot Operating System on simulated robots. Register online; free, in person."
+  },
+  {
+   "event_id": 9007,
+   "date": "2026-11-21",
+   "title": "Robotics Intensive Workshop",
+   "start_time": "13:30",
+   "end_time": "17:30",
+   "location": "Engineering Quad, ECEB 1013",
+   "event_type": "Conference/Workshop",
+   "summary": "Four-hour workshop designing and wiring a robot arm. Register online; free, in person."
+  },
+  {
+   "event_id": 9008,
+   "date": "2026-11-17",
+   "title": "CPR Workshop for Hospital Volunteers",
+   "start_time": "14:00",
+   "end_time": "16:00",
+   "location": "Carle Illinois building, Room 120 (campus bus stop outside)",
+   "event_type": "Conference/Workshop",
+   "summary": "Small-group CPR workshop (about 12 people) for students who volunteer at hospitals and clinics. Register online; free, in person."
+  },
+  {
+   "event_id": 9009,
+   "date": "2026-11-20",
+   "title": "Clinic Volunteer Skills Workshop",
+   "start_time": "17:00",
+   "end_time": "19:00",
+   "location": "Champaign Free Clinic (campus bus line 5)",
+   "event_type": "Conference/Workshop",
+   "summary": "Workshop on patient check-in and intake for new clinic volunteers. Register online; free, in person."
+  },
+  {
+   "event_id": 9010,
+   "date": "2026-11-18",
+   "title": "Hospital Volunteer Workshop (Online)",
+   "start_time": "18:00",
+   "end_time": "19:30",
+   "location": "Online (Zoom)",
+   "event_type": "Conference/Workshop",
+   "summary": "Workshop for new hospital volunteers. Virtual only, on Zoom. Register online; free."
+  },
+  {
+   "event_id": 9011,
+   "date": "2026-11-19",
+   "title": "Patient Advocate Volunteer Certification Workshop",
+   "start_time": "17:00",
+   "end_time": "19:00",
+   "location": "Carle Illinois building, Room 210 (campus bus stop outside)",
+   "event_type": "Conference/Workshop",
+   "summary": "Certification workshop for volunteer patient advocates. Register online; workshop fee $45, in person."
+  },
+  {
+   "event_id": 9012,
+   "date": "2026-11-16",
+   "title": "Healthcare Careers Networking Workshop",
+   "start_time": "18:00",
+   "end_time": "20:00",
+   "location": "Illini Union Ballroom",
+   "event_type": "Conference/Workshop",
+   "summary": "Workshop on networking with hospital recruiters, followed by a networking mixer with about 150 attendees. Register online; free, in person."
+  },
+  {
+   "event_id": 9013,
+   "date": "2026-11-19",
+   "title": "Investing Fundamentals Workshop",
+   "start_time": "16:00",
+   "end_time": "17:30",
+   "location": "Business Instructional Facility, Room 2007",
+   "event_type": "Conference/Workshop",
+   "summary": "Workshop on index funds, diversification and compound interest. Register online; free, in person."
+  },
+  {
+   "event_id": 9014,
+   "date": "2026-11-21",
+   "title": "Stock Analysis Workshop",
+   "start_time": "10:00",
+   "end_time": "12:00",
+   "location": "Business Instructional Facility, Room 1001",
+   "event_type": "Conference/Workshop",
+   "summary": "Workshop on reading company financial statements. Register online; free, in person."
+  },
+  {
+   "event_id": 9015,
+   "date": "2026-11-18",
+   "title": "Chess Tournament Prep Workshop",
+   "start_time": "14:00",
+   "end_time": "16:00",
+   "location": "Illini Union, Room 210",
+   "event_type": "Conference/Workshop",
+   "summary": "Workshop preparing players for rated competitive chess tournaments. Register online; free, in person."
+  },
+  {
+   "event_id": 9016,
+   "date": "2026-11-16",
+   "title": "UX Wireframing Workshop",
+   "start_time": "17:00",
+   "end_time": "19:00",
+   "location": "Siebel Center for Design, Room 1001",
+   "event_type": "Conference/Workshop",
+   "summary": "Workshop sketching wireframes for an app, beginners welcome. Register online; free, in person."
+  },
+  {
+   "event_id": 9017,
+   "date": "2026-11-19",
+   "title": "UX Research Workshop",
+   "start_time": "14:00",
+   "end_time": "16:00",
+   "location": "Siebel Center for Design, Room 2001",
+   "event_type": "Conference/Workshop",
+   "summary": "Workshop on planning and running user interviews. Register online; free, in person."
+  },
+  {
+   "event_id": 9018,
+   "date": "2026-11-21",
+   "title": "UX Portfolio Workshop",
+   "start_time": "10:00",
+   "end_time": "12:00",
+   "location": "Siebel Center for Design, Room 1001",
+   "event_type": "Conference/Workshop",
+   "summary": "Workshop turning a class project into a UX case study. Register online; workshop fee $50, in person."
+  },
+  {
+   "event_id": 9019,
+   "date": "2026-11-22",
+   "title": "All-Day UX Design Workshop",
+   "start_time": "09:00",
+   "end_time": "14:00",
+   "location": "Siebel Center for Design",
+   "event_type": "Conference/Workshop",
+   "summary": "Five-hour workshop taking an app idea from research to prototype. Register online; free, in person."
+  },
+  {
+   "event_id": 9020,
+   "date": "2026-11-18",
+   "title": "Improv for Designers Workshop",
+   "start_time": "18:00",
+   "end_time": "19:30",
+   "location": "Illini Union, Room 407",
+   "event_type": "Conference/Workshop",
+   "summary": "Improv comedy games to practice creative thinking. Register online; free, in person."
+  },
+  {
+   "event_id": 9021,
+   "date": "2026-11-18",
+   "title": "Knitting Basics Workshop",
+   "start_time": "12:00",
+   "end_time": "13:00",
+   "location": "Illini Union, Room 314",
+   "event_type": "Conference/Workshop",
+   "summary": "Learn to cast on and knit a simple scarf. Yarn provided. Register online; free, in person."
+  },
+  {
+   "event_id": 9022,
+   "date": "2026-11-22",
+   "title": "Cooking Basics Workshop",
+   "start_time": "16:00",
+   "end_time": "17:30",
+   "location": "Bevier Hall Teaching Kitchen",
+   "event_type": "Conference/Workshop",
+   "summary": "Cook a simple dinner on a student budget. Register online; free, in person."
+  }
+ ],
+ "clubs": [
+  {
+   "club_id": 9801,
+   "name": "Illini Photography Club",
+   "categories": "Arts, Hobby",
+   "mission": "Weekly photo walks and editing nights for photographers of every level. In person. Dues $10 per semester."
+  },
+  {
+   "club_id": 9802,
+   "name": "Robotics Society",
+   "categories": "Engineering, Technology",
+   "mission": "Students build robots together in the Engineering Quad lab. In person. Free to join."
+  },
+  {
+   "club_id": 9803,
+   "name": "Student Health Volunteers",
+   "categories": "Health, Service",
+   "mission": "Organizes in-person volunteering at local clinics, reachable by campus bus. Free to join."
+  },
+  {
+   "club_id": 9804,
+   "name": "Student Investment Club",
+   "categories": "Business, Finance",
+   "mission": "Members learn investing and manage a small practice portfolio. In person on campus. Free to join."
+  },
+  {
+   "club_id": 9805,
+   "name": "UX Design Club",
+   "categories": "Design, Technology",
+   "mission": "Design challenges and critiques on campus. In person. Free to join."
+  }
+ ],
+ "answer_key": {
+  "_how": "Judgment labels only, per profile. Every activity not listed for a profile is irrelevant to it. relevant = matches the request: a workshop about the profile's task_fills interest (multi-step asks for a {interest} workshop). topic_only = matches the interest but is not what was asked (not a workshop, or a club, which can't be registered for or put on the calendar); not correct, listed so graders see why. breaks = hard-constraint ids the activity text shows it breaks (cost, format, location, alcohol, duration, weekly caps); schedule fit is NOT stored, code computes it from available_windows. Correct answer = an event that is relevant, not a dislike, breaks nothing, and fits the schedule (then registered + added to the calendar).",
+  "P1-simple": {
+   "relevant": [
+    "event:9001",
+    "event:9002"
+   ],
+   "topic_only": [
+    "event:9003",
+    "club:9801"
+   ],
+   "dislike": [],
+   "breaks": {},
+   "reference_solution": [
+    "event:9001"
+   ]
+  },
+  "P2-busy": {
+   "relevant": [
+    "event:9005",
+    "event:9006",
+    "event:9007"
+   ],
+   "topic_only": [
+    "club:9802"
+   ],
+   "dislike": [],
+   "breaks": {
+    "event:9007": [
+     "H5"
+    ]
+   },
+   "reference_solution": [
+    "event:9005"
+   ]
+  },
+  "P3-picky": {
+   "relevant": [
+    "event:9008",
+    "event:9009",
+    "event:9010",
+    "event:9011"
+   ],
+   "topic_only": [
+    "club:9803"
+   ],
+   "dislike": [
+    "event:9012"
+   ],
+   "breaks": {
+    "event:9010": [
+     "H7"
+    ],
+    "event:9011": [
+     "H6"
+    ]
+   },
+   "reference_solution": [
+    "event:9008"
+   ]
+  },
+  "P4-changing": {
+   "relevant": [
+    "event:9013",
+    "event:9014"
+   ],
+   "topic_only": [
+    "club:9804"
+   ],
+   "dislike": [
+    "event:9015"
+   ],
+   "breaks": {},
+   "reference_solution": [
+    "event:9013"
+   ]
+  },
+  "P5-long-context": {
+   "relevant": [
+    "event:9016",
+    "event:9017",
+    "event:9018",
+    "event:9019"
+   ],
+   "topic_only": [
+    "club:9805"
+   ],
+   "dislike": [
+    "event:9020"
+   ],
+   "breaks": {
+    "event:9018": [
+     "H4"
+    ],
+    "event:9019": [
+     "H7",
+     "H8"
+    ]
+   },
+   "reference_solution": [
+    "event:9016"
+   ]
+  }
+ }
+}

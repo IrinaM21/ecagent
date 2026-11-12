@@ -7,6 +7,8 @@ from utils import Utils
 class Compactor(Utils):
     def __init__(self, api_key=None):
         super().__init__(api_key)
+        # prompt format: role (this system prompt), instructions, info in XML tags, response format
+        # (based on CS 498 Using and Understanding AI (FA26), Intro to Prompting lecture)
         self.sys = """You are a context compactor tasked with compressing
         the information in memory to avoid exceeding the token limit."""
 
@@ -29,20 +31,20 @@ class Compactor(Utils):
         new_info = "\n".join(f"{m['role']}: {m['content']}" for m in new_msgs if isinstance(m["content"], str))
 
         prompt = f"""You maintain a student's profile for an extracurricular-activity assistant.
-Below is the current profile (JSON) and new information from the conversation, oldest first.
+        Below is the current profile (JSON) and new information from the conversation, oldest first.
 
-1. List every contradiction: a fact in the new information that changes a fact in the profile
-   or in an earlier message (schedule, constraint, interest, dislike). The newer statement wins.
-2. Return the updated profile: apply the newer side of each contradiction and add any new facts.
-   Do not invent facts that are not stated. Keep exactly the same JSON keys and value formats
-   (24-hour HH:MM times, YYYY-MM-DD dates, Mon..Sun days).
+        1. List every contradiction: a fact in the new information that changes a fact in the profile
+           or in an earlier message (schedule, constraint, interest, dislike). The newer statement wins.
+        2. Return the updated profile: apply the newer side of each contradiction and add any new facts.
+           Do not invent facts that are not stated. Keep exactly the same JSON keys and value formats
+           (24-hour HH:MM times, YYYY-MM-DD dates, Mon..Sun days).
 
-<profile>{json.dumps(state)}</profile>
-<new_information>{new_info}</new_information>
+        <profile>{json.dumps(state)}</profile>
+        <new_information>{new_info}</new_information>
 
-Reply in this format:
-<contradictions>one per line: old fact -> new fact (or "none")</contradictions>
-<state>{{...updated profile JSON...}}</state>"""
+        Reply in this format:
+        <contradictions>one per line: old fact -> new fact (or "none")</contradictions>
+        <state>{{...updated profile JSON...}}</state>"""
 
         text = self.text_of(self.call([{"role": "user", "content": prompt}], usage=usage))
 
@@ -80,24 +82,24 @@ Reply in this format:
 
         # 1: model - identify salient points, oldest first (the order tells step 4 which statement is newer)
         salient = ask(f"""Given the previous summary and the conversation below, identify the salient points
-about the student: schedule, constraints, interests, dislikes, goals, preferences.
-Skip small talk and anything unrelated to finding activities.
-<previous summary>{previous_summary or "none"}</previous summary>
-<conversation>{convo}</conversation>
-Your response should be a numbered list of salient points, oldest first, with each point on a new line.""")
+        about the student: schedule, constraints, interests, dislikes, goals, preferences.
+        Skip small talk and anything unrelated to finding activities.
+        <previous summary>{previous_summary or "none"}</previous summary>
+        <conversation>{convo}</conversation>
+        Your response should be a numbered list of salient points, oldest first, with each point on a new line.""")
 
         # 2: model - compress each point, keeping exact times/dates/numbers
         points = self.numbered(ask(f"""For each salient point in the given list, compress it so that it retains its meaning.
-Keep every time, date, day and number exactly. Keep the same order.
-<salient points>{salient}</salient points>
-Your response should be a numbered list of compressed salient points, with each point on a new line."""))
+        Keep every time, date, day and number exactly. Keep the same order.
+        <salient points>{salient}</salient points>
+        Your response should be a numbered list of compressed salient points, with each point on a new line."""))
         listing = "\n".join(f"{i + 1}. {p}" for i, p in enumerate(points))
 
         # 3: model - identify contradictions as (N, M) pairs
         text = ask(f"""Given the numbered list of compressed salient points, identify any contradictions
-(two points that cannot both be true now, e.g. a schedule or preference that changed).
-<points>{listing}</points>
-Your response should be one contradiction per line as a tuple (N, M), or "none".""")
+        (two points that cannot both be true now, e.g. a schedule or preference that changed).
+        <points>{listing}</points>
+        Your response should be one contradiction per line as a tuple (N, M), or "none".""")
         pairs = [(int(a) - 1, int(b) - 1) for a, b in re.findall(r"\((\d+),\s*(\d+)\)", text)]
 
         # 4: model - for each contradiction, decide which statement remains
@@ -107,11 +109,11 @@ Your response should be one contradiction per line as a tuple (N, M), or "none".
                 continue  # skip malformed pairs instead of crashing
             old, new = min(a, b), max(a, b)
             choice = ask(f"""For the given pair of contradicting statements, decide which should remain in the
-compressed memory. Statement 1 was said before statement 2. Keep both if they apply at
-different times (e.g. a one-time exception to a weekly rule).
-<statement 1>{points[old]}</statement 1>
-<statement 2>{points[new]}</statement 2>
-Return only 1, 2, or both. Your choice:""").strip().lower()
+            compressed memory. Statement 1 was said before statement 2. Keep both if they apply at
+            different times (e.g. a one-time exception to a weekly rule).
+            <statement 1>{points[old]}</statement 1>
+            <statement 2>{points[new]}</statement 2>
+            Return only 1, 2, or both. Your choice:""").strip().lower()
             if choice.startswith("1"):
                 drop.add(new)
             elif choice.startswith("2"):

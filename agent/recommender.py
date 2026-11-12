@@ -7,6 +7,10 @@ from utils import Utils
 class Recommender(Utils):
     def __init__(self, api_key=None):
         super().__init__(api_key)
+        # prompt format: role (this system prompt), instructions, info in XML tags, response format
+        # (based on CS 498 Using and Understanding AI (FA26), Intro to Prompting lecture)
+        self.sys = """You are the recommender for a UIUC extracurricular planner. You rank activities and
+        candidate plans by the student's preferences."""
 
     def rank_candidates(self, query, state, candidates, usage=None):
         """
@@ -29,19 +33,19 @@ class Recommender(Utils):
                             f"{c['location'] or ''} | {(c['description'] or '')[:300]}" for i, c in enumerate(candidates))
 
         prompt = f"""For each activity, list which of the student's preferences it clearly satisfies.
-Only count a preference if the activity's details show it; when unsure, leave it out.
+        Only count a preference if the activity's details show it; when unsure, leave it out.
 
-<request>{query}</request>
-<preferences>
-{pref_list}
-</preferences>
-<activities>
-{listing}
-</activities>
+        <request>{query}</request>
+        <preferences>
+        {pref_list}
+        </preferences>
+        <activities>
+        {listing}
+        </activities>
 
-Reply with one line per activity in the format N: S1, S3 (or "N: none")."""
+        Reply with one line per activity in the format N: S1, S3 (or "N: none")."""
 
-        text = self.text_of(self.call([{"role": "user", "content": prompt}], usage=usage))
+        text = self.text_of(self.call([{"role": "user", "content": prompt}], system=self.sys, usage=usage))
         matched = {int(n) - 1: sorted(int(s) for s in re.findall(r"S(\d+)", rest))
                    for n, rest in re.findall(r"^\s*(\d+)\s*:(.*)$", text, re.M)}
         for i, c in enumerate(candidates):
@@ -72,22 +76,24 @@ Reply with one line per activity in the format N: S1, S3 (or "N: none")."""
         criteria += [f"goal: {g}" for g in state.get("goals", [])]
 
         def judge(first, second):
-            msg = f"""You are an LLM judge. Choose which of plan A and plan B this student would prefer for the
-given request, based on the criteria (lower rank = more important), and explain your choice.
-Both plans already fit the student's schedule and rules.
+            msg = f"""You are a Schedule Evaluator.
 
-<request>{query}</request>
-<A>
-{fmt(first)}
-</A>
-<B>
-{fmt(second)}
-</B>
-<criteria>
-{chr(10).join(criteria)}
-</criteria>
+            Choose which of plan A and plan B this student would prefer for the
+            given request, based on the criteria (lower rank = more important), and explain your choice.
+            Both plans already fit the student's schedule and rules.
 
-Respond with ONLY "A" or "B" on the first line, and the next line MUST have your explanation."""
+            <request>{query}</request>
+            <A>
+            {fmt(first)}
+            </A>
+            <B>
+            {fmt(second)}
+            </B>
+            <criteria>
+            {chr(10).join(criteria)}
+            </criteria>
+
+            Respond with ONLY "A" or "B" on the first line, and the next line MUST have your explanation."""
             r = self.text_of(self.call([{"role": "user", "content": msg}], max_tokens=512, usage=usage)).split("\n")
             p = r[0].strip().upper()
             return p if p in ("A", "B") else None  # unclear answer -> no vote (tie), not a default "A"

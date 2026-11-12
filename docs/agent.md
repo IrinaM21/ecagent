@@ -46,12 +46,12 @@ Supervisor loop [2]: for each student message, memory resolves contradictions an
 
 ## Experimental Setup
 
-1. `eval/simulated-profiles.json` --> load simulated student `profiles` with preferences, interests, + hard (scheduling) constraints
-2. `eval/benchmark-tasks.json` --> load `tasks`
-3. Load: `full_agent` (our design), `no_compact` (`full_agent` with naive truncation in place of `agent/compactor.py`), `single_pass` (`full_agent` - `agent/compactor.py` - `agent/memory.py` - `agent/retriever.py` - `agent/scheduler.py` + manually input user preferences, constraints + event catalog in the prompt + web search tools, one model call per turn)
-4. Pre-compute the cross product (`profiles` x `tasks`) --> evaluative instance pairs.
+1. `eval/profiles/simulated-profiles.json` --> load simulated student `profiles` with preferences, interests, + hard (scheduling) constraints
+2. `eval/benchmark-tasks.json` --> load `tasks`; `eval/fixtures/<task>.json` --> load each task's fixture (a small synthetic events/clubs database + an answer key saying which activities are correct for each profile, written before any run and frozen)
+3. Load: `full_agent` (our design), `no_compact` (`full_agent` with naive truncation in place of `agent/compactor.py`), `single_pass` (`full_agent` - `agent/compactor.py` - `agent/memory.py` - `agent/retriever.py` - `agent/scheduler.py` + manually input user preferences, constraints + event catalog in the prompt + web search tools, one model call per turn). Web search is off for every agent in the eval (see `docs/design-decisions.md`)
+4. Pre-compute the cross product (`profiles` x `tasks`), limited to each task's profiles --> 36 evaluative instance pairs.
 5. For each agent/ablation: (1) randomly select an instance (2) run it for 3 trials 
-6. Score results: (1) pass^3 (auto in loop, check for missing steps/info + hard constraints), (2) manually grade subjective quality from 1 to 5
+6. Score results: (1) pass^3 (auto in loop: picks checked against the fixture's answer key + hard constraints; the reply text checks are labeled manually, blind; required actions are a separate `full_agent` score, not compared to baselines), (2) manually grade subjective quality from 1 to 5
 7. Report results: Overall pass/fail (`pass_overall=True` if average pass^3 per instance is at least 10 percentage points higher than both baselines', mean per-trial quality scores >= 4, with standard deviation <= 0.5; else, `False`) + pass^3 and quality score for each instance/trial
 
 ## Results

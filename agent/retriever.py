@@ -1,6 +1,6 @@
 import json
 import re
-from datetime import date
+from datetime import date, timedelta
 
 from scraper import db
 from scraper.tools import WEB_TOOLS
@@ -8,25 +8,29 @@ from utils import Utils
 
 
 class Retriever(Utils):
-    # TODO Outlook source: parse events from the student's Outlook messages (Microsoft Graph
-    #   GET /me/messages, Mail.Read permission) with an LLM call -> to_common(source="outlook"),
-    #   keeping only events traceable to a message id. Use msal for login (device-code flow).
-    #   Add Microsoft Azure portal setup (app registration, Mail.Read, redirect/device flow) to README.
-    #   Decide: announcements -> candidates here, and/or commitments -> busy times in the scheduler.
-    #   Off in eval (simulated profiles have no inbox) unless a simulated inbox is added.
+    # email activities come from agent/gmail.py (inbox) and get scored with the DB results
+    # TODO Outlook (Microsoft Graph /me/messages) as a second inbox with the same scan()
     # TODO Club meeting times: the clubs table is the directory only (no meetings; one.illinois.edu
     #   events need a NetID login). Fetch meeting times from each club's website (web_fetch) so
     #   clubs become schedulable events.
 
-    def __init__(self, api_key=None, db_path=db.DB_PATH, today=None):
+    def __init__(self, api_key=None, db_path=db.DB_PATH, today=None, inbox=None, use_web=True):
         """
         Args:
             db_path: events/clubs database (eval passes the frozen snapshot)
             today (str): YYYY-MM-DD, pinned to the reference week start in eval; None = real today
+            inbox (EmailSource): email activities as extra candidates, None in eval
+            use_web (bool): allow the web search fallback (can turn off for eval)
         """
         super().__init__(api_key)
         self.db_path = db_path
         self.today = today
+        self.inbox = inbox
+        self.use_web = use_web
+        # prompt format: role (this system prompt), instructions, info in XML tags, response format
+        # (based on CS 498 Using and Understanding AI (FA26), Intro to Prompting lecture)
+        self.sys = """You are the retriever for a UIUC extracurricular planner. You find campus events and
+        student clubs for a student's request and judge how well they fit the student."""
 
     @staticmethod
     def to_common(row, source="db"):
@@ -113,7 +117,7 @@ class Retriever(Utils):
 
         Reply with one line per activity in the format N: score (e.g. "3: 7"). Score every activity."""
 
-        text = self.text_of(self.call([{"role": "user", "content": prompt}], usage=usage))
+        text = self.text_of(self.call([{"role": "user", "content": prompt}], system=self.sys, usage=usage))
         scores = {int(n) - 1: int(s) for n, s in re.findall(r"^\s*(\d+)\s*:\s*(\d+)", text, re.M)}
         for i, c in enumerate(candidates):
             c["score"] = min(10, scores.get(i, 0))
@@ -133,11 +137,15 @@ class Retriever(Utils):
             usage (dict): optional token counter, see Utils.call
         """
         start = start_date or self.today or date.today().isoformat()
-        prompt = f"""Find extracurricular activities at the University of Illinois Urbana-Champaign for this request.
+        prompt = f"""Find extracurricular activities at the University of Illinois Urbana-Champaign for this request,
+        in the dates given. Use web search, and fetch pages to confirm details.
+        Only include activities you saw on a page.
+
         <request>{query}</request>
         <interests>{json.dumps(state.get("interests", []))}</interests>
-        Dates: {start} to {end_date or "any"}. Use web search, and fetch pages to confirm details.
-        Only include activities you saw on a page. Reply with a JSON list inside <activities></activities> tags,
+        <dates>{start} to {end_date or "any"}</dates>
+
+        Reply with a JSON list inside <activities></activities> tags,
         each item: {{"kind": "event" or "club", "title": ..., "date": "YYYY-MM-DD" or null,
         "start": "HH:MM" or null, "end": "HH:MM" or null, "location": ..., "description": ...,
         "url": the page you saw it on}}"""
@@ -145,7 +153,7 @@ class Retriever(Utils):
         messages = [{"role": "user", "content": prompt}]
         urls, text = set(), ""
         for _ in range(max_continuations):
-            ans = self.call(messages, tools=WEB_TOOLS, usage=usage)
+            ans = self.call(messages, system=self.sys, tools=WEB_TOOLS, usage=usage)
             for b in ans["content"]:
                 # successful search results are a list; errors come back as a single object
                 if b["type"] == "web_search_tool_result" and isinstance(b["content"], list):
@@ -179,11 +187,13 @@ class Retriever(Utils):
         """
         prompt = f"""Give 5-10 short search keywords (single words) for finding campus events and student clubs
         that match this request and student. Include common synonyms (e.g. photography -> photo, camera).
+
         <request>{query}</request>
         <interests>{json.dumps(state.get("interests", []))}</interests>
         <goals>{json.dumps(state.get("goals", []))}</goals>
+
         Reply with the keywords on one line, separated by commas."""
-                text = self.text_of(self.call([{"role": "user", "content": prompt}], max_tokens=100, usage=usage))
+        text = self.text_of(self.call([{"role": "user", "content": prompt}], system=self.sys, max_tokens=100, usage=usage))
         return [w.strip().lower() for w in text.split(",") if w.strip()][:10]
 
     def retrieve(self, query, state, start_date=None, end_date=None, k=3, threshold=7, usage=None):
@@ -203,10 +213,27 @@ class Retriever(Utils):
             list: good candidates sorted by score (counts and web use are logged to agent/model_log.json)
         """
         keywords = self.keywords(query, state, usage)
-        candidates = self.score(query, state, self.search_db(keywords, start_date, end_date), usage)
+        info = {"db_found": 0, "email_found": 0, "web_used": False, "web_found": 0}
+        try:
+            found = self.search_db(keywords, start_date, end_date)
+        except FileNotFoundError as e:  # no database yet (e.g. a live test): email/web can still answer
+            found = []
+            info["db_error"] = str(e)
+        info["db_found"] = len(found)
+        if self.inbox is not None:
+            first = start_date or self.today or date.today().isoformat()
+            last = end_date or (date.fromisoformat(first) + timedelta(days=6)).isoformat()
+            try:
+                emails = self.inbox.scan(first, last, usage)["activities"]
+            except Exception as e:  # an inbox problem must not stop retrieval
+                emails = []
+                info["email_error"] = str(e)
+            info["email_found"] = len(emails)
+            found += emails
+        candidates = self.score(query, state, found, usage)
         good = [c for c in candidates if c["score"] >= threshold]
-        info = {"db_found": len(candidates), "db_good": len(good), "web_used": False, "web_found": 0}
-        if len(good) < k:
+        info["good"] = len(good)
+        if len(good) < k and self.use_web:
             web = self.score(query, state, self.web_fallback(query, state, start_date, end_date, usage=usage), usage)
             info.update(web_used=True, web_found=len(web))
             good += [c for c in web if c["score"] >= threshold]
@@ -216,6 +243,8 @@ class Retriever(Utils):
     def summarize(self, activities):
         """Short summary of retrieve() output for the agent's router."""
         n_timed = sum(bool(a.get("date") and a.get("start")) for a in activities)
+        n_email = sum(a.get("source") == "email" for a in activities)
         top = ", ".join(a["title"] for a in activities[:3])
         return (f"retriever: {len(activities)} activities found ({n_timed} with a date/time, "
-                f"{len(activities) - n_timed} without, e.g. clubs)" + (f", top: {top}" if activities else ""))
+                f"{len(activities) - n_timed} without, e.g. clubs" + (f"; {n_email} from email" if n_email else "")
+                + ")" + (f", top: {top}" if activities else ""))

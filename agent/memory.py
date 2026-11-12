@@ -1,6 +1,6 @@
 import json
 
-from utils import Utils
+from utils import MAX_TOKENS, Utils
 """
 Based on Lecture 8 (CS 498 FA26, Using and Understanding AI Agents):
 
@@ -16,13 +16,15 @@ Pikachu gained 8 levels'
 """
 
 class Memory(Utils):
-    def __init__(self, compactor=None, memory=None, max_tokens=1024, api_key=None):
+    def __init__(self, compactor=None, memory=None, max_tokens=None, api_key=None):
         """
         notes is a dict, see docs/benchmark.md
 
         Args:
             compactor (Compactor): context management module. None = no_compact ablation:
                                    no contradiction step, naive truncation near the limit.
+            max_tokens (int): token limit for the message history. None = the model's context
+                              window from the Models API, minus room for the reply (MAX_TOKENS)
         """
         super().__init__(api_key)
         # new dict per instance: a shared `memory={}` default would leak notes between eval runs
@@ -30,7 +32,7 @@ class Memory(Utils):
         self.msgs = []  # conversation so far, Messages API format
 
         self.count = 0  # tokens in self.msgs, updated by load() / add_message()
-        self.max = max_tokens
+        self.max = max_tokens  # None until first needed (is_memory_full), so creating a Memory makes no API call
 
         self.c = compactor
 
@@ -44,6 +46,8 @@ class Memory(Utils):
         self.notes = new_memory
 
     def is_memory_full(self):
+        if self.max is None:
+            self.max = self.input_limit() - MAX_TOKENS
         return self.count >= self.max
     
 
@@ -119,8 +123,10 @@ class Memory(Utils):
     def manage_context(self, usage=None):
         """
         Near the token limit: the compactor summarizes the conversation into notes['summary']
-        and the message history restarts empty (full agent), or the oldest turns are dropped
-        (no_compact). Either way memory ends up under self.max.
+        (full agent), or the oldest user/assistant pairs are dropped (no_compact). The newest
+        exchange (last user/assistant pair + new user message) is always kept word for word, so
+        a reply like "yes, add it" keeps the proposal it answers. Assumes the last exchange is
+        under the limit.
 
         Args:
             usage (dict): optional token counter, see Utils.call
@@ -128,15 +134,23 @@ class Memory(Utils):
         if not self.is_memory_full():
             return
         before = self.count
+        # keep the newest exchange word for word: the last user/assistant pair + the new user message
+        # (e.g. "yes, add it" only makes sense next to the proposal it answers)
+        n = 3 if self.msgs and self.msgs[-1]["role"] == "user" else 2
+        keep = self.msgs[-n:]
+        older = self.msgs[:-n] if len(self.msgs) > n else []
         if self.c is not None:
-            # fold the previous summary in, so repeated compactions don't lose older facts
-            summary = self.c.compact_user_info(self.read_note("summary"), self.msgs, usage)
-            self.write_note("summary", summary)
-            self.msgs = []
+            if older:
+                # fold the previous summary in, so repeated compactions don't lose older facts
+                summary = self.c.compact_user_info(self.read_note("summary"), older, usage)
+                self.write_note("summary", summary)
+            self.msgs = keep
         else:
-            # estimate (chars / 4) while dropping, then one exact count at the end
-            while self.msgs and sum(len(m["content"]) for m in self.msgs) // 4 > self.max:
-                self.msgs = self.msgs[2:]  # drop the oldest user/assistant pair, so it still starts with a user turn
+            # estimate (chars / 4) while dropping the oldest user/assistant pair, exact count at the end
+            size = lambda msgs: sum(len(m["content"]) if isinstance(m["content"], str) else 0 for m in msgs) // 4
+            while older and size(older + keep) > self.max:
+                older = older[2:]  # drop a whole pair, so the conversation still starts with a user turn
+            self.msgs = older + keep
         self.count = self.count_tokens(self.msgs) if self.msgs else 0
         self.log("compact" if self.c else "truncate", tokens_before=before, tokens_after=self.count)
 

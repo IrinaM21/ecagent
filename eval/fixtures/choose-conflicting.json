@@ -1,0 +1,358 @@
+{
+ "task": "choose-conflicting",
+ "status": "frozen 2026-11-12 after review (never change after seeing eval results)",
+ "written_from": "eval/benchmark-tasks.json (choose-conflicting) + eval/profiles/simulated-profiles.json (current_truth, available_windows, task_fills) only",
+ "week": [
+  "2026-11-16",
+  "2026-11-22"
+ ],
+ "events": [
+  {
+   "event_id": 5001,
+   "date": "2026-11-21",
+   "title": "Sunset Portrait Photography Workshop",
+   "start_time": "17:00",
+   "end_time": "18:30",
+   "location": "Krannert Art Museum lawn",
+   "event_type": "Conference/Workshop",
+   "summary": "Practice outdoor portraits in evening light. Any camera or phone. Free, in person."
+  },
+  {
+   "event_id": 5002,
+   "date": "2026-11-21",
+   "title": "Allerton Park Photo Walk",
+   "start_time": "15:30",
+   "end_time": "17:30",
+   "location": "Allerton Park (campus shuttle from the Illini Union)",
+   "event_type": "Social/Informal Event",
+   "summary": "Guided nature photography walk through the park. Free, in person."
+  },
+  {
+   "event_id": 5003,
+   "date": "2026-11-21",
+   "title": "Night Sky Photography Session",
+   "start_time": "18:00",
+   "end_time": "22:30",
+   "location": "Campus Observatory",
+   "event_type": "Social/Informal Event",
+   "summary": "Learn long-exposure photos of stars and city lights. Free, in person."
+  },
+  {
+   "event_id": 5004,
+   "date": "2026-11-19",
+   "title": "Robotics Build Night",
+   "start_time": "17:30",
+   "end_time": "19:00",
+   "location": "Engineering Quad, ECEB 1013",
+   "event_type": "Conference/Workshop",
+   "summary": "Build and test a small line-following robot in teams. Parts provided. Free, in person."
+  },
+  {
+   "event_id": 5005,
+   "date": "2026-11-19",
+   "title": "Robot Soccer Demo and Q&A",
+   "start_time": "17:00",
+   "end_time": "18:30",
+   "location": "Engineering Quad, Grainger Library atrium",
+   "event_type": "Informational",
+   "summary": "Watch autonomous soccer robots play and ask the team questions. Free, in person."
+  },
+  {
+   "event_id": 5006,
+   "date": "2026-11-19",
+   "title": "Drone Programming Workshop",
+   "start_time": "18:00",
+   "end_time": "21:45",
+   "location": "Engineering Quad, Talbot Lab 103",
+   "event_type": "Conference/Workshop",
+   "summary": "Program autonomous flight paths for small drones. Free, in person."
+  },
+  {
+   "event_id": 5007,
+   "date": "2026-11-17",
+   "title": "Hospital Volunteer Training",
+   "start_time": "17:00",
+   "end_time": "18:30",
+   "location": "Carle Foundation Hospital, Conference Room B (campus bus line 22)",
+   "event_type": "Informational",
+   "summary": "Small-group training (about 12 people) for new patient-escort volunteers. Free, in person."
+  },
+  {
+   "event_id": 5008,
+   "date": "2026-11-17",
+   "title": "Telehealth Volunteer Training",
+   "start_time": "17:30",
+   "end_time": "19:00",
+   "location": "Online (Zoom)",
+   "event_type": "Informational",
+   "summary": "Train to help patients join telehealth visits. Virtual only, held on Zoom. Free."
+  },
+  {
+   "event_id": 5009,
+   "date": "2026-11-17",
+   "title": "Medical Volunteers Wine Mixer",
+   "start_time": "17:00",
+   "end_time": "19:00",
+   "location": "Downtown Champaign wine bar (campus bus line 5)",
+   "event_type": "Social/Informal Event",
+   "summary": "Meet hospital volunteer coordinators over wine tasting. 21+, $10 entry, in person."
+  },
+  {
+   "event_id": 5010,
+   "date": "2026-11-17",
+   "title": "Pre-Health Volunteering Career Fair",
+   "start_time": "18:00",
+   "end_time": "20:00",
+   "location": "Illini Union Ballroom",
+   "event_type": "Professional Development",
+   "summary": "Booths from 40 hospitals and clinics recruiting student volunteers and interns. About 300 attendees. Free, in person."
+  },
+  {
+   "event_id": 5011,
+   "date": "2026-11-18",
+   "title": "Intro to Index Funds",
+   "start_time": "14:00",
+   "end_time": "15:30",
+   "location": "Business Instructional Facility, Room 2005",
+   "event_type": "Conference/Workshop",
+   "summary": "What index funds are and how to start investing with a small amount. Free, in person."
+  },
+  {
+   "event_id": 5012,
+   "date": "2026-11-18",
+   "title": "Options Trading Seminar",
+   "start_time": "15:00",
+   "end_time": "17:30",
+   "location": "Business Instructional Facility, Room 1001",
+   "event_type": "Seminar/Symposium",
+   "summary": "An overview of options and how traders use them. Free, in person."
+  },
+  {
+   "event_id": 5013,
+   "date": "2026-11-18",
+   "title": "Student Stock Pitch Night",
+   "start_time": "14:30",
+   "end_time": "17:15",
+   "location": "Business Instructional Facility, Room 2007",
+   "event_type": "Social/Informal Event",
+   "summary": "Students pitch stocks to each other and vote on a practice portfolio. Free, in person."
+  },
+  {
+   "event_id": 5014,
+   "date": "2026-11-16",
+   "title": "UX Sketching Workshop",
+   "start_time": "18:00",
+   "end_time": "20:00",
+   "location": "Siebel Center for Design, Room 1001",
+   "event_type": "Conference/Workshop",
+   "summary": "Sketch app screens on paper and test them with each other. Free, in person."
+  },
+  {
+   "event_id": 5015,
+   "date": "2026-11-16",
+   "title": "UX Bootcamp Evening",
+   "start_time": "18:00",
+   "end_time": "21:00",
+   "location": "Siebel Center for Design, Room 2001",
+   "event_type": "Conference/Workshop",
+   "summary": "Fast-paced intro to UX research and wireframes. Registration fee $50, in person."
+  },
+  {
+   "event_id": 5016,
+   "date": "2026-11-16",
+   "title": "Design Hackathon Kickoff",
+   "start_time": "17:00",
+   "end_time": "21:30",
+   "location": "Siebel Center for Design atrium",
+   "event_type": "Conference/Workshop",
+   "summary": "Teams form and design an app prototype in one long evening. Free, in person."
+  },
+  {
+   "event_id": 5017,
+   "date": "2026-11-16",
+   "title": "Improv for Designers",
+   "start_time": "18:30",
+   "end_time": "20:00",
+   "location": "Siebel Center for Design, Room 1103",
+   "event_type": "Conference/Workshop",
+   "summary": "Improv comedy games to practice brainstorming UX ideas on the spot. Free, in person."
+  },
+  {
+   "event_id": 5018,
+   "date": "2026-11-20",
+   "title": "Fall Choir Concert",
+   "start_time": "19:30",
+   "end_time": "21:00",
+   "location": "Smith Memorial Hall",
+   "event_type": "Performance",
+   "summary": "University choirs perform. Free, in person."
+  },
+  {
+   "event_id": 5019,
+   "date": "2026-11-18",
+   "title": "Pottery Wheel Basics",
+   "start_time": "12:00",
+   "end_time": "13:00",
+   "location": "Illini Union Art Studio",
+   "event_type": "Conference/Workshop",
+   "summary": "Try the pottery wheel for the first time. Free, in person."
+  },
+  {
+   "event_id": 5020,
+   "date": "2026-11-22",
+   "title": "Sunday Trivia Social",
+   "start_time": "18:00",
+   "end_time": "19:30",
+   "location": "Illini Union, Courtyard Cafe",
+   "event_type": "Social/Informal Event",
+   "summary": "Team trivia and snacks. Free, in person."
+  }
+ ],
+ "clubs": [
+  {
+   "club_id": 5101,
+   "name": "Shutterbugs Photography Society",
+   "categories": "Arts, Hobby",
+   "mission": "Photo walks and critiques for photographers of every level. Free to join."
+  },
+  {
+   "club_id": 5102,
+   "name": "Illini Robotics Team",
+   "categories": "Engineering, Technology",
+   "mission": "Designs robots for student competitions. Free to join."
+  },
+  {
+   "club_id": 5103,
+   "name": "Campus Clinic Volunteers",
+   "categories": "Health, Service",
+   "mission": "In-person volunteering at local clinics and hospitals. Free to join."
+  },
+  {
+   "club_id": 5104,
+   "name": "Undergraduate Investing Society",
+   "categories": "Business, Finance",
+   "mission": "Weekly lessons on investing and a practice portfolio. Free to join."
+  },
+  {
+   "club_id": 5105,
+   "name": "Interaction Design Collective",
+   "categories": "Design, Technology",
+   "mission": "UX design challenges and portfolio feedback. Free to join."
+  }
+ ],
+ "answer_key": {
+  "_how": "Judgment labels only, per profile. Every activity not listed for a profile is irrelevant to it. breaks = hard-constraint ids the activity text shows it breaks; dislike = one of the student's dislikes; schedule fit is NOT stored, code computes it from available_windows. overlap_set = the overlapping relevant events the query refers to (same day, overlapping times); exactly one of them is correct. Correct answer = event in the overlap_set that is relevant, not a dislike, breaks nothing, and fits the schedule. Clubs are relevant but can't go on the calendar.",
+  "P1-simple": {
+   "relevant": [
+    "event:5001",
+    "event:5002",
+    "event:5003",
+    "club:5101"
+   ],
+   "dislike": [],
+   "breaks": {},
+   "overlap_set": [
+    "event:5001",
+    "event:5002",
+    "event:5003"
+   ],
+   "reference_solution": [
+    "event:5001"
+   ]
+  },
+  "P2-busy": {
+   "relevant": [
+    "event:5004",
+    "event:5005",
+    "event:5006",
+    "club:5102"
+   ],
+   "dislike": [],
+   "breaks": {},
+   "overlap_set": [
+    "event:5004",
+    "event:5005",
+    "event:5006"
+   ],
+   "reference_solution": [
+    "event:5004"
+   ]
+  },
+  "P3-picky": {
+   "relevant": [
+    "event:5007",
+    "event:5008",
+    "event:5009",
+    "event:5010",
+    "club:5103"
+   ],
+   "dislike": [
+    "event:5010"
+   ],
+   "breaks": {
+    "event:5008": [
+     "H7"
+    ],
+    "event:5009": [
+     "H5"
+    ]
+   },
+   "overlap_set": [
+    "event:5007",
+    "event:5008",
+    "event:5009",
+    "event:5010"
+   ],
+   "reference_solution": [
+    "event:5007"
+   ]
+  },
+  "P4-changing": {
+   "relevant": [
+    "event:5011",
+    "event:5012",
+    "event:5013",
+    "club:5104"
+   ],
+   "dislike": [],
+   "breaks": {},
+   "overlap_set": [
+    "event:5011",
+    "event:5012",
+    "event:5013"
+   ],
+   "reference_solution": [
+    "event:5011"
+   ]
+  },
+  "P5-long-context": {
+   "relevant": [
+    "event:5014",
+    "event:5015",
+    "event:5016",
+    "event:5017",
+    "club:5105"
+   ],
+   "dislike": [
+    "event:5017"
+   ],
+   "breaks": {
+    "event:5015": [
+     "H4"
+    ],
+    "event:5016": [
+     "H8"
+    ]
+   },
+   "overlap_set": [
+    "event:5014",
+    "event:5015",
+    "event:5016",
+    "event:5017"
+   ],
+   "reference_solution": [
+    "event:5014"
+   ]
+  }
+ }
+}

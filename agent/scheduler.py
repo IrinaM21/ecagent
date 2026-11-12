@@ -2,55 +2,34 @@ import json
 import re
 from datetime import date, timedelta
 
+from agent.calendars import CalendarError, SimulatedCalendar, end_of  # SimulatedCalendar kept here so old imports work
 from utils import Utils
 
 DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-MIN_WINDOW = 30  # minutes; shorter free gaps don't count (same as eval/validate_profiles.py)
+MIN_WINDOW = 30  # minutes; shorter free gaps don't count (same as eval/profiles/validate_profiles.py)
 DEFAULT_MINUTES = 60  # assumed length for events that only list a start time
 
 
-class SimulatedCalendar(Utils):
-    """
-    Calendar tool for eval: starts empty (the student's schedule comes from memory) and records
-    the events the agent adds, so the grader can check them. Same interface as the planned
-    GoogleCalendar. Extends Utils only for log().
-    """
-    def __init__(self, api_key=None):
-        super().__init__(api_key)
-        self.events = []
-
-    def get_events(self, start=None, end=None):
-        """Events between start and end (YYYY-MM-DD, inclusive); all events if not given."""
-        return [e for e in self.events
-                if (start is None or e["date"] >= start) and (end is None or e["date"] <= end)]
-
-    def add_event(self, event):
-        """Add an activity the student approved. Returns a confirmation for the agent's LLM."""
-        self.events.append(dict(event))
-        self.log("add_event", title=event["title"], date=event["date"], start=event["start"])
-        return f"Added {event['title']} on {event['date']} at {event['start']}"
-
-
 class Scheduler(Utils):
-    # TODO Google Calendar API tool: GoogleCalendar class with the same interface as SimulatedCalendar
-    #   (get_events(start, end) -> GET /calendar/v3/calendars/primary/events?timeMin=..&timeMax=..,
-    #    add_event(event) -> POST /calendar/v3/calendars/primary/events), using requests + an OAuth token.
-    #   add_event only after the student approves the plan. Re-check event details (DB / url) right
-    #   before adding, since a real approval can come days after the proposal.
-    #   Add Google Cloud console setup (project, Calendar API, OAuth client, consent screen) to README.
+    # TODO re-check event details (DB / url) right before adding, since a real approval can come
+    #   days after the proposal.
 
     def __init__(self, api_key=None, today=None):
         """
         Args:
             today (str): YYYY-MM-DD start of the planning week if the state has no reference_week
-                         (pinned to 2026-11-02 in eval); None = real today
+                         (pinned to 2026-11-16 in eval); None = real today
         """
         super().__init__(api_key)
         self.today = today
+        # prompt format: role (this system prompt), instructions, info in XML tags, response format
+        # (based on CS 498 Using and Understanding AI (FA26), Intro to Prompting lecture)
+        self.sys = """You are the scheduler for a UIUC extracurricular planner. You build candidate plans
+        that fit the student's week."""
 
     @staticmethod
     def applies(item, d):
-        """Does a recurring/one-off item or 'unavailable' constraint apply on date d? (same rule as eval/validate_profiles.py)"""
+        """Does a recurring/one-off item or 'unavailable' constraint apply on date d? (same rule as eval/profiles/validate_profiles.py)"""
         if "date" in item:
             return item["date"] == d.isoformat()
         if DAYS[d.weekday()] not in item.get("days", []):
@@ -65,7 +44,7 @@ class Scheduler(Utils):
 
         Args:
             state (dict): memory's 'state' note
-            calendar_events (list[dict]): events from the calendar tool (date/start/end)
+            calendar_events (list[dict]): events from the calendar tool + email commitments (date/start/end)
 
         Returns:
             list[dict]: [{date, start, end, source}] sorted by date and start
@@ -77,8 +56,9 @@ class Scheduler(Utils):
             [c for c in state.get("hard_constraints", []) if c.get("type") == "unavailable"]
         out = [{"date": d.isoformat(), "start": s["start"], "end": s["end"], "source": s.get("id")}
                for d in week for s in sources if s.get("start") and s.get("end") and self.applies(s, d)]
-        out += [{"date": e["date"], "start": e["start"], "end": e["end"], "source": "calendar"}
-                for e in calendar_events if e.get("date") and e.get("start") and e.get("end")]
+        # no end time -> assume DEFAULT_MINUTES; all-day events are skipped
+        out += [{"date": e["date"], "start": e["start"], "end": end_of(e), "source": e.get("source") or "calendar"}
+                for e in calendar_events if e.get("date") and e.get("start")]
         return sorted(out, key=lambda b: (b["date"], b["start"]))
 
     @staticmethod
@@ -248,24 +228,24 @@ class Scheduler(Utils):
 
         listing = "\n".join(f"{i + 1}. {e['date']} {e['start']}-{e['end'] or '?'} {e['title']} "
                             f"({e['location'] or 'location n/a'})" for i, e in enumerate(events))
-        prompt = f"""You are a scheduler. Build up to {n_plans} different candidate plans for the student's
-request, each with as many activities as the request asks for (1 if it asks for one activity),
-at most {n_items}, from the numbered list below (best-ranked first).
-Use free_time to see when the student is free, and check_plan to check every plan. If a plan has
-conflicts, revise it and check it again. Only return plans that check_plan says are valid.
+        prompt = f"""Build up to {n_plans} different candidate plans for the student's
+        request, each with as many activities as the request asks for (1 if it asks for one activity),
+        at most {n_items}, from the numbered list below (best-ranked first).
+        Use free_time to see when the student is free, and check_plan to check every plan. If a plan has
+        conflicts, revise it and check it again. Only return plans that check_plan says are valid.
 
-<request>{query}</request>
-<activities>
-{listing}
-</activities>
+        <request>{query}</request>
+        <activities>
+        {listing}
+        </activities>
 
-When done, reply with the valid plans as a JSON list of lists of activity numbers inside
-<plans></plans> tags, e.g. <plans>[[1, 4], [2]]</plans>."""
+        When done, reply with the valid plans as a JSON list of lists of activity numbers inside
+        <plans></plans> tags, e.g. <plans>[[1, 4], [2]]</plans>."""
 
         messages = [{"role": "user", "content": prompt}]
         r, tools_used, stop_reason, text = 0, [], None, ""
         while r < max_rounds and stop_reason in ("tool_use", None):
-            ans = self.call(messages, tools=tools, usage=usage)
+            ans = self.call(messages, system=self.sys, tools=tools, usage=usage)
             r += 1  # called model once
             stop_reason = ans["stop_reason"]
             messages.append({"role": "assistant", "content": ans["content"]})
@@ -313,16 +293,27 @@ When done, reply with the valid plans as a JSON list of lists of activity number
             state (dict): memory's 'state' note
             activities (list[dict]): retrieved activities ranked by Recommender.rank_candidates
             n_items (int): max activities per plan (the scheduler's LLM picks the number from the request)
-            existing (list[dict]): activities already on the calendar this week (from the agent)
+            existing (list[dict]): calendar events + email commitments this week (all busy time;
+                                   only agent-added ones count toward the weekly caps)
             usage (dict): optional token counter, see Utils.call
 
         Returns:
             list[list[dict]]: valid candidate plans
         """
         busy = self.busy_blocks(state, existing)
-        plans = self.generate_plans(query, state, activities, busy, n_items, existing=existing, usage=usage)
+        planned = [e for e in existing if e.get("agent_added", True)]
+        plans = self.generate_plans(query, state, activities, busy, n_items, existing=planned, usage=usage)
         self.log("schedule", n_activities=len(activities), n_existing=len(existing), n_plans=len(plans))
         return plans
+
+    # agent-added activities on the calendar that don't fit anymore (e.g. after a schedule change)
+    def find_conflicts(self, state, existing):
+        planned = [e for e in existing if e.get("agent_added", True) and e.get("date") and e.get("start")]
+        others = [e for e in existing if e not in planned]
+        busy = self.busy_blocks(state, others)
+        conflicts = [e for e in planned if not self.fits(e, state, busy)]
+        self.log("find_conflicts", n_planned=len(planned), conflicts=[e["title"] for e in conflicts])
+        return conflicts
 
     def summarize(self, plans):
         """Short summary of schedule() output for the agent's router."""
@@ -331,16 +322,76 @@ When done, reply with the valid plans as a JSON list of lists of activity number
         sizes = "-".join(map(str, sorted({len(p) for p in plans})))
         return f"scheduler: valid candidate plans: {len(plans)}, activities per plan: {sizes}"
 
-    def add_to_calendar(self, plan, calendar):
-        """
-        Add an approved plan to the calendar (SimulatedCalendar now, GoogleCalendar later).
-        The calendar is passed in by the agent. Returns the calendar's confirmations.
-        """
-        return [calendar.add_event(a) for a in plan]
+    # reads the calendar back to find this activity's event (None if it's not there)
+    @staticmethod
+    def find_added(calendar, activity, event_id=None):
+        try:
+            events = calendar.get_events(activity["date"], activity["date"])
+        except CalendarError:
+            return None
+        for e in events:
+            if event_id is not None and e["id"] == event_id:
+                return e
+            if event_id is None and e.get("agent_added", True) and e["title"] == activity["title"] \
+                    and e.get("start") == activity.get("start"):
+                return e
+        return None
 
-    def summarize_added(self, confirmations):
-        """Short summary of add_to_calendar() output for the agent's router."""
-        return f"scheduler: added {len(confirmations)} activities to the calendar ({'; '.join(confirmations)})"
+    def add_to_calendar(self, plan, calendar, retries=1):
+        """
+        Add an approved plan and check each add by reading the calendar back. A failed add is retried
+        once, after checking it didn't go through anyway (no duplicates).
+
+        Returns:
+            list[dict]: per activity {activity, event, verified, error}
+        """
+        results = []
+        for a in plan:
+            event, error = None, None
+            for _ in range(retries + 1):
+                try:
+                    event = calendar.add_event(a)
+                    break
+                except CalendarError as e:
+                    error = str(e)
+                    event = self.find_added(calendar, a)
+                    if event:
+                        break
+            verified = event is not None and self.find_added(calendar, a, event["id"]) is not None
+            if event is not None and not verified:
+                error = "added, but not found on the calendar when read back"
+            results.append({"activity": a, "event": event, "verified": verified, "error": None if verified else error})
+        self.log("add_to_calendar", added=[r["activity"]["title"] for r in results if r["verified"]],
+                 failed=[(r["activity"]["title"], r["error"]) for r in results if not r["verified"]])
+        return results
+
+    # remove events and check they're actually gone
+    def remove_from_calendar(self, events, calendar):
+        results = []
+        for e in events:
+            try:
+                calendar.remove_event(e["id"])
+                gone = self.find_added(calendar, e, e["id"]) is None
+                results.append({"event": e, "removed": gone, "error": None if gone else "still on the calendar"})
+            except CalendarError as err:
+                results.append({"event": e, "removed": False, "error": str(err)})
+        self.log("remove_from_calendar", removed=[r["event"]["title"] for r in results if r["removed"]],
+                 failed=[(r["event"]["title"], r["error"]) for r in results if not r["removed"]])
+        return results
+
+    def summarize_added(self, results, removed=()):
+        """Short summary of add_to_calendar() / remove_from_calendar() output for the agent's router."""
+        label = lambda a: f"{a['title']} ({a.get('date')} {a.get('start')})"
+        parts = []
+        if removed:
+            parts.append("removed: " + "; ".join(label(r["event"]) + ("" if r["removed"] else f" FAILED: {r['error']}")
+                                                 for r in removed))
+        ok = [label(r["activity"]) for r in results if r["verified"]]
+        bad = [f"{label(r['activity'])}: {r['error']}" for r in results if not r["verified"]]
+        parts.append(f"added and verified {len(ok)}" + (f": {'; '.join(ok)}" if ok else ""))
+        if bad:
+            parts.append(f"NOT added {len(bad)}: {'; '.join(bad)}")
+        return "scheduler: " + ", ".join(parts)
 
 
 

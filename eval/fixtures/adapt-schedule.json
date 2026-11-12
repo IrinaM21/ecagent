@@ -1,0 +1,218 @@
+{
+ "task": "adapt-schedule",
+ "status": "frozen 2026-11-12 after review (never change after seeing eval results)",
+ "written_from": "eval/benchmark-tasks.json (adapt-schedule) + eval/profiles/simulated-profiles.json (P4 current_truth, available_windows, runtime_updates U1 + runtime_update_effects, task_fills) only",
+ "week": [
+  "2026-11-16",
+  "2026-11-22"
+ ],
+ "events": [
+  {
+   "event_id": 8001,
+   "date": "2026-11-19",
+   "title": "Thursday Board Game Night",
+   "start_time": "18:30",
+   "end_time": "20:00",
+   "location": "Illini Union, Room 210",
+   "event_type": "Social/Informal Event",
+   "summary": "Relaxed evening of casual board games like Catan and Ticket to Ride. Games provided. Free, in person."
+  },
+  {
+   "event_id": 8002,
+   "date": "2026-11-17",
+   "title": "Casual Board Game Social",
+   "start_time": "18:00",
+   "end_time": "20:00",
+   "location": "Grainger Library, Lounge",
+   "event_type": "Social/Informal Event",
+   "summary": "Low-pressure board game night for students, beginners welcome. Games provided. Free, in person."
+  },
+  {
+   "event_id": 8003,
+   "date": "2026-11-19",
+   "title": "Board Games After Dark",
+   "start_time": "19:00",
+   "end_time": "21:00",
+   "location": "Illini Union, Courtyard Cafe",
+   "event_type": "Social/Informal Event",
+   "summary": "Casual board games and snacks. Drop in any time. Free, in person."
+  },
+  {
+   "event_id": 8004,
+   "date": "2026-11-19",
+   "title": "Student Investing Q&A",
+   "start_time": "18:00",
+   "end_time": "19:00",
+   "location": "Business Instructional Facility, Room 2007",
+   "event_type": "Informational",
+   "summary": "Ask questions about index funds, brokerage accounts and saving for the long term. Free, in person."
+  },
+  {
+   "event_id": 8005,
+   "date": "2026-11-20",
+   "title": "Rapid Chess Tournament",
+   "start_time": "18:00",
+   "end_time": "21:00",
+   "location": "Illini Union, Room 314",
+   "event_type": "Social/Informal Event",
+   "summary": "Rated rapid chess tournament with prizes for the top three players. Free, in person."
+  },
+  {
+   "event_id": 8006,
+   "date": "2026-11-21",
+   "title": "Weekend Board Game Marathon",
+   "start_time": "13:00",
+   "end_time": "17:00",
+   "location": "Grainger Library, Lounge",
+   "event_type": "Social/Informal Event",
+   "summary": "An afternoon of casual board games, come and go as you like. Free, in person."
+  },
+  {
+   "event_id": 8007,
+   "date": "2026-11-16",
+   "title": "Personal Finance Workshop: Budgeting",
+   "start_time": "18:00",
+   "end_time": "19:30",
+   "location": "Business Instructional Facility, Room 1001",
+   "event_type": "Conference/Workshop",
+   "summary": "Build a simple monthly budget and an emergency fund plan. Free, in person."
+  },
+  {
+   "event_id": 8008,
+   "date": "2026-11-18",
+   "title": "Stock Pitch Night",
+   "start_time": "18:00",
+   "end_time": "19:30",
+   "location": "Business Instructional Facility, Room 2007",
+   "event_type": "Social/Informal Event",
+   "summary": "Students share stock ideas in five-minute pitches and discuss them. Free, in person."
+  },
+  {
+   "event_id": 8009,
+   "date": "2026-11-20",
+   "title": "Ceramics Open Studio",
+   "start_time": "15:00",
+   "end_time": "17:00",
+   "location": "Krannert Art Museum, Studio B",
+   "event_type": "Social/Informal Event",
+   "summary": "Try the pottery wheel with help from art students. Clay provided. Free, in person."
+  },
+  {
+   "event_id": 8010,
+   "date": "2026-11-17",
+   "title": "Astronomy Night at the Observatory",
+   "start_time": "20:00",
+   "end_time": "21:00",
+   "location": "Campus Observatory",
+   "event_type": "Social/Informal Event",
+   "summary": "Look at Saturn and the Moon through the historic telescope. Free, in person."
+  },
+  {
+   "event_id": 8011,
+   "date": "2026-11-19",
+   "title": "Cookie Decorating Social",
+   "start_time": "15:00",
+   "end_time": "16:00",
+   "location": "Illini Union, Courtyard Cafe",
+   "event_type": "Social/Informal Event",
+   "summary": "Decorate cookies and meet other students. Free, in person."
+  },
+  {
+   "event_id": 8012,
+   "date": "2026-11-20",
+   "title": "Ancient Rome Lecture Series: The Forum",
+   "start_time": "12:00",
+   "end_time": "13:00",
+   "location": "Gregory Hall 100",
+   "event_type": "Lecture",
+   "summary": "A history professor on the Roman Forum. Free, in person."
+  },
+  {
+   "event_id": 8013,
+   "date": "2026-11-20",
+   "title": "Intro to Index Funds Talk",
+   "start_time": "14:00",
+   "end_time": "15:00",
+   "location": "Business Instructional Facility, Room 2007",
+   "event_type": "Lecture",
+   "summary": "A short talk on what index funds are and how students can start investing small amounts. Free, in person."
+  },
+  {
+   "event_id": 8014,
+   "date": "2026-11-16",
+   "title": "Late-Night Board Game Cafe",
+   "start_time": "21:00",
+   "end_time": "22:00",
+   "location": "Illini Union, Courtyard Cafe",
+   "event_type": "Social/Informal Event",
+   "summary": "Casual board games and snacks for an hour before closing. Games provided. Free, in person."
+  }
+ ],
+ "clubs": [
+  {
+   "club_id": 8901,
+   "name": "Board Game Guild",
+   "categories": "Hobby, Social",
+   "mission": "Weekly casual board game meetups for students of every experience level. Free to join."
+  },
+  {
+   "club_id": 8902,
+   "name": "Student Investment Club",
+   "categories": "Business, Finance",
+   "mission": "Members learn investing and manage a small practice portfolio. Free to join."
+  }
+ ],
+ "answer_key": {
+  "_how": "Judgment labels only, per profile. Every activity not listed for a profile is irrelevant to it. breaks = hard-constraint ids the activity text shows it breaks; schedule fit is NOT stored, code computes it from available_windows minus the runtime update's adds_busy (update = runtime update id injected in this task). starting_calendar = the activities already on the student's calendar before the task (earlier agent plans; also rows in events): 8001 fits before the update and overlaps the update's busy time, so it must be removed (planned_event_removed); 8013 doesn't clash and stays. Correct answer = ONE replacement event that is relevant, not a dislike, breaks nothing, and fits the schedule after the update; reference_solution lists the valid replacements (either one is correct). P4 allows max 2 activities/week (H3): the kept 8013 + one replacement = 2, so adding both replacements (or any two) breaks the cap (hard_constraints counts the kept calendar activities too).",
+  "P4-changing": {
+   "relevant": [
+    "event:8001",
+    "event:8002",
+    "event:8003",
+    "event:8004",
+    "event:8006",
+    "event:8007",
+    "event:8008",
+    "club:8901",
+    "club:8902",
+    "event:8013",
+    "event:8014"
+   ],
+   "dislike": [
+    "event:8005"
+   ],
+   "breaks": {},
+   "update": "U1",
+   "starting_calendar": [
+    {
+     "id": 8001,
+     "kind": "event",
+     "title": "Thursday Board Game Night",
+     "date": "2026-11-19",
+     "start": "18:30",
+     "end": "20:00",
+     "location": "Illini Union, Room 210",
+     "description": "Relaxed evening of casual board games like Catan and Ticket to Ride. Games provided. Free, in person.",
+     "source": "fixture",
+     "agent_added": true
+    },
+    {
+     "id": 8013,
+     "kind": "event",
+     "title": "Intro to Index Funds Talk",
+     "date": "2026-11-20",
+     "start": "14:00",
+     "end": "15:00",
+     "location": "Business Instructional Facility, Room 2007",
+     "description": "A short talk on what index funds are and how students can start investing small amounts. Free, in person.",
+     "source": "fixture",
+     "agent_added": true
+    }
+   ],
+   "reference_solution": [
+    "event:8002",
+    "event:8014"
+   ]
+  }
+ }
+}
