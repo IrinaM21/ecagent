@@ -1,1 +1,8 @@
 __pycache__/
+
+agent/__pycache__
+
+eval/__pycache__
+
+
+scraper/__pycache__
