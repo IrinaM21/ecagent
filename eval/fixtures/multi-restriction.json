@@ -1,0 +1,250 @@
+{
+ "task": "multi-restriction",
+ "status": "frozen 2026-11-12 after review (never change after seeing eval results)",
+ "written_from": "eval/benchmark-tasks.json (multi-restriction) + eval/profiles/simulated-profiles.json (current_truth, available_windows, hard_constraints, task_fills) only",
+ "week": [
+  "2026-11-16",
+  "2026-11-22"
+ ],
+ "events": [
+  {
+   "event_id": 7001,
+   "date": "2026-11-16",
+   "title": "Startup Pitch Workshop",
+   "start_time": "18:00",
+   "end_time": "19:30",
+   "location": "EnterpriseWorks, Room 101",
+   "event_type": "Conference/Workshop",
+   "summary": "Write and practice a one-minute startup pitch with feedback from founders. Free, in person."
+  },
+  {
+   "event_id": 7002,
+   "date": "2026-11-18",
+   "title": "Startup Pitch Workshop (second session)",
+   "start_time": "20:15",
+   "end_time": "21:15",
+   "location": "EnterpriseWorks, Room 101",
+   "event_type": "Conference/Workshop",
+   "summary": "Repeat session of the startup pitch workshop. Free, in person."
+  },
+  {
+   "event_id": 7003,
+   "date": "2026-11-16",
+   "title": "Founders Panel: Student Startups",
+   "start_time": "18:00",
+   "end_time": "19:00",
+   "location": "EnterpriseWorks auditorium",
+   "event_type": "Lecture",
+   "summary": "Three student founders talk about starting a company. Free, in person."
+  },
+  {
+   "event_id": 7004,
+   "date": "2026-11-16",
+   "title": "Lean Startup Workshop",
+   "start_time": "14:00",
+   "end_time": "15:30",
+   "location": "EnterpriseWorks, Room 102",
+   "event_type": "Conference/Workshop",
+   "summary": "Test a startup idea with customer interviews. Free, in person."
+  },
+  {
+   "event_id": 7005,
+   "date": "2026-11-16",
+   "title": "Robotics Sensors Workshop",
+   "start_time": "19:00",
+   "end_time": "20:30",
+   "location": "Engineering Quad, ECEB 2015",
+   "event_type": "Conference/Workshop",
+   "summary": "Wire up distance sensors on a small robot. Free, in person."
+  },
+  {
+   "event_id": 7006,
+   "date": "2026-11-17",
+   "title": "Contemporary Dance Workshop for Beginners",
+   "start_time": "18:00",
+   "end_time": "19:30",
+   "location": "Freer Hall dance studio",
+   "event_type": "Conference/Workshop",
+   "summary": "A relaxed, non-competitive contemporary dance workshop, about 15 dancers, no experience needed. Free, in person."
+  },
+  {
+   "event_id": 7007,
+   "date": "2026-11-18",
+   "title": "Contemporary Dance Workshop for Beginners (Wednesday)",
+   "start_time": "18:00",
+   "end_time": "19:30",
+   "location": "Freer Hall dance studio",
+   "event_type": "Conference/Workshop",
+   "summary": "The same beginner workshop on a different day. Free, in person."
+  },
+  {
+   "event_id": 7008,
+   "date": "2026-11-17",
+   "title": "Contemporary Dance Showcase",
+   "start_time": "19:00",
+   "end_time": "20:30",
+   "location": "Krannert Center, Studio Theatre",
+   "event_type": "Performance",
+   "summary": "Watch student choreographers perform new contemporary pieces. Free, in person."
+  },
+  {
+   "event_id": 7009,
+   "date": "2026-11-17",
+   "title": "Contemporary Dance Morning Workshop",
+   "start_time": "11:00",
+   "end_time": "12:30",
+   "location": "Freer Hall dance studio",
+   "event_type": "Conference/Workshop",
+   "summary": "A beginner contemporary workshop in the late morning. Free, in person."
+  },
+  {
+   "event_id": 7010,
+   "date": "2026-11-17",
+   "title": "Online Contemporary Dance Workshop",
+   "start_time": "17:00",
+   "end_time": "18:00",
+   "location": "Online (Zoom)",
+   "event_type": "Conference/Workshop",
+   "summary": "Follow along with a contemporary dance teacher from home. Virtual only, held on Zoom. Free."
+  },
+  {
+   "event_id": 7011,
+   "date": "2026-11-17",
+   "title": "Contemporary Dance Masterclass",
+   "start_time": "19:30",
+   "end_time": "21:00",
+   "location": "Krannert Center dance studio",
+   "event_type": "Conference/Workshop",
+   "summary": "Masterclass with a visiting choreographer. Fee $40, in person."
+  },
+  {
+   "event_id": 7012,
+   "date": "2026-11-17",
+   "title": "Clinic Volunteer Workshop",
+   "start_time": "16:00",
+   "end_time": "17:30",
+   "location": "McKinley Health Center, Room 210",
+   "event_type": "Conference/Workshop",
+   "summary": "Hands-on training for new clinic volunteers in a small group. Free, in person."
+  },
+  {
+   "event_id": 7013,
+   "date": "2026-11-16",
+   "title": "Watercolor Painting Workshop",
+   "start_time": "18:30",
+   "end_time": "20:00",
+   "location": "Illini Union Art Studio",
+   "event_type": "Conference/Workshop",
+   "summary": "Paint a fall landscape. Supplies provided. Free, in person."
+  },
+  {
+   "event_id": 7014,
+   "date": "2026-11-17",
+   "title": "Resume Workshop",
+   "start_time": "14:00",
+   "end_time": "15:00",
+   "location": "Career Center, Room 120",
+   "event_type": "Conference/Workshop",
+   "summary": "Get feedback on your resume. Free, in person."
+  },
+  {
+   "event_id": 7015,
+   "date": "2026-11-19",
+   "title": "Entrepreneurship Workshop: Finding Cofounders",
+   "start_time": "17:30",
+   "end_time": "19:00",
+   "location": "EnterpriseWorks, Room 101",
+   "event_type": "Conference/Workshop",
+   "summary": "How to find and work with a cofounder. Free, in person."
+  },
+  {
+   "event_id": 7016,
+   "date": "2026-11-20",
+   "title": "Intro to Jazz Dance",
+   "start_time": "12:00",
+   "end_time": "13:00",
+   "location": "Freer Hall dance studio",
+   "event_type": "Health/Fitness",
+   "summary": "A casual jazz dance class. Free, in person."
+  }
+ ],
+ "clubs": [
+  {
+   "club_id": 7101,
+   "name": "Illini Entrepreneurs",
+   "categories": "Business, Entrepreneurship",
+   "mission": "Workshops and pitch nights for student founders. Free to join."
+  },
+  {
+   "club_id": 7102,
+   "name": "Contemporary Dance Collective",
+   "categories": "Arts, Dance",
+   "mission": "Casual, non-competitive contemporary dance for everyone. Free to join."
+  }
+ ],
+ "answer_key": {
+  "_how": "Judgment labels only, per profile. relevant = matches the topic the query asks for ({interest} in task_fills for this task), not every interest of the student; every activity not listed is irrelevant to that request. breaks = hard-constraint ids the activity text shows it breaks; schedule fit is NOT stored, code computes it. restrictions = the query's {event_type} and {day} as the exact DB event_type and weekday (Mon..Sun). Correct answer = event that is relevant, not a dislike, breaks nothing, fits the schedule, and matches restrictions.",
+  "P2-busy": {
+   "relevant": [
+    "event:7001",
+    "event:7002",
+    "event:7003",
+    "event:7004",
+    "event:7015",
+    "club:7101"
+   ],
+   "dislike": [],
+   "breaks": {},
+   "restrictions": {
+    "event_type": "Conference/Workshop",
+    "weekday": "Mon"
+   },
+   "reference_solution": [
+    "event:7001"
+   ],
+   "distractors": {
+    "event:7002": "right topic and type, wrong day (Wed)",
+    "event:7003": "right topic and day, wrong type (Lecture)",
+    "event:7004": "right topic, type and day, outside schedule (Mon 14:00)",
+    "event:7005": "right type and day, wrong topic (robotics)",
+    "event:7015": "right topic and type, wrong day (Thu)"
+   }
+  },
+  "P3-picky": {
+   "relevant": [
+    "event:7006",
+    "event:7007",
+    "event:7008",
+    "event:7009",
+    "event:7010",
+    "event:7011",
+    "club:7102"
+   ],
+   "dislike": [],
+   "breaks": {
+    "event:7010": [
+     "H7"
+    ],
+    "event:7011": [
+     "H6"
+    ]
+   },
+   "restrictions": {
+    "event_type": "Conference/Workshop",
+    "weekday": "Tue"
+   },
+   "reference_solution": [
+    "event:7006"
+   ],
+   "distractors": {
+    "event:7007": "right topic and type, wrong day (Wed)",
+    "event:7008": "right topic and day, wrong type (Performance, watching)",
+    "event:7009": "right topic, type and day, outside schedule (Tue 11:00)",
+    "event:7010": "virtual (H7)",
+    "event:7011": "fee $40 over $25 (H6)",
+    "event:7012": "right type and day, wrong topic (healthcare)",
+    "event:7016": "dance but not contemporary, wrong day and type"
+   }
+  }
+ }
+}

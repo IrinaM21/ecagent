@@ -1,11 +1,11 @@
-"""Validate eval/simulated-profiles.json against the schema in docs/benchmark.md.
+"""Validate eval/profiles/simulated-profiles.json against the schema in docs/benchmark.md.
 
 Runs on its own (standard library only, does not import generate_profiles.py), so it also
 catches hand edits to the JSON. Ground truth is checked by recomputing busy_blocks and
 available_windows from each profile's current_truth with an independent implementation.
 
 Usage:
-    python eval/validate_profiles.py [--profiles PATH] [--tasks PATH]
+    python eval/profiles/validate_profiles.py [--profiles PATH] [--tasks PATH]
 Exit code 0 if every check passes, 1 otherwise.
 """
 import argparse
@@ -19,7 +19,7 @@ HERE = Path(__file__).resolve().parent
 TIME = re.compile(r"^([01]\d|2[0-3]):[0-5]\d$")
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-TOP_KEYS = {"id", "schema_version", "label", "description", "agent_visible", "runtime_updates", "eval_only"}
+TOP_KEYS = {"id", "schema_version", "label", "description", "agent_visible", "runtime_updates", "task_fills", "eval_only"}
 STATE_KEYS = {"student", "interests", "goals", "dislikes", "hard_constraints", "soft_preferences", "schedule"}
 EVAL_KEYS = {"tests", "applicable_tasks", "current_truth", "busy_blocks", "available_windows",
              "grading_checks", "superseded_facts", "known_good_activities", "known_good_activities_status"}
@@ -208,9 +208,10 @@ def check_profile(ck, pid, p, tasks):
     for u in updates:
         ck(u["message"].get("role") == "user" and u["message"].get("content"), pid, f"update {u['id']} message malformed")
         ck(set(u["for_tasks"]) <= set(ev["applicable_tasks"]), pid, f"update {u['id']} targets a non-applicable task")
+    ck(set(p["task_fills"]) == set(ev["applicable_tasks"]), pid, "task_fills tasks != applicable_tasks")
 
-    # nothing evaluator-only may be visible to the agent
-    visible = json.dumps([av, [u["message"] for u in updates]]).lower()
+    # nothing evaluator-only may be visible to the agent (task_fills go into the scripted queries)
+    visible = json.dumps([av, [u["message"] for u in updates], p["task_fills"]]).lower()
     for w in LEAK_WORDS:
         ck(w not in visible, pid, f"possible ground-truth leak: {w!r} in agent-visible content")
     for g in ev["grading_checks"]:
@@ -220,7 +221,7 @@ def check_profile(ck, pid, p, tasks):
 def main():
     ap = argparse.ArgumentParser(description="Validate simulated student profiles.")
     ap.add_argument("--profiles", type=Path, default=HERE / "simulated-profiles.json")
-    ap.add_argument("--tasks", type=Path, default=HERE / "benchmark-tasks.json")
+    ap.add_argument("--tasks", type=Path, default=HERE.parent / "benchmark-tasks.json")  # eval/benchmark-tasks.json
     args = ap.parse_args()
 
     try:

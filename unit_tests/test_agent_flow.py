@@ -34,11 +34,11 @@ class TestAgentFlow(LoggedTest):
                 return llm_text("photo, camera")
             if "Rate each activity" in prompt:
                 return llm_text("1: 9")
-            if "You are a scheduler" in prompt:
+            if "candidate plans" in prompt:  # scheduler (its role is now in its system prompt)
                 return llm_text("<plans>[[1]]</plans>")
             if "Reply with only YES or NO" in prompt:
                 return llm_text("YES")
-            if prompt.startswith("Verify if the response"):
+            if "Verify if the response" in prompt:
                 return llm_text('{"is_supported": true, "confidence": 0.9, "explanation": "ok"}')
             return llm_text("How about the Photo Walk on Saturday 14:00? Want me to add it?")
 
@@ -48,6 +48,7 @@ class TestAgentFlow(LoggedTest):
         for module in (a, a.m, a.r, a.rec, a.s):
             module.call = call
         a.m.count_tokens = lambda msgs, system=None: 10
+        a.m.input_limit = lambda: 200_000  # no Models API call
         a.load([], INTAKE, run_id="test/flow")
 
         reply, shown = a.run("Can you find me a photography activity this week?")

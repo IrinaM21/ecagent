@@ -1,4 +1,4 @@
-"""Generate eval/simulated-profiles.json, the five simulated student profiles.
+"""Generate eval/profiles/simulated-profiles.json, the five simulated student profiles.
 
 This file is the source of truth for the profiles: edit the data here, regenerate, then
 run validate_profiles.py. busy_blocks and available_windows in eval_only are *derived*
@@ -7,9 +7,9 @@ looked up from message text, so they cannot drift out of sync. Output is determi
 (no timestamps or randomness), so regenerating unchanged data is byte-identical.
 
 Usage (standard library only):
-    python eval/generate_profiles.py --check     # does the JSON file match this script?
-    python eval/generate_profiles.py --force     # overwrite eval/simulated-profiles.json
-    python eval/generate_profiles.py -o out.json # write somewhere else (new file)
+    python eval/profiles/generate_profiles.py --check     # does the JSON file match this script?
+    python eval/profiles/generate_profiles.py --force     # overwrite eval/profiles/simulated-profiles.json
+    python eval/profiles/generate_profiles.py -o out.json # write somewhere else (new file)
 See docs/benchmark.md for the schema.
 """
 import argparse
@@ -22,7 +22,7 @@ from pathlib import Path
 DEFAULT_OUT = Path(__file__).resolve().parent / "simulated-profiles.json"
 
 TZ = "America/Chicago"
-WEEK_START = date(2026, 11, 2)  # Monday; DST ended 2026-11-01, so the whole week is CST
+WEEK_START = date(2026, 11, 16)  # Monday; DST ended 2026-11-01, so the whole week is CST
 WEEK = [WEEK_START + timedelta(days=i) for i in range(7)]
 DAY = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 # same ids, in the same order, as eval/benchmark-tasks.json (tasks 1-10 in the benchmark paper)
@@ -130,7 +130,7 @@ p1_intake = {
          rec("R2", "JOUR 200", "class", ["Tue", "Thu"], "11:00", "12:15"),
          rec("R3", "PSYC 100", "class", ["Mon", "Wed", "Fri"], "13:00", "13:50"),
          rec("R4", "MACS 100", "class", ["Tue", "Thu"], "14:00", "15:15")],
-        [one("O1", "Family visiting campus", "personal", "2026-11-07", "10:00", "16:00")]),
+        [one("O1", "Family visiting campus", "personal", "2026-11-21", "10:00", "16:00")]),
 }
 p1_history = [
     u("Hi! I'm Maya, a first-year journalism major. I'm really into photography and I want to "
@@ -140,9 +140,9 @@ p1_history = [
     u("I have RHET 105 Monday/Wednesday/Friday 9:00-9:50 and PSYC 100 MWF 13:00-13:50. Tuesday "
       "and Thursday I have JOUR 200 from 11:00 to 12:15 and MACS 100 from 14:00 to 15:15. I don't "
       "have a job. I'd rather not do anything before 8 or after 10 at night. Also my family is "
-      "visiting Saturday November 7 from 10:00 to 16:00."),
+      "visiting Saturday November 21 from 10:00 to 16:00."),
     a("Got it. Classes MWF 09:00-09:50 and 13:00-13:50, TR 11:00-12:15 and 14:00-15:15, nothing "
-      "before 08:00 or after 22:00, and you're busy Saturday, November 7 from 10:00 to 16:00. Any "
+      "before 08:00 or after 22:00, and you're busy Saturday, November 21 from 10:00 to 16:00. Any "
       "other preferences?"),
     u("I'm a total beginner so it should be beginner-friendly. One-time events or a club are "
       "both fine with me."),
@@ -182,9 +182,9 @@ p2_intake = {
          rec("R6", "Library student assistant shift", "work", ["Tue", "Thu"], "13:00", "17:00", "Grainger Engineering Library"),
          rec("R7", "Library student assistant shift", "work", ["Sat"], "09:00", "13:00", "Grainger Engineering Library"),
          rec("R8", "ECE 120 office hours (course staff)", "work", ["Wed"], "18:00", "20:00")],
-        [one("O1", "ECE 391 midterm exam", "exam", "2026-11-03", "19:00", "21:00"),
-         one("O2", "Virtual internship interview", "personal", "2026-11-05", "08:00", "09:00"),
-         one("O3", "ECE 385 project group meeting", "academic", "2026-11-06", "17:00", "19:00")]),
+        [one("O1", "ECE 391 midterm exam", "exam", "2026-11-17", "19:00", "21:00"),
+         one("O2", "Virtual internship interview", "personal", "2026-11-19", "08:00", "09:00"),
+         one("O3", "ECE 385 project group meeting", "academic", "2026-11-20", "17:00", "19:00")]),
 }
 p2_history = [
     u("Hey, I'm Daniel, a junior in computer engineering. My schedule is packed but I'd like to "
@@ -200,9 +200,9 @@ p2_history = [
       "latest times, or a cap on the number of activities?"),
     u("I live off campus and take the bus, so I need 15 minutes before and after anything. "
       "Nothing before 8:00, and I have to be done by 21:30. Max 2 activities a week and no more "
-      "than 3 hours total. This week I also have my ECE 391 midterm Tuesday Nov 3 from 19:00 to "
-      "21:00, a virtual interview Thursday Nov 5 from 8:00 to 9:00, and an ECE 385 group meeting "
-      "Friday Nov 6 from 17:00 to 19:00."),
+      "than 3 hours total. This week I also have my ECE 391 midterm Tuesday Nov 17 from 19:00 to "
+      "21:00, a virtual interview Thursday Nov 19 from 8:00 to 9:00, and an ECE 385 group meeting "
+      "Friday Nov 20 from 17:00 to 19:00."),
     a("Understood: 15-minute buffers, nothing before 08:00 or ending after 21:30, at most 2 "
       "activities and 3 hours per week, plus the midterm, interview, and group meeting. How "
       "should I prioritize your interests?"),
@@ -251,8 +251,8 @@ p3_intake = {
          rec("R3", "SPAN 228", "class", ["Mon", "Wed", "Fri"], "13:00", "13:50"),
          rec("R4", "CHEM 233 lab", "lab", ["Thu"], "13:30", "16:20"),
          rec("R5", "Undergraduate research lab hours", "work", ["Mon"], "15:00", "17:00")],
-        [one("O1", "Doctor's appointment", "personal", "2026-11-04", "16:00", "17:00"),
-         one("O2", "MCAT practice diagnostic exam", "academic", "2026-11-08", "09:00", "14:00")]),
+        [one("O1", "Doctor's appointment", "personal", "2026-11-18", "16:00", "17:00"),
+         one("O2", "MCAT practice diagnostic exam", "academic", "2026-11-22", "09:00", "14:00")]),
 }
 p3_history = [
     u("Hi, I'm Leah, a sophomore in MCB on the pre-med track. I want to find extracurriculars, "
@@ -272,7 +272,7 @@ p3_history = [
       "schedule look like?"),
     u("CHEM 232 MWF 10:00-10:50, SPAN 228 MWF 13:00-13:50, MCB 250 Tue/Thu 11:00-12:15, CHEM 233 "
       "lab Thursday 13:30-16:20, and research lab hours Monday 15:00-17:00. This week I also have a "
-      "doctor's appointment Wednesday Nov 4 16:00-17:00 and an MCAT practice test Sunday Nov 8 "
+      "doctor's appointment Wednesday Nov 18 16:00-17:00 and an MCAT practice test Sunday Nov 22 "
       "9:00-14:00."),
     a("Thanks. If several options fit, how should I decide between them?"),
     u("Here's my ranking: 1) clinical or healthcare volunteering matters most, 2) small groups, "
@@ -353,11 +353,11 @@ p4_history = [
 ]
 p4_updates = [
     {"id": "U1", "for_tasks": ["adapt-schedule"],
-     "message": u("Something came up: there's a STAT 400 midterm review session Thursday Nov 5 "
+     "message": u("Something came up: there's a STAT 400 midterm review session Thursday Nov 19 "
                   "from 18:00 to 20:00 that I need to go to. Can you redo my plan for this week?")},
     # not tied to a task: resolve-conflicting now tests ranked preferences (P2/P3), kept for later use
     {"id": "U2", "for_tasks": [],
-     "message": u("Change of plans for this weekend only: I'm staying on campus Saturday Nov 7 "
+     "message": u("Change of plans for this weekend only: I'm staying on campus Saturday Nov 21 "
                   "for a friend's birthday dinner at 18:00, so I'm free that Saturday from 12:00 "
                   "to 17:00. I'm still going home Sunday. Can you find me something that "
                   "Saturday afternoon?")},
@@ -409,9 +409,9 @@ p5_truth["schedule"]["recurring"] = p5_intake["schedule"]["recurring"] + [
     rec("R6", "UX internship (remote, at desk)", "work", ["Fri"], "09:00", "13:00"),
 ]
 p5_truth["schedule"]["one_off"] = [
-    one("O1", "Capstone presentation", "academic", "2026-11-05", "16:00", "17:30"),
-    one("O2", "Job interview in Chicago (travel all day)", "personal", "2026-11-06", "06:00", "21:00"),
-    one("O3", "Orchestra viola sectional", "extracurricular", "2026-11-08", "14:00", "16:00"),
+    one("O1", "Capstone presentation", "academic", "2026-11-19", "16:00", "17:30"),
+    one("O2", "Job interview in Chicago (travel all day)", "personal", "2026-11-20", "06:00", "21:00"),
+    one("O3", "Orchestra viola sectional", "extracurricular", "2026-11-22", "14:00", "16:00"),
 ]
 p5_history = [
     u("hey! I'm Jordan, senior in info sciences with a music minor. I graduate in May and I "
@@ -530,11 +530,11 @@ p5_history = [
       "the Main Quad or the Union is nice but not required."),
     a("Noted: smaller groups, weekday evenings over weekends (Saturdays are for capstone), and "
       "a preference for locations near the Main Quad or Illini Union."),
-    u("A few things this week: my capstone presentation is Thursday Nov 5 from 16:00 to 17:30. "
-      "And I'll be in Chicago all day Friday Nov 6 for a job interview, gone from about 6:00 until "
+    u("A few things this week: my capstone presentation is Thursday Nov 19 from 16:00 to 17:30. "
+      "And I'll be in Chicago all day Friday Nov 20 for a job interview, gone from about 6:00 until "
       "21:00."),
-    a("Good luck with both! I've added the capstone presentation Thursday, November 5, "
-      "16:00-17:30, and marked Friday, November 6, 06:00-21:00 as unavailable."),
+    a("Good luck with both! I've added the capstone presentation Thursday, November 19, "
+      "16:00-17:30, and marked Friday, November 20, 06:00-21:00 as unavailable."),
     u("Oh, my internship changed my Wednesday hours. It's 13:00-18:00 now instead of "
       "12:00-17:00, starting this week. Fridays are the same."),
     a("Updated. Wednesday internship hours are now 13:00-18:00. Friday stays 09:00-13:00."),
@@ -558,10 +558,10 @@ p5_history = [
       "Be careful putting conditions on the right table in the WHERE clause after a LEFT JOIN, "
       "because that can quietly turn it back into an inner join. Put those conditions in the ON "
       "clause instead."),
-    u("that's helpful. last things: orchestra added a viola sectional this Sunday Nov 8 from "
+    u("that's helpful. last things: orchestra added a viola sectional this Sunday Nov 22 from "
       "14:00 to 16:00. And I don't want to overcommit. Max 2 new activities a week and no more "
       "than 4 hours total for new stuff."),
-    a("Got it. I've added the sectional Sunday, November 8, 14:00-16:00, and I'll keep it to at "
+    a("Got it. I've added the sectional Sunday, November 22, 14:00-16:00, and I'll keep it to at "
       "most 2 new activities and 4 hours per week."),
     u("thanks!! I'm going home for Thanksgiving later this month so I'm trying to fit stuff in "
       "before then. anyway, that's everything for now."),
@@ -585,7 +585,7 @@ p5_irrelevant = sorted(i for t in ["bar chart and a histogram", "roommate keeps 
 p5_updates = [
     # not tied to a task: it frees time instead of creating a conflict, so it doesn't fit adapt-schedule
     {"id": "U1", "for_tasks": [],
-     "message": u("Orchestra just cancelled Thursday's rehearsal (Nov 5), so I'm free that evening "
+     "message": u("Orchestra just cancelled Thursday's rehearsal (Nov 19), so I'm free that evening "
                   "after my capstone presentation. Can you update my plan?")},
     # not tied to a task: resolve-conflicting now tests ranked preferences (P2/P3), kept for later use
     {"id": "U2", "for_tasks": [],
@@ -630,8 +630,36 @@ def build(pid, label, description, intake, history, truth, tests, tasks, extra_e
         "description": description,
         "agent_visible": {"intake_profile": intake, "conversation_history": history},
         "runtime_updates": list(updates),
+        "task_fills": task_fills(pid, tasks),
         "eval_only": ev,
     }
+
+
+# values for the placeholders in the task queries (eval/benchmark-tasks.json turns), from each
+# profile's current interests (never superseded ones, e.g. no chess for P4, no improv for P5).
+# Agent-visible like runtime_updates (scripted user text), so not in eval_only.
+TASK_INTERESTS = {
+    "P1-simple": ["photography"],
+    "P2-busy": ["robotics", "entrepreneurship"],
+    "P3-picky": ["healthcare volunteering", "contemporary dance"],
+    "P4-changing": ["investing", "board games"],
+    "P5-long-context": ["UX design", "music ensemble"],
+}
+# per-task overrides, merged over the defaults above. multi-restriction also needs {event_type} and {day}
+# (words in the query; the exact DB event_type + weekday are in eval/fixtures/multi-restriction.json)
+TASK_FILL_OVERRIDES = {
+    "P2-busy": {"multi-restriction": {"interest": "entrepreneurship", "event_type": "workshop", "day": "Monday"}},
+    "P3-picky": {"multi-restriction": {"interest": "contemporary dance", "event_type": "workshop", "day": "Tuesday"}},
+}
+
+
+def task_fills(pid, tasks):
+    """Placeholder values per applicable task. One interest -> the same one fills {interest_1} and {interest_2}.
+    TASK_FILL_OVERRIDES replace or add values for one task."""
+    names = TASK_INTERESTS[pid]
+    first, second = names[0], names[1] if len(names) > 1 else names[0]
+    overrides = TASK_FILL_OVERRIDES.get(pid, {})
+    return {t: {"interest": first, "interest_1": first, "interest_2": second, **overrides.get(t, {})} for t in tasks}
 
 
 profiles = dict([
@@ -644,7 +672,7 @@ profiles = dict([
            "checks": [
                {"id": "C-interest", "kind": "soft", "check": "At least one suggestion is photography-related (S1)."},
                {"id": "C-beginner", "kind": "soft", "check": "Suggestions do not require prior experience or a portfolio (S2)."},
-               {"id": "C-o1", "kind": "hard", "check": "Nothing on 2026-11-07 between 10:00 and 16:00."}]}),
+               {"id": "C-o1", "kind": "hard", "check": "Nothing on 2026-11-21 between 10:00 and 16:00."}]}),
     build("P2-busy", "Busy Student",
           "Junior computer engineering student with a dense class, lab, and work schedule and a bus commute.",
           p2_intake, p2_history, copy.deepcopy(p2_intake),
@@ -656,7 +684,7 @@ profiles = dict([
            "checks": [
                {"id": "C-buffer", "kind": "hard", "check": "15-minute gap between any suggestion and adjacent commitments (H3)."},
                {"id": "C-cap", "kind": "hard", "check": "At most 2 activities and 3 total hours in the reference week (H4, H5)."},
-               {"id": "C-exam", "kind": "hard", "check": "Nothing on 2026-11-03 18:45-21:15 (midterm plus buffer)."},
+               {"id": "C-exam", "kind": "hard", "check": "Nothing on 2026-11-17 18:45-21:15 (midterm plus buffer)."},
                {"id": "C-rank", "kind": "soft", "check": "If any robotics/embedded option fits, it is suggested before entrepreneurship or basketball (S1 > S2 > S5)."},
                {"id": "C-sunday", "kind": "soft", "check": "Prefers non-Sunday slots when an equivalent option exists (S4)."}]}),
     build("P3-picky", "Picky Student",
@@ -693,12 +721,12 @@ profiles = dict([
                {"id": "C-stale-chess", "kind": "hard", "check": "Does not suggest competitive chess."},
                {"id": "C-weekend", "kind": "hard", "check": "No weekend suggestions in the reference week, except the U2 window when U2 is injected."}],
            "runtime_update_effects": {
-               "U1": {"adds_busy": [{"date": "2026-11-05", "start": "18:00", "end": "20:00", "source": "U1"}],
-                      "expected": "Re-plan. Any previously suggested Thu 2026-11-05 activity overlapping 18:00-20:00 is moved or dropped. Other suggestions are kept."},
-               "U2": {"adds_available": [{"date": "2026-11-07", "start": "12:00", "end": "17:00"}],
-                      "expected": "Treat 2026-11-07 12:00-17:00 as a one-time exception to H4. Suggestions end by 17:00. Sunday 2026-11-08 stays unavailable, and H4 still applies on other November weekends."}}},
+               "U1": {"adds_busy": [{"date": "2026-11-19", "start": "18:00", "end": "20:00", "source": "U1"}],
+                      "expected": "Re-plan. Any previously suggested Thu 2026-11-19 activity overlapping 18:00-20:00 is moved or dropped. Other suggestions are kept."},
+               "U2": {"adds_available": [{"date": "2026-11-21", "start": "12:00", "end": "17:00"}],
+                      "expected": "Treat 2026-11-21 12:00-17:00 as a one-time exception to H4. Suggestions end by 17:00. Sunday 2026-11-22 stays unavailable, and H4 still applies on other November weekends."}}},
           updates=p4_updates,
-          msg_dates={"0-5": "2026-10-19", "6-11": "2026-10-30"}),
+          msg_dates={"0-5": "2026-11-02", "6-11": "2026-11-13"}),
     build("P5-long-context", "Long-Context Student",
           "Senior information sciences student with a long, meandering conversation history.",
           p5_intake, p5_history, p5_truth,
@@ -719,9 +747,9 @@ profiles = dict([
                {"fact": "Cost caps $15/event, $40/semester", "msg": i5("more than $15 per event")},
                {"fact": "Single activity at most 3 hours; no overnight events", "msg": i5("3 hours max")},
                {"fact": "Saturdays reserved for capstone (soft)", "msg": i5("capstone on Saturdays")},
-               {"fact": "Capstone presentation 2026-11-05 16:00-17:30", "msg": i5("capstone presentation is Thursday")},
-               {"fact": "Away 2026-11-06 06:00-21:00", "msg": i5("capstone presentation is Thursday")},
-               {"fact": "Sectional 2026-11-08 14:00-16:00", "msg": i5("viola sectional")},
+               {"fact": "Capstone presentation 2026-11-19 16:00-17:30", "msg": i5("capstone presentation is Thursday")},
+               {"fact": "Away 2026-11-20 06:00-21:00", "msg": i5("capstone presentation is Thursday")},
+               {"fact": "Sectional 2026-11-22 14:00-16:00", "msg": i5("viola sectional")},
                {"fact": "Max 2 new activities, 4 hours/week", "msg": i5("viola sectional")}],
            "irrelevant_msgs": p5_irrelevant,
            "checks": [
@@ -729,14 +757,14 @@ profiles = dict([
                {"id": "C-wed", "kind": "hard", "check": "Nothing Wed 13:00-18:00. Wed 12:00-13:00 is free under current truth."},
                {"id": "C-compact", "kind": "behavior", "check": "After compaction, every buried_fact is still respected and no superseded value is used."}],
            "runtime_update_effects": {
-               "U1": {"removes_busy": [{"date": "2026-11-05", "start": "19:00", "end": "21:30", "source": "R4"}],
-                      "expected": "May now use Thu 2026-11-05 17:30-22:30. Must still respect the 4-hour/2-activity caps."},
+               "U1": {"removes_busy": [{"date": "2026-11-19", "start": "19:00", "end": "21:30", "source": "R4"}],
+                      "expected": "May now use Thu 2026-11-19 17:30-22:30. Must still respect the 4-hour/2-activity caps."},
                "U2": {"expected": "Answers using the updated internship hours (Wed 13:00-18:00): 12:00-13:00 is free, after IS 445 ends at 10:45. Must not say the old 12:00-17:00 hours block it. Suggestions must end by 13:00."}}},
           updates=p5_updates,
-          msg_dates={f"0-{i5('I started a part-time UX internship') - 1}": "2026-10-05",
-                     f"{i5('I started a part-time UX internship')}-{i5('cross improv off') - 1}": "2026-10-14",
-                     f"{i5('cross improv off')}-{i5('capstone presentation is Thursday') - 1}": "2026-10-22",
-                     f"{i5('capstone presentation is Thursday')}-{len(p5_history) - 1}": "2026-11-01"}),
+          msg_dates={f"0-{i5('I started a part-time UX internship') - 1}": "2026-10-19",
+                     f"{i5('I started a part-time UX internship')}-{i5('cross improv off') - 1}": "2026-10-28",
+                     f"{i5('cross improv off')}-{i5('capstone presentation is Thursday') - 1}": "2026-11-05",
+                     f"{i5('capstone presentation is Thursday')}-{len(p5_history) - 1}": "2026-11-15"}),
 ])
 
 def render():

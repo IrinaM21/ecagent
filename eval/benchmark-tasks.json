@@ -27,7 +27,7 @@
       "no_avoid",
       "club_or_fitting_event"
     ],
-    "reference_solution": "pending: needs data/snapshot-2026-10-27.db (frozen week of 2026-11-02)"
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
   },
   "one-schedule": {
     "paper_task": 2,
@@ -59,7 +59,7 @@
       "is_event",
       "fits_schedule"
     ],
-    "reference_solution": "pending: needs data/snapshot-2026-10-27.db (frozen week of 2026-11-02)"
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
   },
   "schedule-eca": {
     "paper_task": 3,
@@ -97,7 +97,7 @@
       "events_added:1",
       "reply_matches_calendar"
     ],
-    "reference_solution": "pending: needs data/snapshot-2026-10-27.db (frozen week of 2026-11-02)"
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
   },
   "choose-conflicting": {
     "paper_task": 4,
@@ -136,15 +136,15 @@
       "picked_from_overlap_set",
       "reply_matches_calendar"
     ],
-    "overlap_set": "pending: needs data/snapshot-2026-10-27.db (frozen week of 2026-11-02)",
+    "overlap_set": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)",
     "note": "Profiles may be dropped once the database shows which ones have overlapping events that each fit the schedule.",
-    "reference_solution": "pending: needs data/snapshot-2026-10-27.db (frozen week of 2026-11-02)"
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
   },
   "multiple-schedule": {
     "paper_task": 5,
     "difficulty": "medium",
     "capability": "Multi-step planning",
-    "description": "Schedule two ECAs, one per interest, with no conflicts with the calendar or each other.",
+    "description": "Schedule two ECAs, one per interest, with no conflicts with the calendar or each other. A student with only one interest asks for two different activities for that interest ({interest_1} = {interest_2}); one_per_interest then means two distinct activities that each match it.",
     "profiles": [
       "P1-simple",
       "P2-busy",
@@ -179,7 +179,7 @@
       "no_overlap_between_added",
       "reply_matches_calendar"
     ],
-    "reference_solution": "pending: needs data/snapshot-2026-10-27.db (frozen week of 2026-11-02)"
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
   },
   "multi-restriction": {
     "paper_task": 6,
@@ -209,8 +209,8 @@
       "fits_schedule",
       "meets_request_restrictions"
     ],
-    "request_restrictions": "pending: needs data/snapshot-2026-10-27.db (frozen week of 2026-11-02)",
-    "reference_solution": "pending: needs data/snapshot-2026-10-27.db (frozen week of 2026-11-02)"
+    "request_restrictions": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)",
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
   },
   "adapt-schedule": {
     "paper_task": 7,
@@ -246,10 +246,10 @@
       "reply_matches_calendar"
     ],
     "setup": {
-      "calendar": "pending: needs data/snapshot-2026-10-27.db (frozen week of 2026-11-02)",
-      "note": "One activity already on the calendar that conflicts with U1 (STAT 400 review, Thu Nov 5 18:00-20:00)."
+      "calendar": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)",
+      "note": "One activity already on the calendar that conflicts with U1 (STAT 400 review, Thu Nov 19 18:00-20:00)."
     },
-    "reference_solution": "pending: needs data/snapshot-2026-10-27.db (frozen week of 2026-11-02)"
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
   },
   "resolve-conflicting": {
     "paper_task": 8,
@@ -279,7 +279,7 @@
       "fits_schedule",
       "best_ranked_preference"
     ],
-    "reference_solution": "pending: needs data/snapshot-2026-10-27.db (frozen week of 2026-11-02)"
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
   },
   "multi-step": {
     "paper_task": 9,
@@ -326,7 +326,7 @@
       "error": "temporary server error",
       "note": "Fails on the first call only; works on retry."
     },
-    "reference_solution": "pending: needs data/snapshot-2026-10-27.db (frozen week of 2026-11-02)"
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
   },
   "long-context": {
     "paper_task": 10,
@@ -362,6 +362,6 @@
       "reply_matches_calendar"
     ],
     "note": "The request names no interest on purpose: the agent must use the current interests and commitments from the history.",
-    "reference_solution": "pending: needs data/snapshot-2026-10-27.db (frozen week of 2026-11-02)"
+    "reference_solution": "pending: compute from data/snapshot-2026-11-11.db (frozen week of 2026-11-16)"
   }
 }

@@ -1,0 +1,41 @@
+PIPELINE CHECK - ecagent (CS 498)
+Run on 2026-11-11
+
+This checks that the whole eval pipeline works before the real eval. It is NOT
+the eval: one trial per agent on every task/profile pair, on draft fixtures,
+with no manual grading.
+
+SETUP
+- Tasks: all 10 benchmark tasks, on the profiles each task is meant for
+  (36 task/profile pairs).
+- Runs: one trial per agent and pair, 108 trials in total.
+  Total cost: $5.92.
+- Data: one small synthetic database per task (week of Nov 16-22, 2026).
+  "Today" is fixed to Nov 16. Web search off.
+- Agents: full_agent, no_compact, single_pass (claude-sonnet-4-6).
+- Grading: automatic checks against each task's answer key. Every pair has a
+  correct answer, so a trial that picks nothing can't pass.
+
+RESULTS
+- full_agent: passed 19/36. Failed 3, picked nothing in 14.
+- no_compact: passed 17/36. Failed 5, picked nothing in 14.
+- single_pass: passed 18/36. Failed 15, picked nothing in 3.
+- When they picked something: full_agent 19/22, no_compact 17/22,
+  single_pass 18/33.
+- No errors. Every pick was a real activity from the database.
+- full_agent's calendar and registration steps worked in 90% of the trials
+  where they were scored.
+
+FINDINGS
+1. full_agent and no_compact don't search when the request doesn't name an
+   interest (e.g. "Can you find me an activity?"). They reply right away and
+   tell the student their activity list is empty, which is false. This is all
+   14 of their empty trials.
+2. When they do search, both are accurate.
+3. full_agent sometimes took back a correct pick after the student said yes,
+   saying it had made the details up, and added nothing to the calendar.
+4. single_pass always answers, but is wrong more often: outside the schedule,
+   the wrong kind of activity, or off-interest.
+5. full_agent and no_compact registered students for events they only asked to
+   add to their calendar (26 trials).
+6. Three bugs in the test setup were found and fixed along the way.

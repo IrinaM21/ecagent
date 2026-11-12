@@ -12,3 +12,5 @@ client_secret*.json
 # generated at run time
 agent/model_log.json
 memory.json
+# live scrape, rewritten every week (the frozen snapshot and fixture DBs are committed)
+data/campus.db

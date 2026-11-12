@@ -2,14 +2,14 @@
 
 The benchmark runs the agent (and the baselines) on every combination of a **simulated student
 profile** and a **benchmark task** (`eval/benchmark-tasks.json`). This document covers the
-profiles in `eval/simulated-profiles.json`: what each one tests, the JSON schema, and how to
+profiles in `eval/profiles/simulated-profiles.json`: what each one tests, the JSON schema, and how to
 maintain them.
 
 | File | Purpose |
 |---|---|
-| `eval/simulated-profiles.json` | The five profiles. **Generated, do not hand-edit.** |
-| `eval/generate_profiles.py` | Source of truth for profile data; writes the JSON. |
-| `eval/validate_profiles.py` | Standalone schema + ground-truth consistency checks. |
+| `eval/profiles/simulated-profiles.json` | The five profiles. **Generated, do not hand-edit.** |
+| `eval/profiles/generate_profiles.py` | Source of truth for profile data; writes the JSON. |
+| `eval/profiles/validate_profiles.py` | Standalone schema + ground-truth consistency checks. |
 | `eval/benchmark-tasks.json` | Task ids and queries (task ids are referenced by profiles). |
 
 ## The five profiles
@@ -20,7 +20,7 @@ maintain them.
 | `P2-busy` | Daniel, junior Computer Engineering. Dense classes/labs/work, bus commute (15-min buffers), max 2 activities / 3 h per week, an exam, interview and group meeting this week. | Schedule reasoning, conflict avoidance (buffers, one-off events), weekly caps, ranking multiple interests. |
 | `P3-picky` | Leah, sophomore MCB pre-med. Explicit dislikes, hard restrictions (Shabbat Fri 16:30–Sat 18:00, no alcohol-centered events, ≤ $25/semester, in person, no car, done by 21:00), and a student-stated ranking of six soft preferences. | Hard vs. soft separation, exclusion of disliked categories, rank-based tie-breaking. |
 | `P4-changing` | Sam, sophomore Statistics. Over two sessions drops a class, work shifts move Tue/Thu → Mon/Wed, competitive chess becomes a dislike (replaced by casual board games), weekends become unavailable for November. Two runtime updates. | Using newest information over stale, replanning, one-time exceptions to a standing rule. |
-| `P5-long-context` | Jordan, senior Information Sciences. 42-message history (~3k tokens, ~3× the 1024-token memory limit) across four sessions; half the turns are off-topic, nine scheduling facts are buried throughout, two preferences/times are superseded. Two runtime updates. | Context compaction, recall of buried facts, not reviving superseded facts after compaction. |
+| `P5-long-context` | Jordan, senior Information Sciences. 42-message history (~3k tokens, ~3× the 1024-token memory limit the profiles were designed for) across four sessions; half the turns are off-topic, nine scheduling facts are buried throughout, two preferences/times are superseded. Two runtime updates. | Context compaction, recall of buried facts, not reviving superseded facts after compaction. |
 
 Each profile lists the tasks it is meant for in `eval_only.applicable_tasks`, which must match
 each task's `profiles` in `eval/benchmark-tasks.json` (e.g. only P4 has material for
@@ -36,6 +36,7 @@ non-profile keys** such as metadata). Every profile has the same shape:
   id, schema_version, label, description,
   agent_visible:   { intake_profile, conversation_history },
   runtime_updates: [ { id, for_tasks, message } ],
+  task_fills:      { <task-id>: { interest, interest_1, interest_2, ... } },
   eval_only:       { tests, applicable_tasks, current_truth, busy_blocks, available_windows,
                      grading_checks, superseded_facts, known_good_activities, ... }
 }
@@ -47,6 +48,7 @@ non-profile keys** such as metadata). Every profile has the same shape:
 |---|---|---|
 | `agent_visible` | The agent | Before the task query. `conversation_history` is loaded into memory; `intake_profile` may be given to the scheduler as structured input. |
 | `runtime_updates` | The agent, **only the `message` field** | Injected by the eval harness mid-task, only for the tasks in `for_tasks`. `id`/`for_tasks` are harness metadata. |
+| `task_fills` | The agent, as part of the scripted task query | Values for the placeholders in `eval/benchmark-tasks.json` turns (`{interest}`, ...), one entry per applicable task, from `current_truth` interests (never superseded ones). A profile with one interest uses it for both `{interest_1}` and `{interest_2}`. |
 | `eval_only` | Grader only | Never placed in memory, prompts, or tool results. The validator checks agent-visible text for leaked grader content. |
 
 `id`, `label`, `description` and `schema_version` are bookkeeping and should not be sent to the
@@ -97,7 +99,7 @@ or events.
 | `available_windows` | Free time per day inside `earliest_start`–`latest_end`, after removing busy blocks padded by `buffer_minutes`. Gaps under 30 min are omitted. `{date, start, end, minutes}`. |
 | `grading_checks` | `{id, kind, check}` with `kind` `hard` (must pass), `soft` (ranking quality) or `behavior` (how the agent responds). Every non-time hard constraint `Hn` has a `C-Hn` check. |
 | `superseded_facts` | `{field, old, new, stated_in_msg, superseded_in_msg}`: indices into `conversation_history`. |
-| `known_good_activities` | Verified example activities. **Intentionally empty**: there is no `campus.db` snapshot yet, and entries may only be added with a source (`event_id`, `club_id` or `url`); the validator rejects unsourced entries. |
+| `known_good_activities` | Verified example activities. **Intentionally empty**: the eval's correct answers live in each task's fixture answer key (`eval/fixtures/<task>.json`) instead. Entries may only be added with a source (`event_id`, `club_id` or `url`); the validator rejects unsourced entries. |
 | `interest_keywords`, `avoid_keywords` | Keyword hints for rule-based matching. |
 | `runtime_update_effects` | Per update id: `adds_busy` / `removes_busy` / `adds_available` blocks and an `expected` behavior description. |
 | `buried_facts`, `irrelevant_msgs`, `message_dates` | (P4/P5) Message indices of key facts and off-topic turns, and the simulated date of each range of messages. |
@@ -124,14 +126,14 @@ value is used.
 
 ## Reference week and simulated calendar
 
-All profiles share one reference week: **Monday 2026-11-02 to Sunday 2026-11-08**. Daylight
+All profiles share one reference week: **Monday 2026-11-16 to Sunday 2026-11-22**. Daylight
 saving time ended on 2026-11-01, so the whole week is CST (UTC-6). Recurring items repeat on their
 `days` within that week; one-off items and dated constraints must fall inside it (validated).
 
-"This week" in a task query means the reference week. Because `search_events` defaults to today
-and the database is re-scraped weekly, reproducible results require running the eval against a
-**frozen `campus.db` snapshot covering 2026-11-02 to 2026-11-08** with the agent's notion of
-"today" pinned to 2026-11-02. `message_dates` give simulated dates for when earlier conversation
+"This week" in a task query means the reference week. The eval runs each task against its own
+small synthetic **fixture database** for that week (`data/fixtures/<task>.db`, built from
+`eval/fixtures/<task>.json`, frozen), with the agent's notion of "today" pinned to 2026-11-16, so
+results don't depend on the weekly re-scraped `campus.db` (`docs/design-decisions.md`, Evaluation). `message_dates` give simulated dates for when earlier conversation
 sessions happened; they are before the reference week.
 
 ## Regenerating and validating
@@ -140,18 +142,18 @@ Both scripts use only the Python standard library and can be run from any direct
 
 ```bash
 # validate the committed JSON (schema, ground-truth consistency, leaks); exit 1 on failure
-python eval/validate_profiles.py
-python eval/validate_profiles.py --profiles path/to/other.json --tasks eval/benchmark-tasks.json
+python eval/profiles/validate_profiles.py
+python eval/profiles/validate_profiles.py --profiles path/to/other.json --tasks eval/benchmark-tasks.json
 
 # is the JSON in sync with the generator? (writes nothing)
-python eval/generate_profiles.py --check
+python eval/profiles/generate_profiles.py --check
 
 # after editing profile data in generate_profiles.py
-python eval/generate_profiles.py --force   # overwrite eval/simulated-profiles.json
-python eval/validate_profiles.py
+python eval/profiles/generate_profiles.py --force   # overwrite eval/profiles/simulated-profiles.json
+python eval/profiles/validate_profiles.py
 
 # write to a new file instead (refuses to overwrite an existing file without --force)
-python eval/generate_profiles.py -o /tmp/profiles.json
+python eval/profiles/generate_profiles.py -o /tmp/profiles.json
 ```
 
 The generator is deterministic: unchanged data regenerates byte-identical JSON. It derives
@@ -172,17 +174,20 @@ What the validator checks:
 - Messages: Messages API format, alternation, ends with `assistant`, fact/date indices point at the
   right messages.
 - Leakage: no grader vocabulary or grading-check text in agent-visible content.
-- Long context: the compaction profile's history is at least ~2× the 1024-token memory limit
-  (estimated as characters / 4).
+- Long context: the compaction profile's history is at least ~2× the 1024-token memory limit the
+  profiles were designed for (estimated as characters / 4). Memory now uses the model's context
+  window (Models API), so compaction doesn't trigger in the eval; `no_compact` still differs in the
+  contradiction step.
 
 ## Integrating with `eval/eval.py`
 
-Expected harness behavior (not yet implemented in `eval.py`):
+Harness behavior (implemented in `eval/eval.py`, `run_trial` / `auto_grade`):
 
 1. For each profile, create a **fresh** `Memory` and load
    `profile["agent_visible"]["conversation_history"]`, never the whole profile object.
-2. Run only the tasks in `eval_only.applicable_tasks`; append the task query as a `user` message.
+2. Run only the tasks in `eval_only.applicable_tasks`; send the task's scripted turns (query filled
+   from `task_fills`, then the approval reply) as `user` messages.
 3. For tasks listed in a runtime update's `for_tasks`, send the update's `message` after the
    agent's first answer and grade the final answer with `runtime_update_effects`.
-4. Grade with `eval_only` (`busy_blocks`, `available_windows`, `grading_checks`) against the
-   frozen database snapshot.
+4. Grade with `eval_only` (`available_windows`, hard constraints) and the task's fixture answer key
+   (relevant / dislike / breaks / reference solution), against the task's fixture database.

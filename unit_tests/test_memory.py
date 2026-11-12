@@ -24,22 +24,22 @@ HISTORY = [{"role": "user", "content": "a" * 100}, {"role": "assistant", "conten
 
 
 class TestManageContext(LoggedTest):
-    def test_compaction_keeps_latest_user_message(self):
+    def test_compaction_keeps_latest_exchange(self):
         c = FakeCompactor()
         m = memory(c)
         m.resolve = lambda msgs, usage=None: None
         m.msgs = list(HISTORY)
         m.add_message({"role": "user", "content": "new request"})
-        self.assertEqual([x["content"] for x in m.msgs], ["new request"])
+        self.assertEqual([x["content"] for x in m.msgs], ["c" * 100, "d" * 100, "new request"])
         self.assertEqual(m.read_note("summary"), "1. summary")
-        self.assertEqual(c.seen[-1], HISTORY)  # the new message was not summarized away
+        self.assertEqual(c.seen[-1], HISTORY[:2])  # only the older pair was summarized
 
-    def test_truncation_keeps_latest_user_message(self):
+    def test_truncation_keeps_latest_exchange(self):
         m = memory(None)
         m.msgs = list(HISTORY)
         m.add_message({"role": "user", "content": "new request " + "x" * 300})
-        self.assertEqual(len(m.msgs), 1)
-        self.assertTrue(m.msgs[0]["content"].startswith("new request"))
+        self.assertEqual([x["content"][:1] for x in m.msgs], ["c", "d", "n"])  # oldest pair dropped
+        self.assertTrue(m.msgs[-1]["content"].startswith("new request"))
 
     def test_truncation_starts_with_user_turn(self):
         m = memory(None)
@@ -47,7 +47,6 @@ class TestManageContext(LoggedTest):
         m.add_message({"role": "user", "content": "short"})
         self.assertEqual(m.msgs[0]["role"], "user")
         self.assertEqual(m.msgs[-1]["content"], "short")
-        self.assertLessEqual(m.count, 50)
 
 
 if __name__ == "__main__":

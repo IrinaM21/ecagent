@@ -1,0 +1,346 @@
+{
+ "task": "match-interest",
+ "status": "frozen 2026-11-12 after review (never change after seeing eval results)",
+ "written_from": "eval/benchmark-tasks.json (match-interest) + eval/profiles/simulated-profiles.json (current_truth, available_windows, hard_constraints, task_fills) only",
+ "week": [
+  "2026-11-16",
+  "2026-11-22"
+ ],
+ "events": [
+  {
+   "event_id": 3001,
+   "date": "2026-11-22",
+   "title": "Portrait Photography Meetup",
+   "start_time": "14:00",
+   "end_time": "15:30",
+   "location": "Krannert Art Museum lobby (walking distance, campus bus stop outside)",
+   "event_type": "Social/Informal Event",
+   "summary": "Practice portrait photography with other students. Any camera or phone. Free, in person."
+  },
+  {
+   "event_id": 3002,
+   "date": "2026-11-17",
+   "title": "Darkroom Film Developing Workshop",
+   "start_time": "11:00",
+   "end_time": "12:30",
+   "location": "Art and Design Building, Room 15",
+   "event_type": "Conference/Workshop",
+   "summary": "Develop your own black-and-white film in the campus darkroom. Supplies provided. Free, in person."
+  },
+  {
+   "event_id": 3003,
+   "date": "2026-11-16",
+   "title": "Robotics Build Night",
+   "start_time": "18:00",
+   "end_time": "20:00",
+   "location": "Engineering Quad, ECEB 1013",
+   "event_type": "Social/Informal Event",
+   "summary": "Build and test small robots with other students. Parts provided, no experience needed. Free, in person."
+  },
+  {
+   "event_id": 3004,
+   "date": "2026-11-21",
+   "title": "Embedded Systems Hack Day",
+   "start_time": "13:30",
+   "end_time": "18:30",
+   "location": "Engineering Quad, Siebel Center 0216",
+   "event_type": "Conference/Workshop",
+   "summary": "Five-hour hands-on session programming microcontrollers in teams. Free, in person."
+  },
+  {
+   "event_id": 3005,
+   "date": "2026-11-17",
+   "title": "Startup Pitch Practice",
+   "start_time": "14:00",
+   "end_time": "15:00",
+   "location": "Research Park, EnterpriseWorks Room 120 (campus bus line 22)",
+   "event_type": "Professional Development",
+   "summary": "Practice a two-minute startup pitch and get feedback from founders. Free, in person."
+  },
+  {
+   "event_id": 3007,
+   "date": "2026-11-18",
+   "title": "Free Clinic Volunteer Orientation",
+   "start_time": "17:30",
+   "end_time": "19:00",
+   "location": "Champaign Free Clinic (campus bus line 5)",
+   "event_type": "Informational",
+   "summary": "Small-group orientation (about 12 people) for new free clinic volunteers. Free, in person."
+  },
+  {
+   "event_id": 3008,
+   "date": "2026-11-20",
+   "title": "Contemporary Dance Drop-in Class",
+   "start_time": "17:00",
+   "end_time": "18:30",
+   "location": "Freer Hall Dance Studio",
+   "event_type": "Health/Fitness",
+   "summary": "Casual, non-competitive contemporary dance class for all levels. Free, in person."
+  },
+  {
+   "event_id": 3009,
+   "date": "2026-11-17",
+   "title": "Campus Sustainability Webinar",
+   "start_time": "13:00",
+   "end_time": "14:00",
+   "location": "Online (Zoom)",
+   "event_type": "Lecture",
+   "summary": "How the campus plans to cut energy use and waste. Virtual only, on Zoom. Free."
+  },
+  {
+   "event_id": 3010,
+   "date": "2026-11-22",
+   "title": "Intramural Volleyball Championship",
+   "start_time": "15:00",
+   "end_time": "17:00",
+   "location": "Activities and Recreation Center",
+   "event_type": "Athletics (DIA)",
+   "summary": "Final round of the competitive intramural volleyball league. Free to watch, in person."
+  },
+  {
+   "event_id": 3011,
+   "date": "2026-11-19",
+   "title": "Stock Market Basics Workshop",
+   "start_time": "15:00",
+   "end_time": "16:30",
+   "location": "Business Instructional Facility, Room 2007",
+   "event_type": "Conference/Workshop",
+   "summary": "How stocks, index funds and compound interest work, for beginners. Free, in person."
+  },
+  {
+   "event_id": 3012,
+   "date": "2026-11-21",
+   "title": "Board Game Night",
+   "start_time": "18:00",
+   "end_time": "21:00",
+   "location": "Illini Union, Room 210",
+   "event_type": "Social/Informal Event",
+   "summary": "Casual board games and card games, all games provided. Free, in person."
+  },
+  {
+   "event_id": 3013,
+   "date": "2026-11-18",
+   "title": "Rated Rapid Chess Tournament",
+   "start_time": "14:00",
+   "end_time": "17:00",
+   "location": "Illini Union, Room 314",
+   "event_type": "Social/Informal Event",
+   "summary": "Competitive rated rapid chess tournament with prizes. Free, in person."
+  },
+  {
+   "event_id": 3014,
+   "date": "2026-11-16",
+   "title": "UX Design Critique Night",
+   "start_time": "18:00",
+   "end_time": "19:30",
+   "location": "Siebel Center for Design, Room 1001",
+   "event_type": "Social/Informal Event",
+   "summary": "Bring a design or app idea and get friendly feedback from other students. Free, in person."
+  },
+  {
+   "event_id": 3015,
+   "date": "2026-11-19",
+   "title": "Community Jam Session",
+   "start_time": "19:30",
+   "end_time": "21:00",
+   "location": "Smith Memorial Hall, Room 25",
+   "event_type": "Performance",
+   "summary": "Bring an instrument and play along in a casual group jam. Free, in person."
+  },
+  {
+   "event_id": 3016,
+   "date": "2026-11-21",
+   "title": "Figma Prototyping Masterclass",
+   "start_time": "10:00",
+   "end_time": "12:00",
+   "location": "Siebel Center for Design, Room 2001",
+   "event_type": "Conference/Workshop",
+   "summary": "Build a clickable app prototype in Figma. Course fee $30, in person."
+  },
+  {
+   "event_id": 3017,
+   "date": "2026-11-21",
+   "title": "Improv Comedy Night",
+   "start_time": "19:00",
+   "end_time": "20:30",
+   "location": "Illini Union, Room 407",
+   "event_type": "Performance",
+   "summary": "Drop-in improv comedy games for all levels. Free, in person."
+  },
+  {
+   "event_id": 3019,
+   "date": "2026-11-18",
+   "title": "Ancient Rome Lecture: The Forum",
+   "start_time": "12:00",
+   "end_time": "13:00",
+   "location": "Gregory Hall 100",
+   "event_type": "Lecture",
+   "summary": "A history professor on the Roman Forum. Free, in person."
+  },
+  {
+   "event_id": 3020,
+   "date": "2026-11-22",
+   "title": "Cookie Decorating Social",
+   "start_time": "16:00",
+   "end_time": "17:00",
+   "location": "Illini Union, Courtyard Cafe",
+   "event_type": "Social/Informal Event",
+   "summary": "Decorate cookies and meet other students. Free, in person."
+  }
+ ],
+ "clubs": [
+  {
+   "club_id": 3801,
+   "name": "Illini Photography Club",
+   "categories": "Arts, Hobby",
+   "mission": "Weekly photo walks and editing nights for photographers of every level. In person. Dues $10 per semester."
+  },
+  {
+   "club_id": 3802,
+   "name": "Robotics Society",
+   "categories": "Engineering, Technology",
+   "mission": "Students build robots together in the Engineering Quad lab. In person. Free to join."
+  },
+  {
+   "club_id": 3803,
+   "name": "Student Health Volunteers",
+   "categories": "Health, Service",
+   "mission": "Organizes in-person volunteering at local clinics and hospitals, reachable by campus bus. Dues $40 per semester."
+  },
+  {
+   "club_id": 3804,
+   "name": "Contemporary Dance Collective",
+   "categories": "Arts, Dance",
+   "mission": "Casual, non-competitive contemporary dance classes on campus. In person. Free to join."
+  },
+  {
+   "club_id": 3805,
+   "name": "Student Investment Club",
+   "categories": "Business, Finance",
+   "mission": "Members learn investing and manage a small practice portfolio. In person on campus. Free to join."
+  },
+  {
+   "club_id": 3806,
+   "name": "UX Design Club",
+   "categories": "Design, Technology",
+   "mission": "Design challenges, critiques and portfolio reviews on campus. In person. Dues $60 per semester."
+  },
+  {
+   "club_id": 3807,
+   "name": "Campus Jazz Ensemble",
+   "categories": "Music, Performing Arts",
+   "mission": "Casual group playing for students who play an instrument, rehearsals on campus. In person. Dues $20 per semester."
+  },
+  {
+   "club_id": 3808,
+   "name": "Alpha Beta Sorority Recruitment",
+   "categories": "Greek Life",
+   "mission": "Fall recruitment events for students interested in joining. In person on campus. Free to attend."
+  },
+  {
+   "club_id": 3809,
+   "name": "Competitive Chess Team",
+   "categories": "Games, Competition",
+   "mission": "Trains for and travels to rated chess tournaments. In person. Free to join."
+  }
+ ],
+ "answer_key": {
+  "_how": "Judgment labels only, per profile. Every activity not listed for a profile is irrelevant to it. relevant = matches one of the student's current interests (the query names none). breaks = hard-constraint ids the activity text shows it breaks (cost, format, location, alcohol, duration, weekly caps); schedule fit is NOT stored, code computes it from available_windows. Correct answer (club_or_fitting_event) = a club, or an event that fits the schedule, that is relevant, not a dislike, and breaks nothing.",
+  "P1-simple": {
+   "relevant": [
+    "event:3001",
+    "event:3002",
+    "club:3801"
+   ],
+   "dislike": [],
+   "breaks": {},
+   "reference_solution": [
+    "event:3001",
+    "club:3801"
+   ]
+  },
+  "P2-busy": {
+   "relevant": [
+    "event:3003",
+    "event:3004",
+    "event:3005",
+    "club:3802"
+   ],
+   "dislike": [],
+   "breaks": {
+    "event:3004": [
+     "H5"
+    ]
+   },
+   "reference_solution": [
+    "event:3003",
+    "club:3802"
+   ]
+  },
+  "P3-picky": {
+   "relevant": [
+    "event:3007",
+    "event:3008",
+    "event:3009",
+    "club:3803",
+    "club:3804"
+   ],
+   "dislike": [
+    "event:3010",
+    "club:3808"
+   ],
+   "breaks": {
+    "event:3009": [
+     "H7"
+    ],
+    "club:3803": [
+     "H6"
+    ]
+   },
+   "reference_solution": [
+    "event:3007",
+    "club:3804"
+   ]
+  },
+  "P4-changing": {
+   "relevant": [
+    "event:3011",
+    "event:3012",
+    "club:3805"
+   ],
+   "dislike": [
+    "event:3013",
+    "club:3809"
+   ],
+   "breaks": {},
+   "reference_solution": [
+    "event:3011",
+    "club:3805"
+   ]
+  },
+  "P5-long-context": {
+   "relevant": [
+    "event:3014",
+    "event:3015",
+    "event:3016",
+    "club:3806",
+    "club:3807"
+   ],
+   "dislike": [
+    "event:3017"
+   ],
+   "breaks": {
+    "event:3016": [
+     "H4"
+    ],
+    "club:3806": [
+     "H5"
+    ]
+   },
+   "reference_solution": [
+    "event:3014",
+    "club:3807"
+   ]
+  }
+ }
+}

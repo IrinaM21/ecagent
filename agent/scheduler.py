@@ -6,7 +6,7 @@ from agent.calendars import CalendarError, SimulatedCalendar, end_of  # Simulate
 from utils import Utils
 
 DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-MIN_WINDOW = 30  # minutes; shorter free gaps don't count (same as eval/validate_profiles.py)
+MIN_WINDOW = 30  # minutes; shorter free gaps don't count (same as eval/profiles/validate_profiles.py)
 DEFAULT_MINUTES = 60  # assumed length for events that only list a start time
 
 
@@ -18,14 +18,18 @@ class Scheduler(Utils):
         """
         Args:
             today (str): YYYY-MM-DD start of the planning week if the state has no reference_week
-                         (pinned to 2026-11-02 in eval); None = real today
+                         (pinned to 2026-11-16 in eval); None = real today
         """
         super().__init__(api_key)
         self.today = today
+        # prompt format: role (this system prompt), instructions, info in XML tags, response format
+        # (based on CS 498 Using and Understanding AI (FA26), Intro to Prompting lecture)
+        self.sys = """You are the scheduler for a UIUC extracurricular planner. You build candidate plans
+        that fit the student's week."""
 
     @staticmethod
     def applies(item, d):
-        """Does a recurring/one-off item or 'unavailable' constraint apply on date d? (same rule as eval/validate_profiles.py)"""
+        """Does a recurring/one-off item or 'unavailable' constraint apply on date d? (same rule as eval/profiles/validate_profiles.py)"""
         if "date" in item:
             return item["date"] == d.isoformat()
         if DAYS[d.weekday()] not in item.get("days", []):
@@ -224,24 +228,24 @@ class Scheduler(Utils):
 
         listing = "\n".join(f"{i + 1}. {e['date']} {e['start']}-{e['end'] or '?'} {e['title']} "
                             f"({e['location'] or 'location n/a'})" for i, e in enumerate(events))
-        prompt = f"""You are a scheduler. Build up to {n_plans} different candidate plans for the student's
-request, each with as many activities as the request asks for (1 if it asks for one activity),
-at most {n_items}, from the numbered list below (best-ranked first).
-Use free_time to see when the student is free, and check_plan to check every plan. If a plan has
-conflicts, revise it and check it again. Only return plans that check_plan says are valid.
+        prompt = f"""Build up to {n_plans} different candidate plans for the student's
+        request, each with as many activities as the request asks for (1 if it asks for one activity),
+        at most {n_items}, from the numbered list below (best-ranked first).
+        Use free_time to see when the student is free, and check_plan to check every plan. If a plan has
+        conflicts, revise it and check it again. Only return plans that check_plan says are valid.
 
-<request>{query}</request>
-<activities>
-{listing}
-</activities>
+        <request>{query}</request>
+        <activities>
+        {listing}
+        </activities>
 
-When done, reply with the valid plans as a JSON list of lists of activity numbers inside
-<plans></plans> tags, e.g. <plans>[[1, 4], [2]]</plans>."""
+        When done, reply with the valid plans as a JSON list of lists of activity numbers inside
+        <plans></plans> tags, e.g. <plans>[[1, 4], [2]]</plans>."""
 
         messages = [{"role": "user", "content": prompt}]
         r, tools_used, stop_reason, text = 0, [], None, ""
         while r < max_rounds and stop_reason in ("tool_use", None):
-            ans = self.call(messages, tools=tools, usage=usage)
+            ans = self.call(messages, system=self.sys, tools=tools, usage=usage)
             r += 1  # called model once
             stop_reason = ans["stop_reason"]
             messages.append({"role": "assistant", "content": ans["content"]})

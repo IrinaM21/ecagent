@@ -1,0 +1,225 @@
+{
+ "task": "long-context",
+ "status": "frozen 2026-11-12 after review (never change after seeing eval results)",
+ "written_from": "eval/benchmark-tasks.json (long-context) + eval/profiles/simulated-profiles.json (P5 current_truth, available_windows, hard_constraints, dislikes, superseded_facts) only",
+ "week": [
+  "2026-11-16",
+  "2026-11-22"
+ ],
+ "events": [
+  {
+   "event_id": 10001,
+   "date": "2026-11-18",
+   "title": "Lunchtime Chamber Music Reading Session",
+   "start_time": "12:00",
+   "end_time": "13:00",
+   "location": "Smith Memorial Music Hall, Room 25 (next to the Illini Union)",
+   "event_type": "Performance",
+   "summary": "Small group of students sight-reads string and wind chamber music together, all levels. Bring your instrument. Free, in person."
+  },
+  {
+   "event_id": 10002,
+   "date": "2026-11-18",
+   "title": "UX Design Meetup",
+   "start_time": "17:00",
+   "end_time": "18:00",
+   "location": "Siebel Center for Design, Room 1001",
+   "event_type": "Social/Informal Event",
+   "summary": "Students share UX projects and give each other feedback. Free, in person."
+  },
+  {
+   "event_id": 10003,
+   "date": "2026-11-16",
+   "title": "Improv Comedy Workshop",
+   "start_time": "19:00",
+   "end_time": "20:30",
+   "location": "Illini Union, Room 314",
+   "event_type": "Performance",
+   "summary": "Drop-in improv games and scene work for all levels. Free, in person."
+  },
+  {
+   "event_id": 10004,
+   "date": "2026-11-17",
+   "title": "Open Mic: Solo Acoustic Sets",
+   "start_time": "21:30",
+   "end_time": "22:30",
+   "location": "Illini Union, Courtyard Cafe",
+   "event_type": "Performance",
+   "summary": "Sign up to play a solo acoustic set in front of an audience. Free, in person."
+  },
+  {
+   "event_id": 10005,
+   "date": "2026-11-20",
+   "title": "Casual Jazz Jam",
+   "start_time": "19:00",
+   "end_time": "21:00",
+   "location": "Smith Memorial Music Hall, Room 25",
+   "event_type": "Performance",
+   "summary": "Low-pressure group jam for students who play jazz standards. Free, in person."
+  },
+  {
+   "event_id": 10006,
+   "date": "2026-11-19",
+   "title": "UX Research Methods Workshop",
+   "start_time": "14:30",
+   "end_time": "15:30",
+   "location": "Siebel Center for Design, Room 2001",
+   "event_type": "Conference/Workshop",
+   "summary": "Practice running user interviews with a UX researcher. Workshop fee $25, in person."
+  },
+  {
+   "event_id": 10007,
+   "date": "2026-11-21",
+   "title": "Community Orchestra Rehearsal Retreat",
+   "start_time": "09:00",
+   "end_time": "17:00",
+   "location": "Smith Memorial Music Hall",
+   "event_type": "Performance",
+   "summary": "An all-day group rehearsal retreat for the community orchestra. Free, in person."
+  },
+  {
+   "event_id": 10008,
+   "date": "2026-11-22",
+   "title": "Lakeside Drum Circle",
+   "start_time": "10:00",
+   "end_time": "12:00",
+   "location": "Kickapoo State Park (about 40 minutes by car, no bus service)",
+   "event_type": "Social/Informal Event",
+   "summary": "Casual group drumming by the lake. Drums provided. Free, in person, bring your own ride."
+  },
+  {
+   "event_id": 10009,
+   "date": "2026-11-21",
+   "title": "Design Thinking Hackathon",
+   "start_time": "10:00",
+   "end_time": "22:00",
+   "location": "Siebel Center for Design",
+   "event_type": "Conference/Workshop",
+   "summary": "Teams design and prototype an app in one long twelve-hour day. Free, in person."
+  },
+  {
+   "event_id": 10010,
+   "date": "2026-11-17",
+   "title": "Group Guitar Circle",
+   "start_time": "19:30",
+   "end_time": "21:00",
+   "location": "Illini Union, Room 210",
+   "event_type": "Social/Informal Event",
+   "summary": "Play songs together with other guitarists, all levels. Free, in person."
+  },
+  {
+   "event_id": 10011,
+   "date": "2026-11-16",
+   "title": "Cookie Decorating Social",
+   "start_time": "15:00",
+   "end_time": "16:00",
+   "location": "Illini Union, Courtyard Cafe",
+   "event_type": "Social/Informal Event",
+   "summary": "Decorate cookies and meet other students. Free, in person."
+  },
+  {
+   "event_id": 10012,
+   "date": "2026-11-21",
+   "title": "Astronomy Night at the Observatory",
+   "start_time": "20:00",
+   "end_time": "21:00",
+   "location": "Campus Observatory",
+   "event_type": "Social/Informal Event",
+   "summary": "Look at Saturn and the Moon through the historic telescope. Free, in person."
+  },
+  {
+   "event_id": 10013,
+   "date": "2026-11-16",
+   "title": "Ancient Rome Lecture Series: The Forum",
+   "start_time": "12:00",
+   "end_time": "13:00",
+   "location": "Gregory Hall 100",
+   "event_type": "Lecture",
+   "summary": "A history professor on the Roman Forum. Free, in person."
+  },
+  {
+   "event_id": 10014,
+   "date": "2026-11-21",
+   "title": "Illini Volleyball vs Iowa",
+   "start_time": "18:00",
+   "end_time": "20:00",
+   "location": "Huff Hall",
+   "event_type": "Athletics (DIA)",
+   "summary": "Home game. Free for students with i-card."
+  }
+ ],
+ "clubs": [
+  {
+   "club_id": 10901,
+   "name": "Illini Chamber Players",
+   "categories": "Arts, Music",
+   "mission": "Students form small chamber groups that rehearse weekly. Dues $30 per semester."
+  },
+  {
+   "club_id": 10902,
+   "name": "UX Design Club",
+   "categories": "Design, Technology",
+   "mission": "Design challenges, critiques and portfolio reviews for UX designers. Free to join."
+  },
+  {
+   "club_id": 10903,
+   "name": "Penny Dreadful Improv Troupe",
+   "categories": "Arts, Comedy",
+   "mission": "Weekly improv comedy practice and shows. Free to join."
+  },
+  {
+   "club_id": 10904,
+   "name": "Premium Design Collective",
+   "categories": "Design, Professional",
+   "mission": "Portfolio coaching and design software licenses for members. Dues $75 per semester."
+  }
+ ],
+ "answer_key": {
+  "_how": "Judgment labels only, per profile. Every activity not listed for a profile is irrelevant to it. breaks = hard-constraint ids the activity text shows it breaks (cost per event/semester, location/no car, max event duration); schedule fit is NOT stored, code computes it from available_windows (current facts). superseded_traps = activities that only look right under a SUPERSEDED fact (eval_only.superseded_facts, by field): picking one means the agent used outdated information. Correct answer = event that is relevant to the CURRENT interests, not a dislike, breaks nothing, and fits the CURRENT schedule.",
+  "P5-long-context": {
+   "relevant": [
+    "event:10001",
+    "event:10002",
+    "event:10005",
+    "event:10006",
+    "event:10007",
+    "event:10008",
+    "event:10009",
+    "event:10010",
+    "club:10901",
+    "club:10902",
+    "club:10904"
+   ],
+   "dislike": [
+    "event:10003",
+    "event:10004",
+    "club:10903"
+   ],
+   "breaks": {
+    "event:10006": [
+     "H4"
+    ],
+    "event:10007": [
+     "H8"
+    ],
+    "event:10008": [
+     "H3"
+    ],
+    "event:10009": [
+     "H8"
+    ],
+    "club:10904": [
+     "H5"
+    ]
+   },
+   "superseded_traps": {
+    "event:10002": "schedule.recurring.R5 (old internship Wed 12:00-17:00: 17:00-18:00 only free under the old hours; now Wed 13:00-18:00)",
+    "event:10003": "interests (improv comedy, now a dislike)",
+    "club:10903": "interests (improv comedy, now a dislike)"
+   },
+   "reference_solution": [
+    "event:10001"
+   ]
+  }
+ }
+}

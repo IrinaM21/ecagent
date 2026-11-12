@@ -1,0 +1,421 @@
+{
+ "task": "multiple-schedule",
+ "status": "frozen 2026-11-12 after review (never change after seeing eval results)",
+ "written_from": "eval/benchmark-tasks.json (multiple-schedule) + eval/profiles/simulated-profiles.json (current_truth, available_windows, hard_constraints, task_fills) only",
+ "week": [
+  "2026-11-16",
+  "2026-11-22"
+ ],
+ "events": [
+  {
+   "event_id": 6001,
+   "date": "2026-11-22",
+   "title": "Fall Colors Photo Walk",
+   "start_time": "10:00",
+   "end_time": "11:30",
+   "location": "Arboretum entrance (campus bus line 22)",
+   "event_type": "Social/Informal Event",
+   "summary": "Beginner photo walk through the arboretum. Any camera or phone. Free, in person."
+  },
+  {
+   "event_id": 6002,
+   "date": "2026-11-18",
+   "title": "Portrait Lighting Workshop",
+   "start_time": "18:00",
+   "end_time": "19:30",
+   "location": "Art and Design Building, Room 112",
+   "event_type": "Conference/Workshop",
+   "summary": "Learn simple lighting setups for portraits. Equipment provided. Free, in person."
+  },
+  {
+   "event_id": 6003,
+   "date": "2026-11-17",
+   "title": "Street Photography Meetup",
+   "start_time": "11:30",
+   "end_time": "12:30",
+   "location": "Green Street (meet at the Illini Union)",
+   "event_type": "Social/Informal Event",
+   "summary": "Shoot candid street photos around campus town. Free, in person."
+  },
+  {
+   "event_id": 6004,
+   "date": "2026-11-21",
+   "title": "Astrophotography Night",
+   "start_time": "21:00",
+   "end_time": "23:00",
+   "location": "Campus Observatory",
+   "event_type": "Social/Informal Event",
+   "summary": "Photograph the night sky with long exposures. Free, in person."
+  },
+  {
+   "event_id": 6005,
+   "date": "2026-11-19",
+   "title": "Robot Arm Programming Lab",
+   "start_time": "17:30",
+   "end_time": "19:00",
+   "location": "Engineering Quad, ECEB 2017",
+   "event_type": "Conference/Workshop",
+   "summary": "Program a small robot arm to sort blocks. No experience needed. Free, in person."
+  },
+  {
+   "event_id": 6006,
+   "date": "2026-11-17",
+   "title": "Embedded Systems for Robots Talk",
+   "start_time": "13:00",
+   "end_time": "14:00",
+   "location": "Engineering Quad, Siebel Center 1404",
+   "event_type": "Lecture",
+   "summary": "How microcontrollers run small robots. Free, in person."
+  },
+  {
+   "event_id": 6007,
+   "date": "2026-11-16",
+   "title": "Startup Idea Workshop",
+   "start_time": "17:30",
+   "end_time": "19:00",
+   "location": "EnterpriseWorks, Room 101",
+   "event_type": "Conference/Workshop",
+   "summary": "Turn a class project into a startup idea and test it with peers. Free, in person."
+  },
+  {
+   "event_id": 6008,
+   "date": "2026-11-22",
+   "title": "Startup Weekend Info Session",
+   "start_time": "13:00",
+   "end_time": "15:00",
+   "location": "EnterpriseWorks, Room 101",
+   "event_type": "Informational",
+   "summary": "Learn how student startup weekends work and meet founders. Free, in person."
+  },
+  {
+   "event_id": 6009,
+   "date": "2026-11-18",
+   "title": "Clinic Volunteer Orientation",
+   "start_time": "14:00",
+   "end_time": "15:30",
+   "location": "McKinley Health Center, Room 210",
+   "event_type": "Informational",
+   "summary": "Small-group orientation (about 10 people) for new clinic volunteers. Free, in person."
+  },
+  {
+   "event_id": 6010,
+   "date": "2026-11-19",
+   "title": "Hospice Volunteer Training",
+   "start_time": "17:30",
+   "end_time": "19:00",
+   "location": "Carle Hospice office (campus bus line 5)",
+   "event_type": "Informational",
+   "summary": "Small-group training for students who want to visit hospice patients. Free, in person."
+  },
+  {
+   "event_id": 6011,
+   "date": "2026-11-18",
+   "title": "EMT Volunteer Info Session",
+   "start_time": "18:00",
+   "end_time": "19:00",
+   "location": "Online (Zoom)",
+   "event_type": "Informational",
+   "summary": "Learn about volunteering with the campus EMT squad. Virtual only, held on Zoom. Free."
+  },
+  {
+   "event_id": 6012,
+   "date": "2026-11-19",
+   "title": "Casual Contemporary Dance Drop-in",
+   "start_time": "17:00",
+   "end_time": "18:30",
+   "location": "Freer Hall dance studio",
+   "event_type": "Health/Fitness",
+   "summary": "Relaxed, non-competitive contemporary dance for all levels, about 15 dancers. Free, in person."
+  },
+  {
+   "event_id": 6013,
+   "date": "2026-11-17",
+   "title": "Contemporary Dance Intensive",
+   "start_time": "17:00",
+   "end_time": "19:00",
+   "location": "Krannert Center dance studio",
+   "event_type": "Health/Fitness",
+   "summary": "Two-hour contemporary technique class. Class fee $40, in person."
+  },
+  {
+   "event_id": 6014,
+   "date": "2026-11-17",
+   "title": "Stock Market Basics",
+   "start_time": "15:00",
+   "end_time": "16:30",
+   "location": "Business Instructional Facility, Room 2007",
+   "event_type": "Conference/Workshop",
+   "summary": "How stocks and index funds work, for beginners. Free, in person."
+  },
+  {
+   "event_id": 6015,
+   "date": "2026-11-20",
+   "title": "Retirement Accounts 101",
+   "start_time": "17:30",
+   "end_time": "19:00",
+   "location": "Business Instructional Facility, Room 1001",
+   "event_type": "Lecture",
+   "summary": "Roth IRAs and 401(k)s explained for students. Free, in person."
+  },
+  {
+   "event_id": 6016,
+   "date": "2026-11-21",
+   "title": "Weekend Investing Bootcamp",
+   "start_time": "10:00",
+   "end_time": "13:00",
+   "location": "Business Instructional Facility, Room 1001",
+   "event_type": "Conference/Workshop",
+   "summary": "Build a first investing plan. Free, in person."
+  },
+  {
+   "event_id": 6017,
+   "date": "2026-11-20",
+   "title": "Casual Board Game Night",
+   "start_time": "18:00",
+   "end_time": "20:00",
+   "location": "Illini Union, Room 314",
+   "event_type": "Social/Informal Event",
+   "summary": "Relaxed tabletop games like Catan and Codenames. Free, in person."
+  },
+  {
+   "event_id": 6018,
+   "date": "2026-11-16",
+   "title": "Board Game Cafe Social",
+   "start_time": "18:00",
+   "end_time": "20:00",
+   "location": "Illini Union, Courtyard Cafe",
+   "event_type": "Social/Informal Event",
+   "summary": "Pick a game off the shelf and meet new people. Free, in person."
+  },
+  {
+   "event_id": 6019,
+   "date": "2026-11-19",
+   "title": "Speed Chess Tournament",
+   "start_time": "18:00",
+   "end_time": "21:00",
+   "location": "Illini Union, Room 210",
+   "event_type": "Social/Informal Event",
+   "summary": "Rated speed chess tournament with prizes. Free, in person."
+  },
+  {
+   "event_id": 6020,
+   "date": "2026-11-17",
+   "title": "UX Wireframing Workshop",
+   "start_time": "14:30",
+   "end_time": "16:30",
+   "location": "Siebel Center for Design, Room 1001",
+   "event_type": "Conference/Workshop",
+   "summary": "Turn an app idea into wireframes and get feedback. Free, in person."
+  },
+  {
+   "event_id": 6021,
+   "date": "2026-11-21",
+   "title": "UX Portfolio Day",
+   "start_time": "10:00",
+   "end_time": "12:00",
+   "location": "Siebel Center for Design, Room 2001",
+   "event_type": "Conference/Workshop",
+   "summary": "Polish one UX case study with a mentor. Registration fee $60, in person."
+  },
+  {
+   "event_id": 6022,
+   "date": "2026-11-18",
+   "title": "Casual Group Jam Session",
+   "start_time": "19:00",
+   "end_time": "21:00",
+   "location": "Smith Memorial Hall, Room 25",
+   "event_type": "Performance",
+   "summary": "Bring an instrument and play in a relaxed group, no solos needed. Free, in person."
+  },
+  {
+   "event_id": 6023,
+   "date": "2026-11-16",
+   "title": "Community Orchestra Open Rehearsal",
+   "start_time": "18:00",
+   "end_time": "20:30",
+   "location": "Smith Memorial Hall, Room 1",
+   "event_type": "Performance",
+   "summary": "Sit in with the community orchestra for a reading rehearsal. Free, in person."
+  },
+  {
+   "event_id": 6024,
+   "date": "2026-11-20",
+   "title": "Solo Open Mic Night",
+   "start_time": "21:00",
+   "end_time": "22:30",
+   "location": "Illini Union, Courtyard Cafe",
+   "event_type": "Performance",
+   "summary": "Sign up to perform a solo song or piece. Free, in person."
+  },
+  {
+   "event_id": 6025,
+   "date": "2026-11-18",
+   "title": "Campus History Walking Tour",
+   "start_time": "12:00",
+   "end_time": "13:00",
+   "location": "Alma Mater statue",
+   "event_type": "Social/Informal Event",
+   "summary": "A guided walk through campus history. Free, in person."
+  }
+ ],
+ "clubs": [
+  {
+   "club_id": 6101,
+   "name": "Lens and Light Photography Club",
+   "categories": "Arts, Hobby",
+   "mission": "Photo walks and editing nights. Free to join."
+  },
+  {
+   "club_id": 6102,
+   "name": "Student Startup Network",
+   "categories": "Business, Entrepreneurship",
+   "mission": "Helps students start companies. Free to join."
+  },
+  {
+   "club_id": 6103,
+   "name": "Tabletop Gaming Society",
+   "categories": "Hobby, Social",
+   "mission": "Weekly casual board game nights. Free to join."
+  },
+  {
+   "club_id": 6104,
+   "name": "Campus Jam Band Collective",
+   "categories": "Music, Arts",
+   "mission": "Casual group music playing for all instruments. Free to join."
+  }
+ ],
+ "answer_key": {
+  "_how": "Judgment labels only, per profile. Every activity not listed for a profile is irrelevant to it. relevant is split by the two requested interests ({interest_1}, {interest_2} from task_fills; P1 asks for two photography activities, so both lists are photography). breaks = hard-constraint ids the activity text shows it breaks; schedule fit and the weekly caps (max activities / hours) are NOT stored, code computes them. Correct answer = one event per interest (P1: two distinct photography events) that are each relevant, not a dislike, break nothing, fit the schedule, don't overlap each other, and together stay within the caps. reference_solution is the only such pair; tempting_pairs lists invalid pairs and why.",
+  "P1-simple": {
+   "relevant": {
+    "photography": [
+     "event:6001",
+     "event:6002",
+     "event:6003",
+     "event:6004",
+     "club:6101"
+    ]
+   },
+   "dislike": [],
+   "breaks": {},
+   "reference_solution": [
+    "event:6001",
+    "event:6002"
+   ],
+   "tempting_pairs": {
+    "event:6002+event:6003": "6003 outside schedule (Tue 11:30)",
+    "event:6001+event:6004": "6004 ends after 22:00"
+   }
+  },
+  "P2-busy": {
+   "relevant": {
+    "robotics": [
+     "event:6005",
+     "event:6006"
+    ],
+    "entrepreneurship": [
+     "event:6007",
+     "event:6008",
+     "club:6102"
+    ]
+   },
+   "dislike": [],
+   "breaks": {},
+   "reference_solution": [
+    "event:6005",
+    "event:6007"
+   ],
+   "tempting_pairs": {
+    "event:6005+event:6008": "3.5 hours, over the 3-hour weekly cap (H5)",
+    "event:6006+event:6007": "6006 outside schedule (Tue 13:00)"
+   }
+  },
+  "P3-picky": {
+   "relevant": {
+    "healthcare volunteering": [
+     "event:6009",
+     "event:6010",
+     "event:6011"
+    ],
+    "contemporary dance": [
+     "event:6012",
+     "event:6013"
+    ]
+   },
+   "dislike": [],
+   "breaks": {
+    "event:6011": [
+     "H7"
+    ],
+    "event:6013": [
+     "H6"
+    ]
+   },
+   "reference_solution": [
+    "event:6009",
+    "event:6012"
+   ],
+   "tempting_pairs": {
+    "event:6010+event:6012": "overlap (Thu 17:30-19:00 vs 17:00-18:30)",
+    "event:6011+event:6012": "6011 virtual (H7)",
+    "event:6009+event:6013": "6013 fee $40 over $25 (H6)"
+   }
+  },
+  "P4-changing": {
+   "relevant": {
+    "investing": [
+     "event:6014",
+     "event:6015",
+     "event:6016"
+    ],
+    "board games": [
+     "event:6017",
+     "event:6018",
+     "club:6103"
+    ]
+   },
+   "dislike": [
+    "event:6019"
+   ],
+   "breaks": {},
+   "reference_solution": [
+    "event:6014",
+    "event:6017"
+   ],
+   "tempting_pairs": {
+    "event:6015+event:6017": "overlap (Fri 17:30-19:00 vs 18:00-20:00)",
+    "event:6014+event:6018": "6018 outside schedule (Mon 18:00, work)",
+    "event:6016+event:6017": "6016 on Saturday (unavailable)"
+   }
+  },
+  "P5-long-context": {
+   "relevant": {
+    "UX design": [
+     "event:6020",
+     "event:6021"
+    ],
+    "music ensemble": [
+     "event:6022",
+     "event:6023",
+     "club:6104"
+    ]
+   },
+   "dislike": [
+    "event:6024"
+   ],
+   "breaks": {
+    "event:6021": [
+     "H4"
+    ]
+   },
+   "reference_solution": [
+    "event:6020",
+    "event:6022"
+   ],
+   "tempting_pairs": {
+    "event:6020+event:6023": "4.5 hours, over the 4-hour weekly cap (H7)",
+    "event:6021+event:6022": "6021 fee $60 over $15 per event (H4)"
+   }
+  }
+ }
+}

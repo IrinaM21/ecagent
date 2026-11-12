@@ -18,7 +18,7 @@ def fake_llm(approve="YES"):
         prompt = messages[0]["content"] if messages and isinstance(messages[0]["content"], str) else ""
         if "Reply with only YES or NO" in prompt:
             return llm_text(approve)
-        if prompt.startswith("Verify if the response"):
+        if "Verify if the response" in prompt:
             return llm_text('{"is_supported": true, "confidence": 1, "explanation": "ok"}')
         return llm_text("Done! Here's what happened.")
     return call
@@ -37,6 +37,7 @@ def agent(route, approve="YES", calendar=None, registration=None, inbox=None):
                 registration=registration or SimulatedRegistration(fail_on={1}), inbox=inbox, use_web=False)
     a.call = fake_llm(approve)
     a.m.count_tokens = lambda msgs, system=None: 10
+    a.m.input_limit = lambda: 200_000  # no Models API call
     a.m.write_note("state", STATE)
     names = iter(route)
     a.route_calls = []

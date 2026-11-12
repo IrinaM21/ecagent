@@ -27,6 +27,10 @@ class Retriever(Utils):
         self.today = today
         self.inbox = inbox
         self.use_web = use_web
+        # prompt format: role (this system prompt), instructions, info in XML tags, response format
+        # (based on CS 498 Using and Understanding AI (FA26), Intro to Prompting lecture)
+        self.sys = """You are the retriever for a UIUC extracurricular planner. You find campus events and
+        student clubs for a student's request and judge how well they fit the student."""
 
     @staticmethod
     def to_common(row, source="db"):
@@ -113,7 +117,7 @@ class Retriever(Utils):
 
         Reply with one line per activity in the format N: score (e.g. "3: 7"). Score every activity."""
 
-        text = self.text_of(self.call([{"role": "user", "content": prompt}], usage=usage))
+        text = self.text_of(self.call([{"role": "user", "content": prompt}], system=self.sys, usage=usage))
         scores = {int(n) - 1: int(s) for n, s in re.findall(r"^\s*(\d+)\s*:\s*(\d+)", text, re.M)}
         for i, c in enumerate(candidates):
             c["score"] = min(10, scores.get(i, 0))
@@ -133,11 +137,15 @@ class Retriever(Utils):
             usage (dict): optional token counter, see Utils.call
         """
         start = start_date or self.today or date.today().isoformat()
-        prompt = f"""Find extracurricular activities at the University of Illinois Urbana-Champaign for this request.
+        prompt = f"""Find extracurricular activities at the University of Illinois Urbana-Champaign for this request,
+        in the dates given. Use web search, and fetch pages to confirm details.
+        Only include activities you saw on a page.
+
         <request>{query}</request>
         <interests>{json.dumps(state.get("interests", []))}</interests>
-        Dates: {start} to {end_date or "any"}. Use web search, and fetch pages to confirm details.
-        Only include activities you saw on a page. Reply with a JSON list inside <activities></activities> tags,
+        <dates>{start} to {end_date or "any"}</dates>
+
+        Reply with a JSON list inside <activities></activities> tags,
         each item: {{"kind": "event" or "club", "title": ..., "date": "YYYY-MM-DD" or null,
         "start": "HH:MM" or null, "end": "HH:MM" or null, "location": ..., "description": ...,
         "url": the page you saw it on}}"""
@@ -145,7 +153,7 @@ class Retriever(Utils):
         messages = [{"role": "user", "content": prompt}]
         urls, text = set(), ""
         for _ in range(max_continuations):
-            ans = self.call(messages, tools=WEB_TOOLS, usage=usage)
+            ans = self.call(messages, system=self.sys, tools=WEB_TOOLS, usage=usage)
             for b in ans["content"]:
                 # successful search results are a list; errors come back as a single object
                 if b["type"] == "web_search_tool_result" and isinstance(b["content"], list):
@@ -179,11 +187,13 @@ class Retriever(Utils):
         """
         prompt = f"""Give 5-10 short search keywords (single words) for finding campus events and student clubs
         that match this request and student. Include common synonyms (e.g. photography -> photo, camera).
+
         <request>{query}</request>
         <interests>{json.dumps(state.get("interests", []))}</interests>
         <goals>{json.dumps(state.get("goals", []))}</goals>
+
         Reply with the keywords on one line, separated by commas."""
-        text = self.text_of(self.call([{"role": "user", "content": prompt}], max_tokens=100, usage=usage))
+        text = self.text_of(self.call([{"role": "user", "content": prompt}], system=self.sys, max_tokens=100, usage=usage))
         return [w.strip().lower() for w in text.split(",") if w.strip()][:10]
 
     def retrieve(self, query, state, start_date=None, end_date=None, k=3, threshold=7, usage=None):

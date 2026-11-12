@@ -169,33 +169,35 @@ class EmailSource(Utils):
     def extract(self, messages, usage=None):
         listing = "\n\n".join(f"<email n=\"{i + 1}\" sent=\"{m['sent']}\">\nSubject: {m['subject']}\nFrom: {m['sender']}\n"
                               f"{m['text']}\n</email>" for i, m in enumerate(messages))
+        # prompt format: role, instructions, info in XML tags, response format
+        # (based on CS 498 Using and Understanding AI (FA26), Intro to Prompting lecture)
         prompt = f"""You read a UIUC student's emails and list the events in them, for an extracurricular planner.
 
-Two types:
-- "activity": something the student could choose to attend: club meetings, workshops, socials, talks,
-  volunteering, performances, info sessions (announcements and invitations).
-- "commitment": an obligation for this student specifically: a required review or exam, an interview,
-  an appointment, a work shift, a meeting they must attend.
-Ignore anything that is not an event (deliveries, receipts, deadlines with no event, tips, newsletters
-without events) and events that already happened before the email's sent date.
+        Two types:
+        - "activity": something the student could choose to attend: club meetings, workshops, socials, talks,
+          volunteering, performances, info sessions (announcements and invitations).
+        - "commitment": an obligation for this student specifically: a required review or exam, an interview,
+          an appointment, a work shift, a meeting they must attend.
+        Ignore anything that is not an event (deliveries, receipts, deadlines with no event, tips, newsletters
+        without events) and events that already happened before the email's sent date.
 
-For each event give:
-- email: the email's n
-- type: "activity" or "commitment"
-- title: short name
-- date: YYYY-MM-DD, or null if the email gives no usable date. Resolve relative dates ("thurs",
-  "tomorrow", "this Saturday") from the email's sent date. Never guess.
-- start, end: 24-hour HH:MM, or null if not stated. Never guess. If only a length is given, compute the end.
-- location: as written, or null
-- description: one short sentence
-- evidence: the exact words from the email that give the date and time, copied character for character
-  (null if there is no date/time)
+        For each event give:
+        - email: the email's n
+        - type: "activity" or "commitment"
+        - title: short name
+        - date: YYYY-MM-DD, or null if the email gives no usable date. Resolve relative dates ("thurs",
+          "tomorrow", "this Saturday") from the email's sent date. Never guess.
+        - start, end: 24-hour HH:MM, or null if not stated. Never guess. If only a length is given, compute the end.
+        - location: as written, or null
+        - description: one short sentence
+        - evidence: the exact words from the email that give the date and time, copied character for character
+          (null if there is no date/time)
 
-<emails>
-{listing}
-</emails>
+        <emails>
+        {listing}
+        </emails>
 
-Reply with a JSON list inside <items></items> tags (an empty list if there are no events)."""
+        Reply with a JSON list inside <items></items> tags (an empty list if there are no events)."""
         text = self.text_of(self.call([{"role": "user", "content": prompt}], max_tokens=4000, usage=usage))
         match = re.search(r"<items>\s*(\[.*\])\s*</items>", text, re.S)
         try:

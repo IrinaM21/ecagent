@@ -1,0 +1,333 @@
+{
+ "task": "schedule-eca",
+ "status": "frozen 2026-11-12 after review (never change after seeing eval results)",
+ "written_from": "eval/benchmark-tasks.json (schedule-eca) + eval/profiles/simulated-profiles.json (current_truth, task_fills) only",
+ "week": [
+  "2026-11-16",
+  "2026-11-22"
+ ],
+ "events": [
+  {
+   "event_id": 1001,
+   "date": "2026-11-18",
+   "title": "Night Photography Walk",
+   "start_time": "18:00",
+   "end_time": "19:30",
+   "location": "Main Quad (meet at Alma Mater)",
+   "event_type": "Social/Informal Event",
+   "summary": "Beginner-friendly evening photo walk around the Main Quad. Bring any camera or phone. Free, in person."
+  },
+  {
+   "event_id": 1002,
+   "date": "2026-11-17",
+   "title": "Photo Editing Lab: Lightroom Basics",
+   "start_time": "11:00",
+   "end_time": "12:00",
+   "location": "Main Library, Room 314",
+   "event_type": "Conference/Workshop",
+   "summary": "Hands-on intro to editing photos in Lightroom. Laptops provided. Free, in person."
+  },
+  {
+   "event_id": 1003,
+   "date": "2026-11-19",
+   "title": "Intro to Robot Arms Workshop",
+   "start_time": "17:30",
+   "end_time": "19:00",
+   "location": "Engineering Quad, ECEB 2015",
+   "event_type": "Conference/Workshop",
+   "summary": "Program a small robot arm with Python. No experience needed. Free, in person."
+  },
+  {
+   "event_id": 1004,
+   "date": "2026-11-17",
+   "title": "Embedded Robotics Tech Talk",
+   "start_time": "13:00",
+   "end_time": "14:00",
+   "location": "Engineering Quad, Siebel Center 1404",
+   "event_type": "Lecture",
+   "summary": "A robotics engineer talks about microcontrollers in warehouse robots. Free, in person."
+  },
+  {
+   "event_id": 1005,
+   "date": "2026-11-17",
+   "title": "Free Clinic Volunteer Orientation",
+   "start_time": "16:00",
+   "end_time": "17:30",
+   "location": "Carle Illinois building, Room 120 (campus bus stop outside)",
+   "event_type": "Informational",
+   "summary": "Small-group orientation (about 15 people) for students who want to volunteer at the local free clinic. Free, in person."
+  },
+  {
+   "event_id": 1006,
+   "date": "2026-11-18",
+   "title": "Hospital Volunteering Info Session",
+   "start_time": "17:30",
+   "end_time": "18:30",
+   "location": "Online (Zoom)",
+   "event_type": "Informational",
+   "summary": "Learn how to volunteer at the hospital. Virtual only, held on Zoom. Free."
+  },
+  {
+   "event_id": 1007,
+   "date": "2026-11-19",
+   "title": "Health Careers Networking Night",
+   "start_time": "17:00",
+   "end_time": "19:00",
+   "location": "Illini Union Ballroom",
+   "event_type": "Professional Development",
+   "summary": "Meet recruiters from hospitals and clinics and network with health professionals. About 200 attendees. Free, in person."
+  },
+  {
+   "event_id": 1008,
+   "date": "2026-11-20",
+   "title": "Free Clinic Evening Volunteer Shift",
+   "start_time": "17:00",
+   "end_time": "19:00",
+   "location": "Champaign Free Clinic (campus bus line 5)",
+   "event_type": "Community Service",
+   "summary": "Help check in patients at the free clinic's evening hours. Free, in person."
+  },
+  {
+   "event_id": 1009,
+   "date": "2026-11-16",
+   "title": "Wilderness First Aid Certification",
+   "start_time": "17:00",
+   "end_time": "20:00",
+   "location": "Campus Recreation Center",
+   "event_type": "Health/Fitness",
+   "summary": "First aid certification course for outdoor and volunteer settings. Course fee $120, in person."
+  },
+  {
+   "event_id": 1010,
+   "date": "2026-11-19",
+   "title": "Stock Market Basics Workshop",
+   "start_time": "15:00",
+   "end_time": "16:30",
+   "location": "Business Instructional Facility, Room 2007",
+   "event_type": "Conference/Workshop",
+   "summary": "How index funds, stocks and compound interest work, for students new to investing. Free, in person."
+  },
+  {
+   "event_id": 1011,
+   "date": "2026-11-17",
+   "title": "Chess Club Blitz Tournament",
+   "start_time": "18:00",
+   "end_time": "21:00",
+   "location": "Illini Union, Room 210",
+   "event_type": "Social/Informal Event",
+   "summary": "Rated blitz chess tournament with prizes for the top three players. Free, in person."
+  },
+  {
+   "event_id": 1012,
+   "date": "2026-11-21",
+   "title": "Personal Finance Bootcamp",
+   "start_time": "10:00",
+   "end_time": "13:00",
+   "location": "Business Instructional Facility, Room 1001",
+   "event_type": "Conference/Workshop",
+   "summary": "Budgeting, credit scores and starting to invest. Free, in person."
+  },
+  {
+   "event_id": 1013,
+   "date": "2026-11-16",
+   "title": "UX Design Critique Night",
+   "start_time": "18:00",
+   "end_time": "19:30",
+   "location": "Siebel Center for Design, Room 1001",
+   "event_type": "Social/Informal Event",
+   "summary": "Bring a design or app idea and get friendly feedback from other students. Free, in person."
+  },
+  {
+   "event_id": 1014,
+   "date": "2026-11-19",
+   "title": "UX Research Methods Talk",
+   "start_time": "16:30",
+   "end_time": "17:30",
+   "location": "Siebel Center for Design, Room 2001",
+   "event_type": "Lecture",
+   "summary": "A UX researcher shows how to run user interviews. Free, in person."
+  },
+  {
+   "event_id": 1015,
+   "date": "2026-11-21",
+   "title": "UX Portfolio Bootcamp",
+   "start_time": "10:00",
+   "end_time": "13:00",
+   "location": "Siebel Center for Design, Room 1001",
+   "event_type": "Conference/Workshop",
+   "summary": "Build a UX case study for your portfolio in one morning. Registration fee $60, in person."
+  },
+  {
+   "event_id": 1016,
+   "date": "2026-11-22",
+   "title": "24-Hour Design Sprint Hackathon",
+   "start_time": "09:00",
+   "end_time": "21:00",
+   "location": "Siebel Center for Design",
+   "event_type": "Conference/Workshop",
+   "summary": "Teams design and prototype an app in one long day. Free, in person."
+  },
+  {
+   "event_id": 1017,
+   "date": "2026-11-18",
+   "title": "Improv Comedy Jam",
+   "start_time": "19:00",
+   "end_time": "20:30",
+   "location": "Illini Union, Room 314",
+   "event_type": "Performance",
+   "summary": "Drop-in improv games for all levels. Free, in person."
+  },
+  {
+   "event_id": 1018,
+   "date": "2026-11-20",
+   "title": "Ancient Rome Lecture Series: The Forum",
+   "start_time": "12:00",
+   "end_time": "13:00",
+   "location": "Gregory Hall 100",
+   "event_type": "Lecture",
+   "summary": "A history professor on the Roman Forum. Free, in person."
+  },
+  {
+   "event_id": 1019,
+   "date": "2026-11-21",
+   "title": "Illini Women's Basketball vs Purdue",
+   "start_time": "14:00",
+   "end_time": "16:00",
+   "location": "State Farm Center",
+   "event_type": "Athletics (DIA)",
+   "summary": "Home game. Free for students with i-card."
+  },
+  {
+   "event_id": 1020,
+   "date": "2026-11-19",
+   "title": "Cookie Decorating Social",
+   "start_time": "18:00",
+   "end_time": "19:00",
+   "location": "Illini Union, Courtyard Cafe",
+   "event_type": "Social/Informal Event",
+   "summary": "Decorate cookies and meet other students. Free, in person."
+  }
+ ],
+ "clubs": [
+  {
+   "club_id": 2001,
+   "name": "Illini Photography Club",
+   "categories": "Arts, Hobby",
+   "mission": "Weekly photo walks and editing nights for photographers of every level. Dues $10 per semester."
+  },
+  {
+   "club_id": 2002,
+   "name": "Robotics Society",
+   "categories": "Engineering, Technology",
+   "mission": "Students build robots for campus and national competitions. Free to join."
+  },
+  {
+   "club_id": 2003,
+   "name": "Student Health Volunteers",
+   "categories": "Health, Service",
+   "mission": "Organizes in-person volunteering at local clinics and hospitals. Free to join."
+  },
+  {
+   "club_id": 2004,
+   "name": "Student Investment Club",
+   "categories": "Business, Finance",
+   "mission": "Members learn investing and manage a small practice portfolio. Free to join."
+  },
+  {
+   "club_id": 2005,
+   "name": "UX Design Club",
+   "categories": "Design, Technology",
+   "mission": "Design challenges, critiques and portfolio reviews for UX designers. Free to join."
+  }
+ ],
+ "answer_key": {
+  "_how": "Judgment labels only, per profile. Every activity not listed for a profile is irrelevant to it. breaks = hard-constraint ids the activity text shows it breaks (cost, format, location, alcohol, duration); schedule fit is NOT stored, code computes it from available_windows. Correct answer = event that is relevant, not a dislike, breaks nothing, and fits the schedule.",
+  "P1-simple": {
+   "relevant": [
+    "event:1001",
+    "event:1002",
+    "club:2001"
+   ],
+   "dislike": [],
+   "breaks": {},
+   "reference_solution": [
+    "event:1001"
+   ]
+  },
+  "P2-busy": {
+   "relevant": [
+    "event:1003",
+    "event:1004",
+    "club:2002"
+   ],
+   "dislike": [],
+   "breaks": {},
+   "reference_solution": [
+    "event:1003"
+   ]
+  },
+  "P3-picky": {
+   "relevant": [
+    "event:1005",
+    "event:1006",
+    "event:1007",
+    "event:1008",
+    "event:1009",
+    "club:2003"
+   ],
+   "dislike": [
+    "event:1007",
+    "event:1019"
+   ],
+   "breaks": {
+    "event:1006": [
+     "H7"
+    ],
+    "event:1009": [
+     "H6"
+    ]
+   },
+   "reference_solution": [
+    "event:1005"
+   ]
+  },
+  "P4-changing": {
+   "relevant": [
+    "event:1010",
+    "event:1012",
+    "club:2004"
+   ],
+   "dislike": [
+    "event:1011"
+   ],
+   "breaks": {},
+   "reference_solution": [
+    "event:1010"
+   ]
+  },
+  "P5-long-context": {
+   "relevant": [
+    "event:1013",
+    "event:1014",
+    "event:1015",
+    "event:1016",
+    "club:2005"
+   ],
+   "dislike": [
+    "event:1017"
+   ],
+   "breaks": {
+    "event:1015": [
+     "H4",
+     "H5"
+    ],
+    "event:1016": [
+     "H8"
+    ]
+   },
+   "reference_solution": [
+    "event:1013"
+   ]
+  }
+ }
+}

@@ -8,6 +8,7 @@ import requests
 
 API_URL = "https://api.anthropic.com/v1/messages"
 TOKEN_URL = API_URL + "/count_tokens"
+MODELS_URL = "https://api.anthropic.com/v1/models/"  # + model id -> max_input_tokens (context window)
 LOG_PATH = Path(__file__).resolve().parent / "agent" / "model_log.json"
 
 MODEL = "claude-sonnet-4-6"  # one place to change the model for every module
@@ -80,6 +81,13 @@ class Utils:
         if system:
             body["system"] = system
         return self.post_to_url(TOKEN_URL, body)["input_tokens"]
+
+    def input_limit(self):
+        """The model's context window (max_input_tokens) from the Models API, used as Memory's token limit."""
+        response = requests.get(MODELS_URL + MODEL, headers=self.get_headers(), timeout=TIMEOUT)
+        if not response.ok:
+            raise RuntimeError(f"API error {response.status_code}: {response.text}")
+        return response.json()["max_input_tokens"]
 
     @staticmethod
     def text_of(ans):
