@@ -16,6 +16,22 @@ TIMEOUT = 300  # seconds per request, so one stuck call can't hang an eval run
 RETRY_STATUS = {429, 500, 502, 503, 529}  # rate limit / server errors worth retrying
 
 
+# writes one step to agent/model_log.json (plain function so tools without an API key can log too)
+def log_step(run_id, module, step, **data):
+    entry = {"time": datetime.now().isoformat(timespec="seconds"), "run_id": run_id,
+             "module": module, "step": step, **data}
+    with open(LOG_PATH, "a") as f:
+        f.write(json.dumps(entry, default=str) + "\n")
+
+
+# for tools that don't call the model: gives them run_id + log()
+class Logged:
+    run_id = None
+
+    def log(self, step, **data):
+        log_step(self.run_id, type(self).__name__, step, **data)
+
+
 class Utils:
     def __init__(self, api_key=None):
         # fall back to the environment so modules can be created without passing a key around
@@ -29,10 +45,7 @@ class Utils:
         Append one trajectory step / update to agent/model_log.json.
         One JSON object per line, so entries can be added without rewriting the file.
         """
-        entry = {"time": datetime.now().isoformat(timespec="seconds"), "run_id": self.run_id,
-                 "module": type(self).__name__, "step": step, **data}
-        with open(LOG_PATH, "a") as f:
-            f.write(json.dumps(entry, default=str) + "\n")
+        log_step(self.run_id, type(self).__name__, step, **data)
 
     def get_headers(self):
         return {"x-api-key": self.key, "anthropic-version": "2023-06-01", "content-type": "application/json"}

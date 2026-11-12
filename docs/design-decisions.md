@@ -72,4 +72,16 @@
 - **Busy blocks** from `state` + calendar events, same rules as `eval/validate_profiles.py` (matches grader)
 - **Only events** scheduled (clubs have no meeting times, can still be recommended)
 - LLM generates up to **5 candidate plans** from retrieved activities, checks with `free_time`/`check_plan` tools, final plans re-checked in code
-- **Calendar tools**: `SimulatedCalendar` for eval (starts empty, records added events)
+- **Calendar tools** (`agent/calendars.py`): one interface (`get_events`, `add_event`, `remove_event`) for `SimulatedCalendar` (eval: optional starting events, `fail_on` failure injection) and `GoogleCalendar` (REST API with requests, no Google client library)
+  - Reads the primary calendar as busy time, **writes to a separate ECAgent calendar** (easy to find/clear, main calendar untouched)
+  - `agent_added` flag: only activities the agent added count toward weekly caps (classes/shifts on a real calendar don't)
+  - **Verified adds**: every add/remove is read back; a failed add is retried once, after checking it didn't go through (no duplicates). Only verified adds are reported as added
+- **Replanning** (task 7): agent-added activities that no longer fit (`find_conflicts`, deterministic) are left out of busy time; the new plan replaces them on approval (removed, then added)
+
+### Tools (`agent/gmail.py`, `agent/registration.py`)
+- **Code-called tools**, not LLM tool calls: the router picks a step, code runs it with the stored plan, so the model never writes to a real calendar by itself
+- **Approval check**: separate yes/no LLM call on the student's reply; `register`/`calendar` are offered to the router and executed only after a yes (enforced in `run`, not by prompt)
+- **Gmail, read only** (`gmail.readonly`): Gmail search narrows to likely messages, the LLM extracts events (no standard format), code validates: real dates/times, the quoted date/time evidence must appear in the email, past events dropped, every item keeps its message id. Commitments without a verified time are dropped. Calendar invites (`.ics`) parsed by code
+- Email activities -> retriever candidates (scored like DB results); email commitments -> busy time. Off in eval (profiles have no inbox)
+- **Registration**: `SimulatedRegistration` (eval, `fail_on` for task 9, retried once by the agent); `ManualRegistration` for real use (no campus registration API: gives the link, never claims the student is registered)
+- Secrets outside the repo; one-time browser login (`scripts/google_login.py`, the only use of `google-auth-oauthlib`)

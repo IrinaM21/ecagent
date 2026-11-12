@@ -22,8 +22,9 @@ maintain them.
 | `P4-changing` | Sam, sophomore Statistics. Over two sessions drops a class, work shifts move Tue/Thu → Mon/Wed, competitive chess becomes a dislike (replaced by casual board games), weekends become unavailable for November. Two runtime updates. | Using newest information over stale, replanning, one-time exceptions to a standing rule. |
 | `P5-long-context` | Jordan, senior Information Sciences. 42-message history (~3k tokens, ~3× the 1024-token memory limit) across four sessions; half the turns are off-topic, nine scheduling facts are buried throughout, two preferences/times are superseded. Two runtime updates. | Context compaction, recall of buried facts, not reviving superseded facts after compaction. |
 
-Each profile lists the tasks it is meant for in `eval_only.applicable_tasks` (e.g. only P4 and
-P5 have material for `adapt-schedule` / `resolve-conflicting`).
+Each profile lists the tasks it is meant for in `eval_only.applicable_tasks`, which must match
+each task's `profiles` in `eval/benchmark-tasks.json` (e.g. only P4 has material for
+`adapt-schedule`, `resolve-conflicting` runs on P2/P3, `long-context` on P5).
 
 ## Schema
 
@@ -112,7 +113,8 @@ There are two kinds of change:
    agent must act on the newer statement; using a superseded value is a hard failure. The
    validator requires `intake_profile == current_truth` exactly when there are no superseded facts.
 2. **Runtime updates** (`runtime_updates`). User messages the harness injects during
-   `adapt-schedule` / `resolve-conflicting` / similar tasks, after the agent's first answer. Their
+   the tasks in their `for_tasks` (currently P4's U1 for `adapt-schedule`), after the agent's first answer.
+   Updates with an empty `for_tasks` are kept for later use and not injected. Their
    effect on ground truth lives only in `eval_only.runtime_update_effects`; `current_truth`,
    `busy_blocks` and `available_windows` describe the state **before** any runtime update.
 

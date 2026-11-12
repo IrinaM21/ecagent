@@ -25,8 +25,9 @@ TZ = "America/Chicago"
 WEEK_START = date(2026, 11, 2)  # Monday; DST ended 2026-11-01, so the whole week is CST
 WEEK = [WEEK_START + timedelta(days=i) for i in range(7)]
 DAY = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-TASKS = ["match-interest", "one-schedule", "schedule-eca", "multiple-schedule",
-         "adapt-schedule", "resolve-conflicting", "multi-step"]
+# same ids, in the same order, as eval/benchmark-tasks.json (tasks 1-10 in the benchmark paper)
+TASKS = ["match-interest", "one-schedule", "schedule-eca", "choose-conflicting", "multiple-schedule",
+         "multi-restriction", "adapt-schedule", "resolve-conflicting", "multi-step", "long-context"]
 
 
 def u(text):
@@ -354,7 +355,8 @@ p4_updates = [
     {"id": "U1", "for_tasks": ["adapt-schedule"],
      "message": u("Something came up: there's a STAT 400 midterm review session Thursday Nov 5 "
                   "from 18:00 to 20:00 that I need to go to. Can you redo my plan for this week?")},
-    {"id": "U2", "for_tasks": ["resolve-conflicting"],
+    # not tied to a task: resolve-conflicting now tests ranked preferences (P2/P3), kept for later use
+    {"id": "U2", "for_tasks": [],
      "message": u("Change of plans for this weekend only: I'm staying on campus Saturday Nov 7 "
                   "for a friend's birthday dinner at 18:00, so I'm free that Saturday from 12:00 "
                   "to 17:00. I'm still going home Sunday. Can you find me something that "
@@ -581,10 +583,12 @@ p5_irrelevant = sorted(i for t in ["bar chart and a histogram", "roommate keeps 
                  for i in (i5(t), i5(t) + 1))
 
 p5_updates = [
-    {"id": "U1", "for_tasks": ["adapt-schedule"],
+    # not tied to a task: it frees time instead of creating a conflict, so it doesn't fit adapt-schedule
+    {"id": "U1", "for_tasks": [],
      "message": u("Orchestra just cancelled Thursday's rehearsal (Nov 5), so I'm free that evening "
                   "after my capstone presentation. Can you update my plan?")},
-    {"id": "U2", "for_tasks": ["resolve-conflicting"],
+    # not tied to a task: resolve-conflicting now tests ranked preferences (P2/P3), kept for later use
+    {"id": "U2", "for_tasks": [],
      "message": u("Is there anything I could do Wednesday from 12:00 to 13:00 this week?")},
 ]
 
@@ -630,13 +634,12 @@ def build(pid, label, description, intake, history, truth, tests, tasks, extra_e
     }
 
 
-ALL = list(TASKS)
 profiles = dict([
     build("P1-simple", "Simple Student",
           "First-year journalism student interested in photography with a light class schedule.",
           p1_intake, p1_history, copy.deepcopy(p1_intake),
           ["basic ECA retrieval", "interest matching", "personalization with minimal constraints"],
-          ["match-interest", "one-schedule", "schedule-eca", "multiple-schedule", "multi-step"],
+          ["match-interest", "one-schedule", "schedule-eca", "choose-conflicting", "multiple-schedule", "multi-step"],
           {"interest_keywords": ["photo", "photography", "camera", "film"],
            "checks": [
                {"id": "C-interest", "kind": "soft", "check": "At least one suggestion is photography-related (S1)."},
@@ -647,7 +650,8 @@ profiles = dict([
           p2_intake, p2_history, copy.deepcopy(p2_intake),
           ["schedule reasoning over a dense week", "conflict avoidance including buffers and one-off events",
            "respecting count/hour caps", "multi-interest prioritization"],
-          ["match-interest", "one-schedule", "schedule-eca", "multiple-schedule", "multi-step"],
+          ["match-interest", "one-schedule", "schedule-eca", "choose-conflicting", "multiple-schedule",
+           "multi-restriction", "resolve-conflicting", "multi-step"],
           {"interest_keywords": ["robot", "robotics", "embedded", "microcontroller", "hardware", "startup", "entrepreneur", "basketball"],
            "checks": [
                {"id": "C-buffer", "kind": "hard", "check": "15-minute gap between any suggestion and adjacent commitments (H3)."},
@@ -660,7 +664,8 @@ profiles = dict([
           p3_intake, p3_history, copy.deepcopy(p3_intake),
           ["hard vs. soft constraint separation", "preference ranking / tie-breaking", "exclusion of disliked categories",
            "religious-observance time block"],
-          ["match-interest", "one-schedule", "schedule-eca", "multiple-schedule", "multi-step"],
+          ["match-interest", "one-schedule", "schedule-eca", "choose-conflicting", "multiple-schedule",
+           "multi-restriction", "resolve-conflicting", "multi-step"],
           {"interest_keywords": ["volunteer", "hospital", "clinic", "health", "EMT", "dance", "sustainab", "environment"],
            "avoid_keywords": ["tournament", "intramural", "varsity", "rush", "recruitment", "fraternity", "sorority", "career fair", "networking", "bar", "tailgate"],
            "checks": [
@@ -674,7 +679,8 @@ profiles = dict([
           p4_intake, p4_history, p4_truth,
           ["using the latest information over stale information", "replanning after schedule changes",
            "handling a one-time exception to a standing rule", "preference drift"],
-          ALL,
+          ["match-interest", "one-schedule", "schedule-eca", "choose-conflicting", "multiple-schedule",
+           "adapt-schedule", "multi-step"],
           {"interest_keywords": ["invest", "finance", "stock", "trading", "board game", "tabletop"],
            "avoid_keywords": ["chess tournament", "competitive chess"],
            "superseded_facts": [
@@ -698,7 +704,8 @@ profiles = dict([
           p5_intake, p5_history, p5_truth,
           ["context compaction (history well over the 1024-token memory limit)",
            "recall of facts buried among irrelevant turns", "ignoring superseded preferences and times after compaction"],
-          ["match-interest", "one-schedule", "schedule-eca", "multiple-schedule", "adapt-schedule", "resolve-conflicting", "multi-step"],
+          ["match-interest", "one-schedule", "schedule-eca", "choose-conflicting", "multiple-schedule",
+           "multi-step", "long-context"],
           {"interest_keywords": ["chamber", "ensemble", "jam", "orchestra", "music", "UX", "design", "HCI"],
            "avoid_keywords": ["improv", "open mic", "solo", "comedy"],
            "superseded_facts": [

@@ -128,15 +128,23 @@ class Memory(Utils):
         if not self.is_memory_full():
             return
         before = self.count
+        # always keep the newest user message (the agent is about to answer it, and the API needs one)
+        keep = self.msgs[-1:] if self.msgs and self.msgs[-1]["role"] == "user" else []
+        older = self.msgs[:len(self.msgs) - len(keep)]
         if self.c is not None:
-            # fold the previous summary in, so repeated compactions don't lose older facts
-            summary = self.c.compact_user_info(self.read_note("summary"), self.msgs, usage)
-            self.write_note("summary", summary)
-            self.msgs = []
+            if older:
+                # fold the previous summary in, so repeated compactions don't lose older facts
+                summary = self.c.compact_user_info(self.read_note("summary"), older, usage)
+                self.write_note("summary", summary)
+            self.msgs = keep
         else:
-            # estimate (chars / 4) while dropping, then one exact count at the end
-            while self.msgs and sum(len(m["content"]) for m in self.msgs) // 4 > self.max:
-                self.msgs = self.msgs[2:]  # drop the oldest user/assistant pair, so it still starts with a user turn
+            # estimate (chars / 4) while dropping the oldest turns, exact count at the end
+            size = lambda msgs: sum(len(m["content"]) if isinstance(m["content"], str) else 0 for m in msgs) // 4
+            while older and size(older + keep) > self.max:
+                older = older[1:]
+            while older and older[0]["role"] != "user":
+                older = older[1:]  # the conversation must still start with a user turn
+            self.msgs = older + keep
         self.count = self.count_tokens(self.msgs) if self.msgs else 0
         self.log("compact" if self.c else "truncate", tokens_before=before, tokens_after=self.count)
 
