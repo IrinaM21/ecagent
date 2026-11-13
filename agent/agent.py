@@ -106,7 +106,7 @@ class ECAgent(Utils):
         """
         return [
             {"name": "user", "description": "ask the student a question, or show results / a plan and ask for approval"},
-            {"name": "retriever", "description": "find activities (campus events and student clubs) for the request"},
+            {"name": "retriever", "description": "find activities (campus events and student clubs) for the request, using the student's interests and schedule from memory (no need to ask the student for them)"},
             {"name": "recommender", "description": "rank the activities found so far (or the candidate plans) by the student's preferences"},
             {"name": "scheduler", "description": "build candidate plans from the found activities that fit the student's week"},
             {"name": "register", "description": "register the student for the approved plan's activities (only if they asked to be registered)"},
@@ -401,6 +401,7 @@ class ECAgent(Utils):
         if pending:
             results.append(("plan APPROVED by the student: " if approved else "proposed plan, NOT approved by this message: ")
                            + "; ".join(f"{a['title']} ({a['date']} {a['start']})" for a in pending))
+        
         subagents = {"retriever": self.step_retriever, "recommender": self.step_recommender,
                      "scheduler": self.step_scheduler, "calendar": self.step_calendar,
                      "register": self.step_register}

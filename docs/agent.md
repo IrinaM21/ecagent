@@ -31,7 +31,9 @@ Calendar.help: [3]
 
 ## Agent Design
 
-![agent-architecture](./images/arch.png)
+![agent-architecture](./figures/architecture.png)
+
+One turn: (1) student request, (2) memory update (compactor), (3) retriever, (4) recommender, (5) scheduler, (6) plan draft to the student, (7) approved plan to the calendar (`scripts/architecture.py`).
 
 ### Components
 - (`agent/agent.py`): Interfaces with the user and coordinates actions [2]. Interprets the query and validates ECAgent response [3].
@@ -42,7 +44,7 @@ Calendar.help: [3]
 - (`agent/scheduler.py`): Generates candidate schedules, checks them against hard constraints. The final selection (`agent/recommender.py`) is returned to the main agent (`agent/agent.py`) for validation and user approval.
 
 ### Pipeline
-Supervisor loop [2]: for each student message, memory resolves contradictions and manages context, then the router (`agent/agent.py`) picks the next action from the task + results so far + user input (retriever, recommender, scheduler, calendar, or reply to the student). Subagents return their results to the agent. Each turn ends with a reply, checked against the activity data. Plans are only added to the calendar after the student approves them.
+Supervisor loop [2]: for each student message, memory resolves contradictions and manages context, then the router (`agent/agent.py`) picks the next action from the task + results so far + user input (retriever, recommender, scheduler, calendar, or reply to the student). The router doesn't see the student's profile; the retriever's description tells it the retriever already uses the student's interests and schedule from memory, so a request that names no interest still leads to a search (see `docs/design-decisions.md`). Subagents return their results to the agent. Each turn ends with a reply, checked against the activity data. Plans are only added to the calendar after the student approves them.
 
 ## Experimental Setup
 
@@ -55,6 +57,22 @@ Supervisor loop [2]: for each student message, memory resolves contradictions an
 7. Report results (`eval/results/results.json`): Overall pass/fail (`pass_overall=True` if average pass^3 per instance is at least 10 percentage points higher than both baselines', mean per-trial quality scores >= 4, with standard deviation <= 0.5; else, `False`) + pass^3 and quality score for each instance/trial
 
 ## Results
+
+### Pipeline check (`docs/pipeline-check.md`, `eval/results/pipeline-check.json`)
+One trial per agent/ablation per eval_instance (36 x 3 = 108 trials per batch), automatic checks only (no manual grading), not the full eval. Pass = all automatic checks pass; empty = no activity picked (fails once manually graded).
+
+| Batch | `full_agent` pass / empty | `no_compact` pass / empty | `single_pass` pass / empty | Cost (`full_agent`) |
+|---|---|---|---|---|
+| 1. Original router | 19/36 / 14 | 17/36 / 14 | 18/36 / 3 | $3.22 |
+| 2. Student state passed to the router | 32/36 / 0 | 21/36 / 0 | 17/36 / 4 | $4.72 |
+| 3. Retriever description instead (current) | 29/36 / 0 | 21/36 / 0 | 19/36 / 2 | $3.86 |
+
+Batch 3's last 4 `single_pass` trials first failed on the API account's credit limit (not the agent) and were rerun into the same batch (`eval/rerun_errors.py`).
+
+- Batch 1: on requests that name no interest, the router replied before any search, so `full_agent` and `no_compact` picked nothing in 14 instances each and said their activity list was empty
+- Batches 2-3 fixed this (no empty instances). Batch 3 does it with a router description instead of the student's state, at 32% fewer `full_agent` input tokens than batch 2; `full_agent` passed 29/36 in batch 3 and 32/36 in batch 2 (one trial per instance)
+- `full_agent` required actions (calendar, registration): 22/22 in batch 3
+- All batches: `full_agent` and `no_compact` sometimes register the student without being asked (13-17 trials per batch)
 
 ## Discussion
 
